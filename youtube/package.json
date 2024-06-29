@@ -7,9 +7,12 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
+    "format": "prettier --write .",
+    "ci:format": "prettier --check .",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "serve:ssr:youtube": "node dist/youtube/server/server.mjs",
-    "prepare": "cd .. && husky cd youtube/.husky"
+    "prepare": "cd .. && husky youtube/.husky"
   },
   "private": true,
   "dependencies": {
