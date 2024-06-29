@@ -1,0 +1,4 @@
+#!/usr/bin/env sh
+cd youtube
+
+npx --no -- commitlint --edit ${1}
