@@ -29,13 +29,8 @@
                 "input": "public"
               }
             ],
-            "styles": ["src/styles.scss"],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "styles": ["src/styles.scss", "node_modules/@angular/material/prebuilt-themes/azure-blue.css"],
+            "scripts": []
           },
           "configurations": {
             "production": {
