@@ -1,0 +1,15 @@
+:host {
+  display: flex;
+  gap: var(--tiny-offset);
+  align-items: center;
+}
+
+.btn {
+  padding: 0.3rem 0.6rem;
+}
+
+.text {
+  font: var(--small-font);
+  color: var(--gray-100);
+  letter-spacing: var(--one);
+}
