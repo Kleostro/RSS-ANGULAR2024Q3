@@ -1,0 +1,15 @@
+<div class="container">
+  <div class="top">
+    <a class="logo" routerLink="/"> </a>
+    <app-video-search></app-video-search>
+    <app-custom-button class="settings-btn" (click)="toggleVisibility()">
+      <div class="settings-icon"></div>
+    </app-custom-button>
+  </div>
+  <div class="bottom">
+    @if (isSettingsVisible) {
+      <app-video-sorting></app-video-sorting>
+      <app-video-filter [videoData]="videoData"></app-video-filter>
+    }
+  </div>
+</div>
