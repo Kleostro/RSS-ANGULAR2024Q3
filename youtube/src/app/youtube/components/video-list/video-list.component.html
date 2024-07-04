@@ -1,0 +1,13 @@
+<div class="video-list-wrapper">
+  @if (isLoading) {
+    <mat-progress-spinner mode="indeterminate">
+      <mat-spinner></mat-spinner>
+    </mat-progress-spinner>
+  }
+
+  <ul class="video-list" [class.hidden]="isLoading">
+    @for (video of videoData; track $index) {
+      <app-video-card [video]="video"></app-video-card>
+    }
+  </ul>
+</div>
