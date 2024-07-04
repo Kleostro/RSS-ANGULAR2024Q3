@@ -1,0 +1,16 @@
+:host {
+  display: flex;
+  gap: var(--tiny-offset);
+  align-items: center;
+}
+
+.text {
+  font: var(--small-font);
+  color: var(--gray-100);
+  letter-spacing: var(--one);
+}
+
+.filter {
+  font: var(--small-font);
+  letter-spacing: var(--one);
+}
