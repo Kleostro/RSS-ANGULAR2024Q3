@@ -2,14 +2,12 @@
   <div class="top">
     <a class="logo" routerLink="/"> </a>
     <app-video-searching></app-video-searching>
-    <app-custom-button class="settings-btn" (click)="toggleVisibility()">
+    <app-custom-button class="settings-btn" (click)="isSettingsVisible = !isSettingsVisible">
       <div class="settings-icon"></div>
     </app-custom-button>
   </div>
-  <div class="bottom">
-    @if (_isSettingsVisible) {
-      <app-video-sorting></app-video-sorting>
-      <app-video-filtering></app-video-filtering>
-    }
+  <div class="bottom" *appToggleVisibility="isSettingsVisible">
+    <app-video-sorting></app-video-sorting>
+    <app-video-filtering></app-video-filtering>
   </div>
 </div>
