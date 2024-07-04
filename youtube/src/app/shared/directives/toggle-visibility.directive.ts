@@ -5,7 +5,7 @@ import { Directive, Input, OnChanges, TemplateRef, ViewContainerRef } from '@ang
   standalone: true,
 })
 export class ToggleVisibilityDirective<T> implements OnChanges {
-  @Input() appToggleVisibility!: boolean;
+  @Input('appToggleVisibility') isVisible!: boolean;
 
   constructor(
     private template: TemplateRef<T>,
@@ -13,6 +13,6 @@ export class ToggleVisibilityDirective<T> implements OnChanges {
   ) {}
 
   ngOnChanges() {
-    this.appToggleVisibility ? this.viewContainer.createEmbeddedView(this.template) : this.viewContainer.clear();
+    this.isVisible ? this.viewContainer.createEmbeddedView(this.template) : this.viewContainer.clear();
   }
 }
