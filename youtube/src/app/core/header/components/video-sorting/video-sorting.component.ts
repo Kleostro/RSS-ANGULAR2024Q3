@@ -1,3 +1,4 @@
+import { NgClass } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
@@ -8,7 +9,7 @@ import { SortingPipe } from './../../pipes/sorting.pipe';
 @Component({
   selector: 'app-video-sorting',
   standalone: true,
-  imports: [CustomButtonComponent],
+  imports: [CustomButtonComponent, NgClass],
   providers: [SortingPipe],
   templateUrl: './video-sorting.component.html',
   styleUrl: './video-sorting.component.scss',
@@ -27,6 +28,10 @@ export class VideoSortingComponent implements OnInit {
 
   set _videoData(videoData: Video[]) {
     this.videoData = videoData;
+  }
+
+  get _videoData(): Video[] {
+    return this.videoData;
   }
 
   sortBy(type: string) {

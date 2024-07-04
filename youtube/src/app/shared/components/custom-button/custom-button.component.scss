@@ -2,9 +2,7 @@
   cursor: pointer;
   user-select: none;
 
-  font: var(--small-font);
-  color: var(--white-100);
-  letter-spacing: var(--one);
+  display: flex;
 
   background-color: var(--blue-1000);
   border-radius: var(--small-br);
@@ -19,7 +17,7 @@
     opacity: 0.8;
   }
 
-  &:disabled {
+  &.disabled {
     pointer-events: none;
     opacity: 0.5;
   }
@@ -31,7 +29,8 @@
   }
 }
 
-.disabled {
-  pointer-events: none;
-  opacity: 0.5;
+.btn {
+  font: var(--small-font);
+  color: var(--white-100);
+  letter-spacing: var(--one);
 }
