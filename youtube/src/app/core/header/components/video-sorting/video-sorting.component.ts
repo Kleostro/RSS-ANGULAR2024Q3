@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import CustomButtonComponent from '../../../../shared/custom-button/custom-button.component';
 import { Video } from '../../models/video-search.model';
@@ -14,7 +14,7 @@ import { SortingPipe } from './../../pipes/sorting.pipe';
   styleUrl: './video-sorting.component.scss',
 })
 export class VideoSortingComponent implements OnInit {
-  @Input() videoData!: Video[];
+  private videoData!: Video[];
 
   constructor(
     private sortingPipe: SortingPipe,
@@ -22,10 +22,10 @@ export class VideoSortingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataService.filteringVideoData$.subscribe((data) => this.setVideoData(data));
+    this.dataService.updateVideoData$.subscribe((data) => (this._videoData = data));
   }
 
-  setVideoData(videoData: Video[]) {
+  set _videoData(videoData: Video[]) {
     this.videoData = videoData;
   }
 

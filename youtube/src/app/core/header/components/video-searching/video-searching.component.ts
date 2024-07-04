@@ -8,15 +8,15 @@ import { FilteringPipe } from '../../pipes/filtering.pipe';
 import { VideoDataService } from '../../servises/video-data.service';
 
 @Component({
-  selector: 'app-video-search',
+  selector: 'app-video-searching',
   standalone: true,
   imports: [FormsModule, CustomButtonComponent, NgClass, ReactiveFormsModule],
   providers: [FilteringPipe],
-  templateUrl: './video-search.component.html',
-  styleUrl: './video-search.component.scss',
+  templateUrl: './video-searching.component.html',
+  styleUrl: './video-searching.component.scss',
 })
-export default class VideoSearchComponent implements OnInit {
-  public searchForm!: FormGroup;
+export default class VideoSearchingComponent implements OnInit {
+  private searchingForm!: FormGroup;
 
   constructor(
     private dataService: VideoDataService,
@@ -25,24 +25,27 @@ export default class VideoSearchComponent implements OnInit {
   ) {}
 
   public ngOnInit() {
-    this.searchForm = this.formBuilder.group({
+    this.searchingForm = this.formBuilder.group({
       search: [null, Validators.required],
     });
   }
 
   public async submit(): Promise<Video[]> {
-    if (!this.searchForm.value.search) {
+    if (!this.searchingForm.value.search) {
       return [];
     }
 
     try {
       const data = await this.dataService.fetchVideoData();
-      const filteredData = this.filteringPipe.transform(this.searchForm.value.search, data);
+      const filteredData = this.filteringPipe.transform(this.searchingForm.value.search, data);
       this.dataService.updateVideoData(filteredData);
-      this.dataService.filteringVideoData(filteredData);
       return filteredData;
     } catch {
       throw new Error('Uploading video failed!');
     }
+  }
+
+  get _searchingForm() {
+    return this.searchingForm;
   }
 }

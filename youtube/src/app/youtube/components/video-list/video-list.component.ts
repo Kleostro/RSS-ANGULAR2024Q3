@@ -14,24 +14,27 @@ import VideoCardComponent from '../video-card/video-card.component';
 })
 export default class VideoListComponent implements OnInit {
   constructor(private dataService: VideoDataService) {}
-  videoData: Video[] = [];
-  isLoading = false;
+  private videoData!: Video[];
+  private isLoading = false;
 
   ngOnInit(): void {
-    this.dataService.updateVideoData$.subscribe((data) => this.setVideoData(data));
-    this.dataService.redrawVideoList$.subscribe((data) => this.setVideoData(data));
-    this.dataService.isLoading$.subscribe((isLoading) => this.setIsLoading(isLoading));
+    this.dataService.updateVideoData$.subscribe((data) => (this._videoData = data));
+    this.dataService.isLoading$.subscribe((isLoading) => (this._isLoading = isLoading));
   }
 
-  trackByVideoId(_: number, video: Video): string {
-    return video.id;
-  }
-
-  setIsLoading(isLoading: boolean) {
+  set _isLoading(isLoading: boolean) {
     this.isLoading = isLoading;
   }
 
-  setVideoData(videoData: Video[]) {
+  set _videoData(videoData: Video[]) {
     this.videoData = videoData;
+  }
+
+  get _isLoading() {
+    return this.isLoading;
+  }
+
+  get _videoData() {
+    return this.videoData;
   }
 }

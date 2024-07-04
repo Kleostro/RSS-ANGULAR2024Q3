@@ -1,4 +1,4 @@
 <span class="text">by word or sentance</span>
-<form class="filter-form" [formGroup]="filterForm" (ngSubmit)="filterVideo()">
+<form class="filtering-form" [formGroup]="_filteringForm" (ngSubmit)="filterVideo()">
   <input class="filter" type="search" matInput formControlName="filter" autocomplete="off" />
 </form>

@@ -14,25 +14,11 @@ export class VideoDataService {
   private updateVideoDataSubject = new BehaviorSubject<Video[]>([]);
   updateVideoData$ = this.updateVideoDataSubject.asObservable();
 
-  private redrawVideoListSubject = new Subject<Video[]>();
-  redrawVideoList$ = this.redrawVideoListSubject.asObservable();
-
-  private filteringVideoDataSubject = new BehaviorSubject<Video[]>([]);
-  filteringVideoData$ = this.filteringVideoDataSubject.asObservable();
-
-  private isLoadingSubject = new BehaviorSubject<boolean>(false);
+  private isLoadingSubject = new Subject<boolean>();
   isLoading$ = this.isLoadingSubject.asObservable();
 
   updateVideoData(data: Video[]) {
     this.updateVideoDataSubject.next(data);
-  }
-
-  filteringVideoData(data: Video[]) {
-    this.filteringVideoDataSubject.next(data);
-  }
-
-  redrawVideoList(data: Video[]) {
-    this.redrawVideoListSubject.next(data);
   }
 
   setIsLoading(isLoading: boolean) {

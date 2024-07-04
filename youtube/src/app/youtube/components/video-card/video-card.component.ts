@@ -14,6 +14,5 @@ import { BorderColorDirective } from '../../directives/border-color.directive';
   styleUrl: './video-card.component.scss',
 })
 export default class VideoCardComponent {
-  constructor() {}
   @Input() video!: Video;
 }
