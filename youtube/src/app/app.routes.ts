@@ -1,9 +1,11 @@
-import { Routes } from '@angular/router'
+import { Routes } from '@angular/router';
 
-export const routes: Routes = [
+const routes: Routes = [
   {
     path: '',
-    loadComponent: () => import('./pages/components/main/main.component').then((m) => m.MainComponent),
+    loadComponent: () => import('./pages/components/main/main.component').then((m) => m.default),
     title: 'youtube | main',
   },
-]
+];
+
+export default routes;
