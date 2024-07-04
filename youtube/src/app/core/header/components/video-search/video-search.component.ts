@@ -4,12 +4,14 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 import CustomButtonComponent from '../../../../shared/custom-button/custom-button.component';
 import { Video } from '../../models/video-search.model';
+import { FilteringPipe } from '../../pipes/filtering.pipe';
 import { VideoDataService } from '../../servises/video-data.service';
 
 @Component({
   selector: 'app-video-search',
   standalone: true,
   imports: [FormsModule, CustomButtonComponent, NgClass, ReactiveFormsModule],
+  providers: [FilteringPipe],
   templateUrl: './video-search.component.html',
   styleUrl: './video-search.component.scss',
 })
@@ -19,6 +21,7 @@ export default class VideoSearchComponent implements OnInit {
   constructor(
     private dataService: VideoDataService,
     private formBuilder: FormBuilder,
+    private filteringPipe: FilteringPipe,
   ) {}
 
   public ngOnInit() {
@@ -33,7 +36,11 @@ export default class VideoSearchComponent implements OnInit {
     }
 
     try {
-      return this.dataService.fetchVideoData(this.searchForm.value.search);
+      const data = await this.dataService.fetchVideoData();
+      const filteredData = this.filteringPipe.transform(this.searchForm.value.search, data);
+      this.dataService.updateVideoData(filteredData);
+      this.dataService.filteringVideoData(filteredData);
+      return filteredData;
     } catch {
       throw new Error('Uploading video failed!');
     }

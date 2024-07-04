@@ -11,7 +11,7 @@ const VIDEO_DATA_URL =
   providedIn: 'root',
 })
 export class VideoDataService {
-  private updateVideoDataSubject = new Subject<Video[]>();
+  private updateVideoDataSubject = new BehaviorSubject<Video[]>([]);
   updateVideoData$ = this.updateVideoDataSubject.asObservable();
 
   private redrawVideoListSubject = new Subject<Video[]>();
@@ -39,16 +39,11 @@ export class VideoDataService {
     this.isLoadingSubject.next(isLoading);
   }
 
-  async fetchVideoData(value = ''): Promise<Video[]> {
+  async fetchVideoData(): Promise<Video[]> {
     this.setIsLoading(true);
     const response = await fetch(VIDEO_DATA_URL);
     const data: VideoSearchResponce = await response.json();
-    const searchResult: Video[] = data.items.filter((video) =>
-      video.snippet.tags.some((tag) => tag.includes(value.toLowerCase())),
-    );
     this.setIsLoading(false);
-    this.updateVideoData(searchResult);
-    this.filteringVideoData(searchResult);
-    return searchResult;
+    return data.items;
   }
 }

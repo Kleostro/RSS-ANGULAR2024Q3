@@ -8,6 +8,11 @@ import { Video } from '../models/video-search.model';
 })
 export class FilteringPipe implements PipeTransform {
   transform(value: string, args: Video[]): Video[] {
-    return [...args].filter((video) => video.snippet.tags.some((tag) => tag.includes(value.toLowerCase())));
+    return args.filter((video) => {
+      const descriptionMatch = video.snippet.description.toLowerCase().includes(value.toLowerCase());
+      const titleMatch = video.snippet.title.toLowerCase().includes(value.toLowerCase());
+      const tagsMatch = video.snippet.tags.some((tag) => tag.toLowerCase().includes(value.toLowerCase()));
+      return descriptionMatch || tagsMatch || titleMatch;
+    });
   }
 }
