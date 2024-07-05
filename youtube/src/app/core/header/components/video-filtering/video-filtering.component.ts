@@ -31,8 +31,7 @@ export default class VideoFilteringComponent implements OnInit {
   }
 
   filterVideo() {
-    this.videoData = this.filteringPipe.transform(this.filteringForm.value.filter, this.videoData);
-    this.dataService.updateVideoData(this.videoData);
+    this.dataService.updateVideoData(this.filteringPipe.transform(this.filteringForm.value.filter, this.videoData));
   }
 
   set _videoData(videoData: Video[]) {
