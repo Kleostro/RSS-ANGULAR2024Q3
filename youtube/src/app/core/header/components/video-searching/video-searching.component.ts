@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
 import { Video } from '../../models/video-search.model';
 import { FilteringPipe } from '../../pipes/filtering.pipe';
-import { VideoDataService } from '../../servises/video-data.service';
+import { VideoDataService } from '../../services/video-data.service';
 
 @Component({
   selector: 'app-video-searching',

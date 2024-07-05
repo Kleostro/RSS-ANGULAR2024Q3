@@ -6,16 +6,16 @@ import { FilteringPipe } from '../../pipes/filtering.pipe';
 import { VideoDataService } from '../../services/video-data.service';
 
 @Component({
-  selector: 'app-video-filtering',
+  selector: 'app-video-filter',
   standalone: true,
   imports: [ReactiveFormsModule, FormsModule],
   providers: [FilteringPipe],
-  templateUrl: './video-filtering.component.html',
-  styleUrl: './video-filtering.component.scss',
+  templateUrl: './video-filter.component.html',
+  styleUrl: './video-filter.component.scss',
 })
-export default class VideoFilteringComponent implements OnInit {
+export default class VideoFilterComponent implements OnInit {
   private videoData!: Video[];
-  private filteringForm!: FormGroup;
+  private filterForm!: FormGroup;
   constructor(
     private dataService: VideoDataService,
     private formBuilder: FormBuilder,
@@ -23,23 +23,23 @@ export default class VideoFilteringComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.filteringForm = this.formBuilder.group({
+    this.filterForm = this.formBuilder.group({
       filter: [null, Validators.required],
     });
 
-    this.dataService.originalVideoData$.subscribe((data) => (this._videoData = data));
+    this.dataService.updateVideoData$.subscribe((data) => (this._videoData = data));
   }
 
   filterVideo() {
-    const filteredData = this.filteringPipe.transform(this.filteringForm.value.filter, this.videoData);
-    this.dataService.setUpdatedVideoData(filteredData);
+    this.videoData = this.filteringPipe.transform(this.filterForm.value.filter, this.videoData);
+    this.dataService.updateVideoData(this.videoData);
   }
 
   set _videoData(videoData: Video[]) {
     this.videoData = videoData;
   }
 
-  get _filteringForm() {
-    return this.filteringForm;
+  get _filterForm() {
+    return this.filterForm;
   }
 }
