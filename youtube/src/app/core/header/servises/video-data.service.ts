@@ -11,14 +11,20 @@ const VIDEO_DATA_URL =
   providedIn: 'root',
 })
 export class VideoDataService {
-  private updateVideoDataSubject = new BehaviorSubject<Video[]>([]);
-  updateVideoData$ = this.updateVideoDataSubject.asObservable();
-
+  private updatedVideoDataSubject = new BehaviorSubject<Video[]>([]);
   private isLoadingSubject = new Subject<boolean>();
-  isLoading$ = this.isLoadingSubject.asObservable();
+  private originalVideoDataSubject = new BehaviorSubject<Video[]>([]);
 
-  updateVideoData(data: Video[]) {
-    this.updateVideoDataSubject.next(data);
+  updatedVideoData$ = this.updatedVideoDataSubject.asObservable();
+  isLoading$ = this.isLoadingSubject.asObservable();
+  originalVideoData$ = this.originalVideoDataSubject.asObservable();
+
+  setUpdatedVideoData(data: Video[]) {
+    this.updatedVideoDataSubject.next(data);
+  }
+
+  setOriginalVideoData(data: Video[]) {
+    this.originalVideoDataSubject.next(data);
   }
 
   setIsLoading(isLoading: boolean) {

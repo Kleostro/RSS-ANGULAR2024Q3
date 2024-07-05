@@ -18,7 +18,7 @@ export default class VideoListComponent implements OnInit {
   private isLoading = false;
 
   ngOnInit(): void {
-    this.dataService.updateVideoData$.subscribe((data) => (this._videoData = data));
+    this.dataService.updatedVideoData$.subscribe((data) => (this._videoData = data));
     this.dataService.isLoading$.subscribe((isLoading) => (this._isLoading = isLoading));
   }
 

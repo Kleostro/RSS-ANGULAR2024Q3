@@ -27,11 +27,12 @@ export default class VideoFilteringComponent implements OnInit {
       filter: [null, Validators.required],
     });
 
-    this.dataService.updateVideoData$.subscribe((data) => (this._videoData = data));
+    this.dataService.originalVideoData$.subscribe((data) => (this._videoData = data));
   }
 
   filterVideo() {
-    this.dataService.updateVideoData(this.filteringPipe.transform(this.filteringForm.value.filter, this.videoData));
+    const filteredData = this.filteringPipe.transform(this.filteringForm.value.filter, this.videoData);
+    this.dataService.setUpdatedVideoData(filteredData);
   }
 
   set _videoData(videoData: Video[]) {

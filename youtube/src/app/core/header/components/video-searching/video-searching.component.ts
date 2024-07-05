@@ -37,9 +37,10 @@ export default class VideoSearchingComponent implements OnInit {
 
     try {
       const data = await this.dataService.fetchVideoData();
-      const filteredData = this.filteringPipe.transform(this.searchingForm.value.search, data);
-      this.dataService.updateVideoData(filteredData);
-      return filteredData;
+      const videoData = this.filteringPipe.transform(this.searchingForm.value.search, data);
+      this.dataService.setUpdatedVideoData(videoData);
+      this.dataService.setOriginalVideoData(videoData);
+      return videoData;
     } catch {
       throw new Error('Uploading video failed!');
     }

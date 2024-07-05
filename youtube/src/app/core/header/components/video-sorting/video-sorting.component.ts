@@ -23,7 +23,7 @@ export class VideoSortingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataService.updateVideoData$.subscribe((data) => (this._videoData = data));
+    this.dataService.updatedVideoData$.subscribe((data) => (this._videoData = data));
   }
 
   set _videoData(videoData: Video[]) {
