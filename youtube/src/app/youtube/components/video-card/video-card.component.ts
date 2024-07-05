@@ -19,8 +19,4 @@ export default class VideoCardComponent {
   @Input() video!: Video;
 
   isImageLoading = true;
-
-  imageLoaded() {
-    this.isImageLoading = false;
-  }
 }

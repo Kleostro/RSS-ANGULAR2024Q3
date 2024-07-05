@@ -11,7 +11,7 @@
       [src]="video.snippet.thumbnails.medium.url"
       [ngClass]="{ hidden: isImageLoading }"
       [alt]="video.snippet.title"
-      (load)="imageLoaded()"
+      (load)="isImageLoading = false"
     />
   </div>
   <ul class="statistics">
