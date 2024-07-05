@@ -1,5 +1,19 @@
 <li class="card" appBorderColor [publishedAt]="video.snippet.publishedAt">
-  <img class="card-img" [src]="video.snippet.thumbnails.medium.url" [alt]="video.snippet.title" />
+  <div class="img-wrapper">
+    @if (isImageLoading) {
+      <mat-progress-spinner mode="indeterminate">
+        <mat-spinner></mat-spinner>
+      </mat-progress-spinner>
+    }
+
+    <img
+      class="card-img"
+      [src]="video.snippet.thumbnails.medium.url"
+      [ngClass]="{ hidden: isImageLoading }"
+      [alt]="video.snippet.title"
+      (load)="imageLoaded()"
+    />
+  </div>
   <ul class="statistics">
     <li class="statistics-item">
       <mat-icon fontIcon="visibility"></mat-icon>

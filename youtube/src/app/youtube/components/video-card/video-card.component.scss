@@ -21,6 +21,13 @@
   }
 }
 
+.img-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 10rem;
+}
+
 .statistics {
   display: flex;
   flex-wrap: wrap;
@@ -67,4 +74,9 @@
   margin: 0 auto;
   margin-top: 6rem;
   padding: var(--tiny-offset) calc(var(--small-offset) * 1.2);
+}
+
+.hidden {
+  position: fixed;
+  scale: 0;
 }
