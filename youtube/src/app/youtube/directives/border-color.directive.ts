@@ -4,7 +4,7 @@ import { Directive, HostBinding, Input } from '@angular/core';
   selector: '[appBorderColor]',
   standalone: true,
 })
-export class BorderColorDirective {
+export default class BorderColorDirective {
   @Input() publishedAt = '';
 
   @HostBinding('style.borderColor') get borderColor() {

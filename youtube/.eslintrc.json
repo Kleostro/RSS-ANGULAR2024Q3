@@ -11,13 +11,28 @@
     {
       "files": ["*.ts"],
       "extends": [
+        "airbnb-base",
         "eslint:recommended",
         "plugin:@typescript-eslint/recommended",
         "plugin:@angular-eslint/recommended",
-        "plugin:@angular-eslint/template/process-inline-templates"
+        "plugin:@angular-eslint/template/process-inline-templates",
+        "prettier"
       ],
       "rules": {
+        "import/extensions": [
+          "error",
+          "ignorePackages",
+          {
+            "ts": "never",
+            "tsx": "never",
+            "js": "never",
+            "jsx": "never"
+          }
+        ],
         "@typescript-eslint/no-explicit-any": "error",
+        "no-useless-constructor": "off",
+        "no-empty-function": "off",
+        "class-methods-use-this": "off",
         "@angular-eslint/directive-selector": [
           "error",
           {
@@ -34,6 +49,14 @@
             "style": "kebab-case"
           }
         ]
+      },
+      "settings": {
+        "import/resolver": {
+          "alias": {
+            "extensions": [".ts", ".js", ".jsx", ".json"],
+            "map": [["@", "./src"]]
+          }
+        }
       }
     },
     {

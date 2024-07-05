@@ -6,7 +6,7 @@ import { Video } from '../models/video-search.model';
   name: 'filtering',
   standalone: true,
 })
-export class FilteringPipe implements PipeTransform {
+export default class FilteringPipe implements PipeTransform {
   transform(value: string, args: Video[]): Video[] {
     return args.filter((video) => {
       const descriptionMatch = video.snippet.description.toLowerCase().includes(value.toLowerCase());

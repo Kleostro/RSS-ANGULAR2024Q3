@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Video } from '../../models/video-search.model';
-import { FilteringPipe } from '../../pipes/filtering.pipe';
-import { VideoDataService } from '../../services/video-data.service';
+import FilteringPipe from '../../pipes/filtering.pipe';
+import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-video-filtering',
@@ -15,10 +15,12 @@ import { VideoDataService } from '../../services/video-data.service';
 })
 export default class VideoFilteringComponent implements OnInit {
   private videoData!: Video[];
+
   private filteringForm!: FormGroup;
+
   constructor(
-    private dataService: VideoDataService,
     private formBuilder: FormBuilder,
+    private dataService: VideoDataService,
     private filteringPipe: FilteringPipe,
   ) {}
 
@@ -28,8 +30,8 @@ export default class VideoFilteringComponent implements OnInit {
     });
 
     this.dataService.originalVideoData$.subscribe((data) => {
-      this._videoData = data;
-      this.filteringForm.controls['filter'].setValue('');
+      this.setVideoData(data);
+      this.filteringForm.get('filter')?.setValue(null);
     });
   }
 
@@ -38,11 +40,11 @@ export default class VideoFilteringComponent implements OnInit {
     this.dataService.setUpdatedVideoData(filteredData);
   }
 
-  set _videoData(videoData: Video[]) {
+  setVideoData(videoData: Video[]) {
     this.videoData = videoData;
   }
 
-  get _filteringForm() {
+  getFilteringForm() {
     return this.filteringForm;
   }
 }

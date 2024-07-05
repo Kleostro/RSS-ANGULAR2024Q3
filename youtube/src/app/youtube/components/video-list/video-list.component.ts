@@ -2,8 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { Video } from '../../../core/header/models/video-search.model';
-import { LoadingService } from '../../../core/header/services/loading.service';
-import { VideoDataService } from '../../../core/header/services/video-data.service';
+import LoadingService from '../../../core/header/services/loading.service';
+import VideoDataService from '../../../core/header/services/video-data.service';
 import VideoCardComponent from '../video-card/video-card.component';
 
 @Component({
@@ -14,31 +14,33 @@ import VideoCardComponent from '../video-card/video-card.component';
   styleUrl: './video-list.component.scss',
 })
 export default class VideoListComponent implements OnInit {
+  private videoData!: Video[];
+
+  private isLoading = false;
+
   constructor(
     private dataService: VideoDataService,
     private loadingService: LoadingService,
   ) {}
-  private videoData!: Video[];
-  private isLoading = false;
 
   ngOnInit(): void {
-    this.dataService.updatedVideoData$.subscribe((data) => (this._videoData = data));
-    this.loadingService.isLoading$.subscribe((isLoading) => (this._isLoading = isLoading));
+    this.dataService.updatedVideoData$.subscribe((data: Video[]) => this.setVideoData(data));
+    this.loadingService.isLoading$.subscribe((isLoading: boolean) => this.setIsLoading(isLoading));
   }
 
-  set _isLoading(isLoading: boolean) {
+  setIsLoading(isLoading: boolean) {
     this.isLoading = isLoading;
   }
 
-  set _videoData(videoData: Video[]) {
+  setVideoData(videoData: Video[]) {
     this.videoData = videoData;
   }
 
-  get _isLoading() {
+  getIsLoading(): boolean {
     return this.isLoading;
   }
 
-  get _videoData() {
+  getVideoData() {
     return this.videoData;
   }
 }

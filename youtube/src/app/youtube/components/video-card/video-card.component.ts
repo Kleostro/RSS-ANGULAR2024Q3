@@ -3,7 +3,7 @@ import { MatIconModule } from '@angular/material/icon';
 
 import { Video } from '../../../core/header/models/video-search.model';
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
-import { BorderColorDirective } from '../../directives/border-color.directive';
+import BorderColorDirective from '../../directives/border-color.directive';
 
 @Component({
   selector: 'app-video-card',

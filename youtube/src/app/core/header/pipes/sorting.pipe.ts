@@ -6,8 +6,9 @@ import { Video } from '../models/video-search.model';
   name: 'sorting',
   standalone: true,
 })
-export class SortingPipe implements PipeTransform {
+export default class SortingPipe implements PipeTransform {
   private sortingDirection = true;
+
   transform(value: string, args: Video[]): Video[] {
     switch (value) {
       case 'publishedAt':

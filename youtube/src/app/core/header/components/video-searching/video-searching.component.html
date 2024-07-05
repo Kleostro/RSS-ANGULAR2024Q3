@@ -1,4 +1,4 @@
-<form class="searching-form" [formGroup]="_searchingForm" (ngSubmit)="submit()">
+<form class="searching-form" [formGroup]="getSearchingForm()" (ngSubmit)="submit()">
   <input
     class="searching"
     type="search"
@@ -7,7 +7,12 @@
     placeholder="What are you want to find out?"
     autocomplete="off"
   />
-  <app-custom-button class="searching-btn" type="submit" [class.disabled]="!_searchingForm.valid" (click)="submit()">
+  <app-custom-button
+    class="searching-btn"
+    type="submit"
+    [class.disabled]="!getSearchingForm().valid"
+    (click)="submit()"
+  >
     <span>Search</span>
   </app-custom-button>
 </form>

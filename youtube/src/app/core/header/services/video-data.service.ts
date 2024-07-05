@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 import { Video, VideoSearchResponce } from '../models/video-search.model';
-import { LoadingService } from './loading.service';
+import LoadingService from './loading.service';
 
 const VIDEO_DATA_URL =
   'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/angular/response.json';
@@ -11,14 +11,16 @@ const VIDEO_DATA_URL =
 @Injectable({
   providedIn: 'root',
 })
-export class VideoDataService {
+export default class VideoDataService {
   private updatedVideoDataSubject = new BehaviorSubject<Video[]>([]);
+
   private originalVideoDataSubject = new BehaviorSubject<Video[]>([]);
 
-  updatedVideoData$ = this.updatedVideoDataSubject.asObservable();
-  originalVideoData$ = this.originalVideoDataSubject.asObservable();
-
   constructor(private loadingService: LoadingService) {}
+
+  updatedVideoData$ = this.updatedVideoDataSubject.asObservable();
+
+  originalVideoData$ = this.originalVideoDataSubject.asObservable();
 
   setUpdatedVideoData(data: Video[]) {
     this.updatedVideoDataSubject.next(data);

@@ -4,8 +4,8 @@ import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } 
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
 import { Video } from '../../models/video-search.model';
-import { FilteringPipe } from '../../pipes/filtering.pipe';
-import { VideoDataService } from '../../services/video-data.service';
+import FilteringPipe from '../../pipes/filtering.pipe';
+import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-video-searching',
@@ -24,7 +24,7 @@ export default class VideoSearchingComponent implements OnInit {
     private filteringPipe: FilteringPipe,
   ) {}
 
-  public ngOnInit() {
+  ngOnInit() {
     this.searchingForm = this.formBuilder.group({
       search: [null, Validators.required],
     });
@@ -46,7 +46,7 @@ export default class VideoSearchingComponent implements OnInit {
     }
   }
 
-  get _searchingForm() {
+  getSearchingForm() {
     return this.searchingForm;
   }
 }

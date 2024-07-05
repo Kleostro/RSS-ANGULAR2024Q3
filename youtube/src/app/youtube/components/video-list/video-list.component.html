@@ -1,12 +1,12 @@
 <div class="video-list-wrapper">
-  @if (_isLoading) {
+  @if (getIsLoading()) {
     <mat-progress-spinner mode="indeterminate">
       <mat-spinner></mat-spinner>
     </mat-progress-spinner>
   }
 
-  <ul class="video-list" [class.hidden]="_isLoading">
-    @for (video of _videoData; track video.id) {
+  <ul class="video-list" [class.hidden]="getIsLoading()">
+    @for (video of getVideoData(); track video.id) {
       <app-video-card [video]="video"></app-video-card>
     }
   </ul>

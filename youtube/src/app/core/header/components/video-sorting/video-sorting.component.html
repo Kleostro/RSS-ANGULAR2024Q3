@@ -1,7 +1,7 @@
 <span class="text">Sorting by:</span>
-<app-custom-button class="btn" [class.disabled]="!_videoData.length" (click)="sortBy('publishedAt')"
+<app-custom-button class="btn" [class.disabled]="!getVideoData().length" (click)="sortBy('publishedAt')"
   >date</app-custom-button
 >
-<app-custom-button class="btn" [class.disabled]="!_videoData.length" (click)="sortBy('viewCount')"
+<app-custom-button class="btn" [class.disabled]="!getVideoData().length" (click)="sortBy('viewCount')"
   >count of views</app-custom-button
 >

@@ -3,11 +3,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
-import { ToggleVisibilityDirective } from '../../../../shared/directives/toggle-visibility.directive';
-import { Video } from '../../models/video-search.model';
+import ToggleVisibilityDirective from '../../../../shared/directives/toggle-visibility.directive';
 import VideoFilteringComponent from '../video-filtering/video-filtering.component';
 import VideoSearchingComponent from '../video-searching/video-searching.component';
-import { VideoSortingComponent } from '../video-sorting/video-sorting.component';
+import VideoSortingComponent from '../video-sorting/video-sorting.component';
 
 @Component({
   selector: 'app-header',
@@ -27,14 +26,4 @@ import { VideoSortingComponent } from '../video-sorting/video-sorting.component'
 })
 export default class HeaderComponent {
   public isSettingsVisible = false;
-
-  private videoData!: Video[];
-
-  set _videoData(videoData: Video[]) {
-    this.videoData = videoData;
-  }
-
-  get _videoData(): Video[] {
-    return this.videoData;
-  }
 }

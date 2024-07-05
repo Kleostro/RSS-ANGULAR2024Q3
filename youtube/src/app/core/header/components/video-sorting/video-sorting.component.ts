@@ -3,8 +3,8 @@ import { Component, OnInit } from '@angular/core';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
 import { Video } from '../../models/video-search.model';
-import { VideoDataService } from '../../services/video-data.service';
-import { SortingPipe } from './../../pipes/sorting.pipe';
+import SortingPipe from '../../pipes/sorting.pipe';
+import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-video-sorting',
@@ -14,7 +14,7 @@ import { SortingPipe } from './../../pipes/sorting.pipe';
   templateUrl: './video-sorting.component.html',
   styleUrl: './video-sorting.component.scss',
 })
-export class VideoSortingComponent implements OnInit {
+export default class VideoSortingComponent implements OnInit {
   private videoData!: Video[];
 
   constructor(
@@ -23,14 +23,14 @@ export class VideoSortingComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.dataService.updatedVideoData$.subscribe((data) => (this._videoData = data));
+    this.dataService.updatedVideoData$.subscribe((data: Video[]) => this.setVideoData(data));
   }
 
-  set _videoData(videoData: Video[]) {
+  setVideoData(videoData: Video[]) {
     this.videoData = videoData;
   }
 
-  get _videoData(): Video[] {
+  getVideoData(): Video[] {
     return this.videoData;
   }
 
