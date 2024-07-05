@@ -5,6 +5,9 @@
     <app-custom-button class="settings-btn" (click)="isSettingsVisible = !isSettingsVisible">
       <div class="settings-icon"></div>
     </app-custom-button>
+    <app-custom-button class="user-btn">
+      <mat-icon fontIcon="person" class="user-icon"></mat-icon>
+    </app-custom-button>
   </div>
   <div class="bottom" *appToggleVisibility="isSettingsVisible">
     <app-video-sorting></app-video-sorting>

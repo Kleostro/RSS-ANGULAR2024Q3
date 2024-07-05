@@ -30,6 +30,7 @@
 
   width: 4.5rem;
   height: 3rem;
+  margin-left: auto;
 
   background-color: var(--blue-1000);
   border-radius: calc(var(--small-br) * 1.5);
@@ -49,12 +50,30 @@
   }
 }
 
-.settings-btn {
+.settings-btn,
+.user-btn {
   padding: 0.2rem;
 }
 
 .settings-icon {
-  width: 1.0919rem;
-  height: 1.0919rem;
+  width: 1.9rem;
+  height: 1.9rem;
   background: center / cover url('../../../../../../public/img/svg/settings.svg') no-repeat;
+}
+
+.user-btn {
+  margin-left: auto;
+}
+
+.user-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  width: 1.9rem;
+  height: 1.9rem;
+
+  &::before {
+    font-size: 1.9rem;
+  }
 }

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
@@ -16,6 +17,7 @@ import { VideoSortingComponent } from '../video-sorting/video-sorting.component'
     VideoSearchingComponent,
     VideoFilteringComponent,
     VideoSortingComponent,
+    MatIconModule,
     CustomButtonComponent,
     ToggleVisibilityDirective,
   ],
