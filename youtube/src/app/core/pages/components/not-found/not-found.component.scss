@@ -1,0 +1,14 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: var(--extra-small-offset);
+  align-items: center;
+
+  margin: 15rem auto;
+}
+
+.title {
+  font: var(--extra-medium-font);
+  color: var(--gray-100);
+  text-align: center;
+}
