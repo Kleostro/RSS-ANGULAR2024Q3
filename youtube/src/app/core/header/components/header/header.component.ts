@@ -1,8 +1,8 @@
+import { NgClass } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
-import ToggleVisibilityDirective from '../../../../shared/directives/toggle-visibility.directive';
 import VideoFilteringComponent from '../video-filtering/video-filtering.component';
 import VideoSearchingComponent from '../video-searching/video-searching.component';
 import VideoSortingComponent from '../video-sorting/video-sorting.component';
@@ -16,12 +16,11 @@ import VideoSortingComponent from '../video-sorting/video-sorting.component';
     VideoFilteringComponent,
     VideoSortingComponent,
     CustomButtonComponent,
-    ToggleVisibilityDirective,
+    NgClass,
   ],
-  providers: [ToggleVisibilityDirective],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
 export default class HeaderComponent {
-  public isSettingsVisible = false;
+  public isSettingsVisible = true;
 }

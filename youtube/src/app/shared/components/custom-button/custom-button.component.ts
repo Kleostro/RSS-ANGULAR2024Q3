@@ -2,14 +2,7 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-type MatButtonType =
-  | 'mat-button'
-  | 'mat-raised-button'
-  | 'mat-stroked-button'
-  | 'mat-flat-button'
-  | 'mat-icon-button'
-  | 'mat-fab'
-  | 'mat-mini-fab';
+import MatButtonType from './types/mat.type';
 
 @Component({
   selector: 'app-custom-button',

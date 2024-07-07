@@ -10,7 +10,7 @@
     ></app-custom-button>
     <app-custom-button class="account" [matType]="'mat-mini-fab'" [icon]="'account_circle'"></app-custom-button>
   </div>
-  <div class="bottom" *appToggleVisibility="isSettingsVisible">
+  <div class="bottom" [ngClass]="{ hidden: isSettingsVisible }">
     <app-video-sorting></app-video-sorting>
     <app-video-filtering></app-video-filtering>
   </div>

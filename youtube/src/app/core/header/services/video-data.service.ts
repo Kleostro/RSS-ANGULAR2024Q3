@@ -1,8 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
-import { Video, VideoSearchResponce } from '../models/video-search.model';
+import VideoSearchResponce from '../interfaces/video-response.interface';
+import Video from '../interfaces/video.interface';
 import LoadingService from './loading.service';
 
 const VIDEO_DATA_URL =
@@ -16,7 +17,7 @@ export default class VideoDataService {
 
   private originalVideoDataSubject = new BehaviorSubject<Video[]>([]);
 
-  constructor(private loadingService: LoadingService) {}
+  private loadingService = inject(LoadingService);
 
   updatedVideoData$ = this.updatedVideoDataSubject.asObservable();
 

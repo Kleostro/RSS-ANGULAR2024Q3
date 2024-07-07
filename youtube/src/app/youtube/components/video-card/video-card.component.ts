@@ -3,7 +3,7 @@ import { Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { Video } from '../../../core/header/models/video-search.model';
+import Video from '../../../core/header/interfaces/video.interface';
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
 import BorderColorDirective from '../../directives/border-color.directive';
 

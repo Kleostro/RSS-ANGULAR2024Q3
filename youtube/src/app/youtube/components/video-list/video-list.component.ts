@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
-import { Video } from '../../../core/header/models/video-search.model';
+import Video from '../../../core/header/interfaces/video.interface';
 import LoadingService from '../../../core/header/services/loading.service';
 import VideoDataService from '../../../core/header/services/video-data.service';
 import VideoCardComponent from '../video-card/video-card.component';
