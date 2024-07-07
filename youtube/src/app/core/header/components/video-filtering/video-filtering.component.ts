@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { Video } from '../../models/video-search.model';
@@ -18,11 +18,11 @@ export default class VideoFilteringComponent implements OnInit {
 
   private filteringForm!: FormGroup;
 
-  constructor(
-    private formBuilder: FormBuilder,
-    private dataService: VideoDataService,
-    private filteringPipe: FilteringPipe,
-  ) {}
+  private formBuilder = inject(FormBuilder);
+
+  private dataService = inject(VideoDataService);
+
+  private filteringPipe = inject(FilteringPipe);
 
   ngOnInit(): void {
     this.filteringForm = this.formBuilder.group({

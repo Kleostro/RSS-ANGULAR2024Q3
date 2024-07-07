@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
 import { Video } from '../../models/video-search.model';
@@ -17,10 +17,9 @@ import VideoDataService from '../../services/video-data.service';
 export default class VideoSortingComponent implements OnInit {
   private videoData!: Video[];
 
-  constructor(
-    private sortingPipe: SortingPipe,
-    private dataService: VideoDataService,
-  ) {}
+  private sortingPipe = inject(SortingPipe);
+
+  private dataService = inject(VideoDataService);
 
   ngOnInit(): void {
     this.dataService.updatedVideoData$.subscribe((data: Video[]) => this.setVideoData(data));

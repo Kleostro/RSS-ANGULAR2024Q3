@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import { Video } from '../../../core/header/models/video-search.model';
@@ -18,10 +18,9 @@ export default class VideoListComponent implements OnInit {
 
   private isLoading = false;
 
-  constructor(
-    private dataService: VideoDataService,
-    private loadingService: LoadingService,
-  ) {}
+  private dataService = inject(VideoDataService);
+
+  private loadingService = inject(LoadingService);
 
   ngOnInit(): void {
     this.dataService.updatedVideoData$.subscribe((data: Video[]) => this.setVideoData(data));
