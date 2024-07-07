@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import VideoDataService from '../../../services/video-data.service';
 import Video from '../../interfaces/video.interface';
 import FilteringPipe from '../../pipes/filtering.pipe';
-import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-video-filtering',

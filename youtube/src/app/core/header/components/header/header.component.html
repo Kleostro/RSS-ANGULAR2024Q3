@@ -1,6 +1,6 @@
 <div class="container">
   <div class="top">
-    <app-custom-link class="logo" [matType]="'mat-flat-button'" [root]="'/'"></app-custom-link>
+    <app-custom-link class="logo" [matType]="'mat-flat-button'" [icon]="'play_arrow'" [root]="'/'"></app-custom-link>
     <app-video-searching></app-video-searching>
     <app-custom-button
       class="settings"
@@ -8,7 +8,22 @@
       [icon]="'tune'"
       (click)="isSettingsVisible = !isSettingsVisible"
     ></app-custom-button>
-    <app-custom-button class="account" [matType]="'mat-mini-fab'" [icon]="'account_circle'"></app-custom-button>
+    @if (isLogin) {
+      <span class="userLogin">{{ loginService.getUserLogin() | titlecase }}</span>
+      <app-custom-button
+        class="account"
+        [matType]="'mat-mini-fab'"
+        [icon]="'exit_to_app'"
+        (click)="loginService.logout()"
+      ></app-custom-button>
+    } @else {
+      <app-custom-link
+        [root]="'/login'"
+        class="account"
+        [matType]="'mat-mini-fab'"
+        [icon]="'account_circle'"
+      ></app-custom-link>
+    }
   </div>
   <div class="bottom" [ngClass]="{ hidden: isSettingsVisible }">
     <app-video-sorting></app-video-sorting>

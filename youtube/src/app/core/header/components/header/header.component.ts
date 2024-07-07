@@ -1,9 +1,11 @@
-import { NgClass } from '@angular/common';
-import { Component } from '@angular/core';
+import { NgClass, TitleCasePipe } from '@angular/common';
+import { Component, inject, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
+import LoginService from '../../../../auth/services/login.service';
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
 import CustomLinkComponent from '../../../../shared/components/custom-link/custom-link.component';
+import LocalStorageService from '../../../services/local-storage.service';
 import VideoFilteringComponent from '../video-filtering/video-filtering.component';
 import VideoSearchingComponent from '../video-searching/video-searching.component';
 import VideoSortingComponent from '../video-sorting/video-sorting.component';
@@ -19,10 +21,23 @@ import VideoSortingComponent from '../video-sorting/video-sorting.component';
     CustomButtonComponent,
     CustomLinkComponent,
     NgClass,
+    TitleCasePipe,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export default class HeaderComponent {
+export default class HeaderComponent implements OnInit {
+  public localStorageService = inject(LocalStorageService);
+
+  public loginService = inject(LoginService);
+
+  public isLogin = true;
+
   public isSettingsVisible = true;
+
+  ngOnInit(): void {
+    this.loginService.isLogin$.subscribe((val) => {
+      this.isLogin = val;
+    });
+  }
 }

@@ -1,0 +1,22 @@
+.title {
+  margin-bottom: var(--medium-offset);
+  font: var(--medium-font);
+  color: var(--gray-200);
+  letter-spacing: var(--one);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--extra-small-offset);
+
+  width: max-content;
+  padding: var(--small-offset);
+
+  background-color: var(--white-400);
+  border-radius: var(--small-br);
+}
+
+.mat-mdc-form-field {
+  width: 25rem;
+}

@@ -25,3 +25,10 @@
 .bottom {
   gap: var(--extra-small-offset);
 }
+
+.userLogin {
+  margin-left: auto;
+  font: var(--small-font);
+  color: var(--gray-200);
+  letter-spacing: var(--one);
+}

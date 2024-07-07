@@ -3,26 +3,35 @@
 }
 
 .logo {
-  position: relative;
-
   width: 4.5rem;
   height: 3rem;
   margin-left: auto;
+  padding: 0;
 
-  background-color: var(--blue-1000);
   border-radius: calc(var(--small-br) * 1.5);
+}
 
-  &::before {
-    content: '';
+.mat-mdc-unelevated-button > .mat-icon {
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  font-size: 3rem;
+}
 
-    position: absolute;
-    top: 50%;
-    left: 55%;
-    transform: translate(-50%, -50%);
+.mat-icon {
+  width: 2rem;
+  height: 2rem;
+}
 
-    border-color: transparent;
-    border-style: solid;
-    border-width: calc(var(--tiny-offset) * 1.5) 0 calc(var(--tiny-offset) * 1.5) calc(var(--extra-small-offset) * 1.5);
-    border-left-color: #fff;
-  }
+.material-icons {
+  font-size: 2rem;
+}
+
+.mdc-fab--mini {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.account {
+  margin-left: auto;
 }

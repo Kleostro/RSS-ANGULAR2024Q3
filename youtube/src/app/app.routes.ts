@@ -8,6 +8,12 @@ const routes: Routes = [
   },
 
   {
+    path: 'login',
+    loadComponent: () => import('./auth/pages/components/login/login.component').then((c) => c.default),
+    title: 'youtube | login',
+  },
+
+  {
     path: '**',
     loadComponent: () => import('./core/pages/components/not-found/not-found.component').then((c) => c.default),
     title: '404',
