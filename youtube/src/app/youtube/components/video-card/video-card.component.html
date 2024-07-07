@@ -33,7 +33,7 @@
     </li>
   </ul>
   <h3 class="card-title">{{ video.snippet.title }}</h3>
-  <app-custom-button class="more" [matType]="'mat-flat-button'">
+  <app-custom-button class="more" [matType]="'mat-flat-button'" (click)="goToDetailedPage()">
     <span flat-content>more...</span>
     more...
   </app-custom-button>

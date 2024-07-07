@@ -5,7 +5,13 @@ import loginGuard from './auth/guards/login.guard';
 const routes: Routes = [
   {
     path: 'main',
-    loadComponent: () => import('./pages/components/main/main.component').then((c) => c.default),
+    loadComponent: () => import('./youtube/pages/components/main/main.component').then((c) => c.default),
+    title: 'youtube',
+    canActivate: [loginGuard],
+  },
+  {
+    path: '',
+    loadComponent: () => import('./youtube/pages/components/main/main.component').then((c) => c.default),
     title: 'youtube',
     canActivate: [loginGuard],
   },
@@ -14,6 +20,13 @@ const routes: Routes = [
     path: 'login',
     loadComponent: () => import('./auth/pages/components/login/login.component').then((c) => c.default),
     title: 'youtube | login',
+  },
+
+  {
+    path: 'detailed/:id',
+    loadComponent: () => import('./youtube/pages/components/detailed/detailed.component').then((c) => c.default),
+    title: 'youtube | detailed',
+    canActivate: [loginGuard],
   },
 
   {

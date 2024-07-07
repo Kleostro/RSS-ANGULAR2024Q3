@@ -31,6 +31,10 @@ export default class VideoDataService {
     this.originalVideoDataSubject.next(data);
   }
 
+  getVideoDataById(id: string): Video | null {
+    return this.updatedVideoDataSubject.value.find((video: Video) => video.id === id) || null;
+  }
+
   async fetchVideoData(): Promise<Video[]> {
     this.loadingService.toggleLoading(true);
     try {

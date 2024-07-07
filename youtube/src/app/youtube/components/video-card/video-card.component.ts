@@ -1,7 +1,8 @@
 import { NgClass } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { Component, inject, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { Router } from '@angular/router';
 
 import Video from '../../../core/header/interfaces/video.interface';
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
@@ -26,5 +27,11 @@ import BorderColorDirective from '../../directives/border-color.directive';
 export default class VideoCardComponent {
   @Input() video!: Video;
 
+  private router = inject(Router);
+
   isImageLoading = true;
+
+  goToDetailedPage() {
+    this.router.navigate([`/detailed/${this.video.id}`]);
+  }
 }

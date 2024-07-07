@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import VideoListComponent from '../../../youtube/components/video-list/video-list.component';
+import VideoListComponent from '../../../components/video-list/video-list.component';
 
 @Component({
   selector: 'app-main',
