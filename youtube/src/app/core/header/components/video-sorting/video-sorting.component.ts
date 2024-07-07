@@ -2,7 +2,7 @@ import { NgClass } from '@angular/common';
 import { Component, inject, OnInit } from '@angular/core';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
-import VideoDataService from '../../../services/video-data.service';
+import VideoDataService from '../../../../youtube/services/video-data.service';
 import Video from '../../interfaces/video.interface';
 import SortingPipe from '../../pipes/sorting.pipe';
 

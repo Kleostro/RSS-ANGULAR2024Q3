@@ -26,8 +26,11 @@
   height: auto;
   padding: var(--extra-small-offset);
 
+  background-color: var(--white-300);
   border-bottom: var(--tiny-offset) solid transparent;
+  border-top-right-radius: var(--medium-br);
   border-bottom-right-radius: var(--medium-br);
+  box-shadow: var(--gray-shadow-1000);
 }
 
 .top {

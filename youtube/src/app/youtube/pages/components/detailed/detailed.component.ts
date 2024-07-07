@@ -2,8 +2,8 @@ import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import Video from '../../../../core/header/interfaces/video.interface';
-import VideoDataService from '../../../../core/services/video-data.service';
 import VideoDetailedComponent from '../../../components/video-detailed/video-detailed.component';
+import VideoDataService from '../../../services/video-data.service';
 
 @Component({
   selector: 'app-detailed',
@@ -17,12 +17,14 @@ export default class DetailedComponent implements OnInit {
 
   private videoDataService = inject(VideoDataService);
 
-  videoData: Video | null = null;
+  videoData!: Video;
 
   ngOnInit(): void {
     const { id } = this.activateRoute.snapshot.params;
     this.videoDataService.getVideoDataById(id).then((data) => {
-      this.videoData = data;
+      if (data) {
+        this.videoData = data;
+      }
     });
   }
 }
