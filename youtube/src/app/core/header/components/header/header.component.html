@@ -2,12 +2,13 @@
   <div class="top">
     <a class="logo" routerLink="/"> </a>
     <app-video-searching></app-video-searching>
-    <app-custom-button class="settings-btn" (click)="isSettingsVisible = !isSettingsVisible">
-      <div class="settings-icon"></div>
-    </app-custom-button>
-    <app-custom-button class="user-btn">
-      <mat-icon fontIcon="person" class="user-icon"></mat-icon>
-    </app-custom-button>
+    <app-custom-button
+      class="settings"
+      [matType]="'mat-mini-fab'"
+      [icon]="'tune'"
+      (click)="isSettingsVisible = !isSettingsVisible"
+    ></app-custom-button>
+    <app-custom-button class="account" [matType]="'mat-mini-fab'" [icon]="'account_circle'"></app-custom-button>
   </div>
   <div class="bottom" *appToggleVisibility="isSettingsVisible">
     <app-video-sorting></app-video-sorting>

@@ -8,11 +8,12 @@
     autocomplete="off"
   />
   <app-custom-button
-    class="searching-btn"
+    class="search"
+    [matType]="'mat-flat-button'"
     type="submit"
-    [class.disabled]="!getSearchingForm().valid"
+    [isDisabled]="!getSearchingForm().valid"
     (click)="submit()"
   >
-    <span>Search</span>
+    <span flat-content>search</span>
   </app-custom-button>
 </form>

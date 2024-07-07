@@ -1,38 +1,54 @@
 :host {
-  cursor: pointer;
-  user-select: none;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background-color: var(--blue-1000);
-  border-radius: var(--small-br);
-
-  transition:
-    box-shadow 0.2s,
-    scale 0.2s,
-    opacity 0.2s;
-
-  &:active {
-    scale: 0.95;
-    opacity: 0.8;
-  }
-
-  &.disabled {
-    pointer-events: none;
-    opacity: 0.5;
-  }
-
-  @media (hover: hover) {
-    &:hover {
-      box-shadow: var(--blue-shadow-1000);
-    }
-  }
+  display: contents;
 }
 
 .btn {
+  height: unset;
+  border-radius: var(--small-br);
+  transition:
+    background-color 0.2s,
+    color 0.2s;
+}
+
+.mat-icon {
+  width: 1.5rem;
+  height: 1.5rem;
+}
+
+.material-icons {
+  font-size: 1.5rem;
+}
+
+.mdc-fab--mini {
+  width: 2.5rem;
+  height: 2.5rem;
+}
+
+.mat-mdc-unelevated-button.search {
+  border-radius: 0 var(--small-br) var(--small-br) 0;
+}
+
+.sorting {
+  padding: 0.5rem 1rem;
   font: var(--small-font);
   color: var(--white-100);
   letter-spacing: var(--one);
+}
+
+.search {
+  padding: 0.5rem 1rem;
+  font: var(--small-font);
+  color: var(--white-100);
+  letter-spacing: var(--one);
+}
+
+.account {
+  margin-left: auto;
+}
+
+.more {
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 6rem;
+  padding: 0.5rem calc(var(--small-offset) * 1.2);
 }

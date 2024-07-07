@@ -1,7 +1,17 @@
 <span class="text">Sorting by:</span>
-<app-custom-button class="btn" [class.disabled]="!getVideoData().length" (click)="sortBy('publishedAt')"
-  >date</app-custom-button
+<app-custom-button
+  class="sorting"
+  [matType]="'mat-raised-button'"
+  [isDisabled]="!getVideoData().length"
+  (click)="sortBy('publishedAt')"
 >
-<app-custom-button class="btn" [class.disabled]="!getVideoData().length" (click)="sortBy('viewCount')"
-  >count of views</app-custom-button
+  <span raised-content>date</span>
+</app-custom-button>
+<app-custom-button
+  class="sorting"
+  [matType]="'mat-raised-button'"
+  [isDisabled]="!getVideoData().length"
+  (click)="sortBy('viewCount')"
 >
+  <span raised-content>views</span>
+</app-custom-button>

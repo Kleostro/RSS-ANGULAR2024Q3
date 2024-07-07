@@ -1,3 +1,42 @@
-<button class="btn">
-  <ng-content></ng-content>
-</button>
+@switch (matType) {
+  @case ('mat-flat-button') {
+    <button mat-flat-button [disabled]="isDisabled" [class]="[class, 'btn']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[flat-content]"></ng-content>
+    </button>
+  }
+  @case ('mat-raised-button') {
+    <button mat-raised-button [disabled]="isDisabled" [class]="[class, 'btn']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[raised-content]"></ng-content>
+    </button>
+  }
+  @case ('mat-mini-fab') {
+    <button mat-mini-fab [disabled]="isDisabled" [class]="[class, 'btn']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[mini-fab-content]"></ng-content>
+    </button>
+  }
+  @case ('mat-fab') {
+    <button mat-fab [disabled]="isDisabled" [class]="[class, 'btn']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[fab-content]"></ng-content>
+    </button>
+  }
+  @default {
+    <button [disabled]="isDisabled" [class]="[class, 'btn']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[default-content]"></ng-content>
+    </button>
+  }
+}

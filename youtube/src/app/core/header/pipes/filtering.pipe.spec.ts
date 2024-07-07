@@ -1,4 +1,4 @@
-import { FilteringPipe } from './filtering.pipe';
+import FilteringPipe from './filtering.pipe';
 
 describe('FilteringPipe', () => {
   it('create an instance', () => {
