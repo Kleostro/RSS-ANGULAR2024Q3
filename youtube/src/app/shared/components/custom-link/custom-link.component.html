@@ -1,11 +1,26 @@
 @switch (matType) {
   @case ('mat-flat-button') {
-    <a mat-flat-button routerLink="{{ root }}" [class]="[class, 'link']">
-      @if (icon) {
-        <mat-icon>{{ icon }}</mat-icon>
-      }
-      <ng-content select="[flat-content]"></ng-content>
-    </a>
+    @if (publishedAt) {
+      <a
+        mat-flat-button
+        routerLink="{{ root }}"
+        [class]="[class, 'link']"
+        appBackgroundColor
+        [publishedAt]="publishedAt"
+      >
+        @if (icon) {
+          <mat-icon>{{ icon }}</mat-icon>
+        }
+        <ng-content select="[flat-content]"></ng-content>
+      </a>
+    } @else {
+      <a mat-flat-button routerLink="{{ root }}" [class]="[class, 'link']">
+        @if (icon) {
+          <mat-icon>{{ icon }}</mat-icon>
+        }
+        <ng-content select="[flat-content]"></ng-content>
+      </a>
+    }
   }
   @case ('mat-raised-button') {
     <a mat-raised-button routerLink="{{ root }}" [class]="[class, 'link']">

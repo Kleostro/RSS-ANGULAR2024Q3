@@ -1,6 +1,12 @@
 @if (video) {
   <div class="card">
-    <app-custom-link class="goToBack" [matType]="'mat-flat-button'" [root]="'/main'" [icon]="'arrow_back'">
+    <app-custom-link
+      class="goToBack"
+      [matType]="'mat-flat-button'"
+      [root]="'/main'"
+      [icon]="'arrow_back'"
+      [publishedAt]="video.snippet.publishedAt"
+    >
     </app-custom-link>
     <div class="left">
       <img [src]="video.snippet.thumbnails.high.url" [alt]="video.snippet.title" class="img" />
