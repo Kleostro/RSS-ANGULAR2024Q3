@@ -14,32 +14,20 @@ import VideoCardComponent from '../video-card/video-card.component';
   styleUrl: './video-list.component.scss',
 })
 export default class VideoListComponent implements OnInit {
-  private videoData!: Video[];
+  videoData!: Video[];
 
-  private isLoading = false;
+  isLoading = false;
 
   private dataService = inject(VideoDataService);
 
   private loadingService = inject(LoadingService);
 
   ngOnInit(): void {
-    this.dataService.updatedVideoData$.subscribe((data: Video[]) => this.setVideoData(data));
-    this.loadingService.isLoading$.subscribe((isLoading: boolean) => this.setIsLoading(isLoading));
-  }
-
-  setIsLoading(isLoading: boolean) {
-    this.isLoading = isLoading;
-  }
-
-  setVideoData(videoData: Video[]) {
-    this.videoData = videoData;
-  }
-
-  getIsLoading(): boolean {
-    return this.isLoading;
-  }
-
-  getVideoData() {
-    return this.videoData;
+    this.dataService.updatedVideoData$.subscribe((data: Video[]) => {
+      this.videoData = data;
+    });
+    this.loadingService.isLoading$.subscribe((isLoading: boolean) => {
+      this.isLoading = isLoading;
+    });
   }
 }

@@ -1,10 +1,13 @@
 import { Routes } from '@angular/router';
 
+import loginGuard from './auth/guards/login.guard';
+
 const routes: Routes = [
   {
-    path: '',
+    path: 'main',
     loadComponent: () => import('./pages/components/main/main.component').then((c) => c.default),
     title: 'youtube',
+    canActivate: [loginGuard],
   },
 
   {

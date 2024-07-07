@@ -22,7 +22,7 @@ export default class LoginService {
     this.localStorageService.add(STORE_KEYS.USER_LOGIN, JSON.stringify(props));
     this.localStorageService.add(STORE_KEYS.USER_TOKEN, JSON.stringify(crypto.randomUUID()));
     this.isLoginSubject.next(true);
-    this.router.navigate(['/']);
+    this.router.navigate(['/main']);
   }
 
   logout() {
