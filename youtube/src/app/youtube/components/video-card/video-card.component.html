@@ -17,19 +17,19 @@
   <ul class="statistics">
     <li class="statistics-item">
       <mat-icon fontIcon="visibility"></mat-icon>
-      {{ video.statistics.viewCount }}
+      {{ video.statistics.viewCount | numberComposition }}
     </li>
     <li class="statistics-item">
       <mat-icon fontIcon="thumb_up"></mat-icon>
-      {{ video.statistics.likeCount }}
+      {{ video.statistics.likeCount | numberComposition }}
     </li>
     <li class="statistics-item">
       <mat-icon fontIcon="thumb_down"></mat-icon>
-      {{ video.statistics.dislikeCount }}
+      {{ video.statistics.dislikeCount | numberComposition }}
     </li>
     <li class="statistics-item">
       <mat-icon fontIcon="comment"></mat-icon>
-      {{ video.statistics.commentCount }}
+      {{ video.statistics.commentCount | numberComposition }}
     </li>
   </ul>
   <h3 class="card-title">{{ video.snippet.title }}</h3>
