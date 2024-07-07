@@ -3,11 +3,12 @@ import { ActivatedRoute } from '@angular/router';
 
 import Video from '../../../../core/header/interfaces/video.interface';
 import VideoDataService from '../../../../core/services/video-data.service';
+import VideoDetailedComponent from '../../../components/video-detailed/video-detailed.component';
 
 @Component({
   selector: 'app-detailed',
   standalone: true,
-  imports: [],
+  imports: [VideoDetailedComponent],
   templateUrl: './detailed.component.html',
   styleUrl: './detailed.component.scss',
 })
@@ -20,6 +21,8 @@ export default class DetailedComponent implements OnInit {
 
   ngOnInit(): void {
     const { id } = this.activateRoute.snapshot.params;
-    this.videoData = this.videoDataService.getVideoDataById(id);
+    this.videoDataService.getVideoDataById(id).then((data) => {
+      this.videoData = data;
+    });
   }
 }

@@ -1,0 +1,33 @@
+<div class="card">
+  <app-custom-link class="goToBack" [matType]="'mat-flat-button'" [root]="'/main'" [icon]="'arrow_back'">
+  </app-custom-link>
+  <div class="left">
+    <img [src]="video?.snippet?.thumbnails?.high?.url" [alt]="video?.snippet?.title" class="img" />
+  </div>
+  <div class="right" appBorderColor [publishedAt]="video?.snippet?.publishedAt || ''">
+    <div class="top">
+      <h1 class="title">{{ video?.snippet?.title }}</h1>
+      <span class="date">{{ video?.snippet?.publishedAt | date: 'EEEE, MMMM d, y' }}</span>
+    </div>
+    <span class="descriptiption-accent">Description:</span>
+    <p class="description">{{ video?.snippet?.description }}</p>
+    <ul class="statistics">
+      <li class="statistics-item">
+        <mat-icon fontIcon="visibility"></mat-icon>
+        {{ video?.statistics?.viewCount || 0 | numberComposition }}
+      </li>
+      <li class="statistics-item">
+        <mat-icon fontIcon="thumb_up"></mat-icon>
+        {{ video?.statistics?.likeCount || 0 | numberComposition }}
+      </li>
+      <li class="statistics-item">
+        <mat-icon fontIcon="thumb_down"></mat-icon>
+        {{ video?.statistics?.dislikeCount || 0 | numberComposition }}
+      </li>
+      <li class="statistics-item">
+        <mat-icon fontIcon="comment"></mat-icon>
+        {{ video?.statistics?.commentCount || 0 | numberComposition }}
+      </li>
+    </ul>
+  </div>
+</div>
