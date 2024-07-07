@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
+import CustomLinkComponent from '../../../../shared/components/custom-link/custom-link.component';
 import VideoFilteringComponent from '../video-filtering/video-filtering.component';
 import VideoSearchingComponent from '../video-searching/video-searching.component';
 import VideoSortingComponent from '../video-sorting/video-sorting.component';
@@ -16,6 +17,7 @@ import VideoSortingComponent from '../video-sorting/video-sorting.component';
     VideoFilteringComponent,
     VideoSortingComponent,
     CustomButtonComponent,
+    CustomLinkComponent,
     NgClass,
   ],
   templateUrl: './header.component.html',

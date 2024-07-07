@@ -1,0 +1,42 @@
+@switch (matType) {
+  @case ('mat-flat-button') {
+    <a mat-flat-button routerLink="{{ root }}" [class]="[class, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[flat-content]"></ng-content>
+    </a>
+  }
+  @case ('mat-raised-button') {
+    <a mat-raised-button routerLink="{{ root }}" [class]="[class, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[raised-content]"></ng-content>
+    </a>
+  }
+  @case ('mat-mini-fab') {
+    <a mat-mini-fab routerLink="{{ root }}" [class]="[class, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[mini-fab-content]"></ng-content>
+    </a>
+  }
+  @case ('mat-fab') {
+    <a mat-fab routerLink="{{ root }}" [class]="[class, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[fab-content]"></ng-content>
+    </a>
+  }
+  @default {
+    <a routerLink="{{ root }}" [class]="[class, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-content select="[default-content]"></ng-content>
+    </a>
+  }
+}
