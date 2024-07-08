@@ -34,4 +34,8 @@ export default class LoginService {
   getUserLogin() {
     return this.localStorageService.get<User>(STORE_KEYS.USER_LOGIN)?.login;
   }
+
+  isUserLogin(): boolean {
+    return this.isLoginSubject.value;
+  }
 }
