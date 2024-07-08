@@ -1,8 +1,8 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import Video from '../../../../core/header/interfaces/video.interface';
 import VideoDetailedComponent from '../../../components/video-detailed/video-detailed.component';
+import Video from '../../../interfaces/video.interface';
 import VideoDataService from '../../../services/video-data.service';
 
 @Component({

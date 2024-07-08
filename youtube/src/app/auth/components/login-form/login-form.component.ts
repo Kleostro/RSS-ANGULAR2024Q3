@@ -29,6 +29,5 @@ export default class LoginFormComponent implements OnInit {
 
   submit() {
     this.loginService.login(this.loginForm.value);
-    this.loginForm.reset();
   }
 }

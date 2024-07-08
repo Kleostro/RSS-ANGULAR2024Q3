@@ -4,10 +4,10 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router } from '@angular/router';
 
-import Video from '../../../core/header/interfaces/video.interface';
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
 import NumberCompositionPipe from '../../../shared/pipes/number-composition.pipe';
 import BorderColorDirective from '../../directives/border-color.directive';
+import Video from '../../interfaces/video.interface';
 
 @Component({
   selector: 'app-video-card',

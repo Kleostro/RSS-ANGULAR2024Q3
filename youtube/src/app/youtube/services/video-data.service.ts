@@ -2,9 +2,9 @@ import { inject, Injectable } from '@angular/core';
 
 import { BehaviorSubject } from 'rxjs';
 
-import VideoSearchResponce from '../../core/header/interfaces/video-response.interface';
-import Video from '../../core/header/interfaces/video.interface';
 import LoadingService from '../../shared/services/loading.service';
+import VideoSearchResponce from '../interfaces/video-response.interface';
+import Video from '../interfaces/video.interface';
 
 const VIDEO_DATA_URL =
   'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/angular/response.json';

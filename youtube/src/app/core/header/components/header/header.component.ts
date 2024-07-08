@@ -5,10 +5,10 @@ import { RouterLink } from '@angular/router';
 import LoginService from '../../../../auth/services/login.service';
 import CustomButtonComponent from '../../../../shared/components/custom-button/custom-button.component';
 import CustomLinkComponent from '../../../../shared/components/custom-link/custom-link.component';
+import VideoFilteringComponent from '../../../../youtube/components/video-filtering/video-filtering.component';
+import VideoSearchingComponent from '../../../../youtube/components/video-searching/video-searching.component';
+import VideoSortingComponent from '../../../../youtube/components/video-sorting/video-sorting.component';
 import LocalStorageService from '../../../services/local-storage.service';
-import VideoFilteringComponent from '../video-filtering/video-filtering.component';
-import VideoSearchingComponent from '../video-searching/video-searching.component';
-import VideoSortingComponent from '../video-sorting/video-sorting.component';
 
 @Component({
   selector: 'app-header',
