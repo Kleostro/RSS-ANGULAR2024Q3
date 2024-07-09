@@ -3,8 +3,10 @@
   flex-direction: column;
   gap: var(--extra-small-offset);
   align-items: center;
+  justify-content: center;
 
-  margin: 15rem auto;
+  height: 100%;
+  margin: 0 auto;
 }
 
 .title {

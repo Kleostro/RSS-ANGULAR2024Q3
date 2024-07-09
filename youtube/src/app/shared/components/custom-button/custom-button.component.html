@@ -4,7 +4,7 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[flat-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
   @case ('mat-raised-button') {
@@ -12,7 +12,7 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[raised-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
   @case ('mat-mini-fab') {
@@ -20,7 +20,7 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[mini-fab-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
   @case ('mat-fab') {
@@ -28,7 +28,7 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[fab-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
   @default {
@@ -36,7 +36,11 @@
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[default-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
 }
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>

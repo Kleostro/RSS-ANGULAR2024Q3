@@ -42,13 +42,6 @@
   letter-spacing: var(--one);
 }
 
-.more {
-  width: max-content;
-  margin: 0 auto;
-  margin-top: 6rem;
-  padding: 0.5rem calc(var(--small-offset) * 1.2);
-}
-
 .login {
   padding: 0.5rem calc(var(--small-offset) * 1.2);
   box-shadow: 0.125rem 0 0.25rem 0 var(--blue-1000);

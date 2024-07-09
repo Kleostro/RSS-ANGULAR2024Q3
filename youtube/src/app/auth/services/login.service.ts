@@ -28,7 +28,7 @@ export default class LoginService {
   logout() {
     this.localStorageService.clear();
     this.isLoginSubject.next(false);
-    this.router.navigate(['login']);
+    this.router.navigate(['/login']);
   }
 
   getUserLogin() {

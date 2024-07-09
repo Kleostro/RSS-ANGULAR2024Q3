@@ -2,16 +2,16 @@
 <app-custom-button
   class="sorting"
   [matType]="'mat-raised-button'"
-  [isDisabled]="!getVideoData().length"
+  [isDisabled]="!videoData.length"
   (click)="sortBy('publishedAt')"
 >
-  <span raised-content>date</span>
+  <span>date</span>
 </app-custom-button>
 <app-custom-button
   class="sorting"
   [matType]="'mat-raised-button'"
-  [isDisabled]="!getVideoData().length"
+  [isDisabled]="!videoData.length"
   (click)="sortBy('viewCount')"
 >
-  <span raised-content>views</span>
+  <span>views</span>
 </app-custom-button>

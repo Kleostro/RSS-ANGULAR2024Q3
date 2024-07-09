@@ -14,37 +14,26 @@ import VideoDataService from '../../services/video-data.service';
   styleUrl: './video-filtering.component.scss',
 })
 export default class VideoFilteringComponent implements OnInit {
-  private videoData!: Video[];
+  formBuilder = inject(FormBuilder);
 
-  private filteringForm!: FormGroup;
+  dataService = inject(VideoDataService);
 
-  private formBuilder = inject(FormBuilder);
+  filteringPipe = inject(FilteringPipe);
 
-  private dataService = inject(VideoDataService);
+  videoData: Video[] = [];
 
-  private filteringPipe = inject(FilteringPipe);
+  filteringForm: FormGroup = this.formBuilder.group({
+    filter: [null, Validators.required],
+  });
 
   ngOnInit(): void {
-    this.filteringForm = this.formBuilder.group({
-      filter: [null, Validators.required],
-    });
-
     this.dataService.originalVideoData$.subscribe((data) => {
-      this.setVideoData(data);
-      this.filteringForm.get('filter')?.setValue(null);
+      this.videoData = data;
     });
   }
 
   filterVideo() {
     const filteredData = this.filteringPipe.transform(this.filteringForm.value.filter, this.videoData);
     this.dataService.setUpdatedVideoData(filteredData);
-  }
-
-  setVideoData(videoData: Video[]) {
-    this.videoData = videoData;
-  }
-
-  getFilteringForm() {
-    return this.filteringForm;
   }
 }

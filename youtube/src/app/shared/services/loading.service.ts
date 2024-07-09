@@ -8,7 +8,7 @@ import { BehaviorSubject } from 'rxjs';
 export default class LoadingService {
   private isLoadingSubject = new BehaviorSubject<boolean>(false);
 
-  isLoading$ = this.isLoadingSubject.asObservable();
+  isLoading = this.isLoadingSubject.asObservable();
 
   toggleLoading(isLoading: boolean) {
     this.isLoadingSubject.next(isLoading);

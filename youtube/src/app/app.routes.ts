@@ -4,31 +4,35 @@ import loginGuard from './auth/guards/login.guard';
 
 const routes: Routes = [
   {
-    path: 'main',
-    loadComponent: () => import('./youtube/pages/components/main/main.component').then((c) => c.default),
-    title: 'youtube',
-    canActivate: [loginGuard],
-  },
-  {
     path: '',
-    loadComponent: () => import('./youtube/pages/components/main/main.component').then((c) => c.default),
-    title: 'youtube',
+    loadComponent: () => import('./core/layout/layout.component').then((c) => c.default),
+    children: [
+      {
+        path: '',
+        redirectTo: 'main',
+        pathMatch: 'full',
+        title: 'youtube',
+      },
+      {
+        path: 'main',
+        loadComponent: () => import('./youtube/pages/components/main/main.component').then((c) => c.default),
+        title: 'youtube',
+        canActivate: [loginGuard],
+      },
+      {
+        path: 'detailed/:id',
+        loadComponent: () => import('./youtube/pages/components/detailed/detailed.component').then((c) => c.default),
+        title: 'youtube | detailed',
+        canActivate: [loginGuard],
+      },
+    ],
     canActivate: [loginGuard],
   },
-
   {
     path: 'login',
     loadComponent: () => import('./auth/pages/components/login/login.component').then((c) => c.default),
     title: 'youtube | login',
   },
-
-  {
-    path: 'detailed/:id',
-    loadComponent: () => import('./youtube/pages/components/detailed/detailed.component').then((c) => c.default),
-    title: 'youtube | detailed',
-    canActivate: [loginGuard],
-  },
-
   {
     path: '**',
     loadComponent: () => import('./core/pages/components/not-found/not-found.component').then((c) => c.default),

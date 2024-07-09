@@ -49,3 +49,10 @@
     font-size: 1rem;
   }
 }
+
+.more {
+  width: max-content;
+  margin: 0 auto;
+  margin-top: 6rem;
+  padding: 0.5rem calc(var(--small-offset) * 1.2);
+}

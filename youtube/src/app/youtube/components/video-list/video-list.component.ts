@@ -1,4 +1,4 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import LoadingService from '../../../shared/services/loading.service';
@@ -13,21 +13,19 @@ import VideoCardComponent from '../video-card/video-card.component';
   templateUrl: './video-list.component.html',
   styleUrl: './video-list.component.scss',
 })
-export default class VideoListComponent implements OnInit {
-  videoData!: Video[];
+export default class VideoListComponent {
+  videoData: Video[] = [];
 
-  isLoading = false;
+  isLoading = signal(false);
 
-  private dataService = inject(VideoDataService);
+  dataService = inject(VideoDataService);
 
-  private loadingService = inject(LoadingService);
+  loadingService = inject(LoadingService);
 
-  ngOnInit(): void {
+  constructor() {
     this.dataService.updatedVideoData$.subscribe((data: Video[]) => {
       this.videoData = data;
     });
-    this.loadingService.isLoading$.subscribe((isLoading: boolean) => {
-      this.isLoading = isLoading;
-    });
+    this.loadingService.isLoading.subscribe((isLoading: boolean) => this.isLoading.set(isLoading));
   }
 }

@@ -3,55 +3,65 @@
     @if (publishedAt) {
       <a
         mat-flat-button
-        routerLink="{{ root }}"
+        [routerLink]="root"
         [class]="[class, 'link']"
-        appBackgroundColor
+        appChangeColorByDate
         [publishedAt]="publishedAt"
+        [propertyNames]="propertyNames"
       >
         @if (icon) {
           <mat-icon>{{ icon }}</mat-icon>
         }
-        <ng-content select="[flat-content]"></ng-content>
+
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
       </a>
     } @else {
-      <a mat-flat-button routerLink="{{ root }}" [class]="[class, 'link']">
+      <a mat-flat-button [routerLink]="root" [class]="[class, 'link']">
         @if (icon) {
           <mat-icon>{{ icon }}</mat-icon>
         }
-        <ng-content select="[flat-content]"></ng-content>
+
+        <ng-container [ngTemplateOutlet]="content"></ng-container>
       </a>
     }
   }
+
   @case ('mat-raised-button') {
-    <a mat-raised-button routerLink="{{ root }}" [class]="[class, 'link']">
+    <a mat-raised-button [routerLink]="root" [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[raised-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </a>
   }
   @case ('mat-mini-fab') {
-    <a mat-mini-fab routerLink="{{ root }}" [class]="[class, 'link']">
+    <a mat-mini-fab [routerLink]="root" [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[mini-fab-content]"></ng-content>
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </a>
   }
   @case ('mat-fab') {
-    <a mat-fab routerLink="{{ root }}" extended [class]="[class, 'link']">
+    <a mat-fab [routerLink]="root" extended [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[fab-content]"></ng-content>
+
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </a>
   }
   @default {
-    <a routerLink="{{ root }}" [class]="[class, 'link']">
+    <a [routerLink]="root" [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
       }
-      <ng-content select="[default-content]"></ng-content>
+
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
     </a>
   }
 }
+
+<ng-template #content>
+  <ng-content></ng-content>
+</ng-template>

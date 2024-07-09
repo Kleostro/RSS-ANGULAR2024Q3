@@ -1,52 +1,32 @@
-import { NgClass } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
-import Video from '../../interfaces/video.interface';
 import FilteringPipe from '../../pipes/filtering.pipe';
 import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-video-searching',
   standalone: true,
-  imports: [FormsModule, CustomButtonComponent, NgClass, ReactiveFormsModule],
+  imports: [FormsModule, CustomButtonComponent, ReactiveFormsModule],
   providers: [FilteringPipe],
   templateUrl: './video-searching.component.html',
   styleUrl: './video-searching.component.scss',
 })
-export default class VideoSearchingComponent implements OnInit {
-  private searchingForm!: FormGroup;
+export default class VideoSearchingComponent {
+  dataService = inject(VideoDataService);
 
-  private filteringPipe = inject(FilteringPipe);
+  filteringPipe = inject(FilteringPipe);
 
-  private dataService = inject(VideoDataService);
+  formBuilder = inject(FormBuilder);
 
-  private formBuilder = inject(FormBuilder);
+  searchingForm = this.formBuilder.group({
+    search: [null, Validators.required],
+  });
 
-  ngOnInit() {
-    this.searchingForm = this.formBuilder.group({
-      search: [null, Validators.required],
-    });
-  }
-
-  public async submit(): Promise<Video[]> {
-    if (!this.searchingForm.value.search) {
-      return [];
+  submit(): void {
+    if (this.searchingForm.value.search) {
+      this.dataService.fetchVideoData(this.searchingForm.value.search, this.filteringPipe);
     }
-
-    try {
-      const data = await this.dataService.fetchVideoData();
-      const videoData = this.filteringPipe.transform(this.searchingForm.value.search, data);
-      this.dataService.setOriginalVideoData(videoData);
-      this.dataService.setUpdatedVideoData(videoData);
-      return videoData;
-    } catch {
-      throw new Error('Uploading video failed!');
-    }
-  }
-
-  getSearchingForm() {
-    return this.searchingForm;
   }
 }

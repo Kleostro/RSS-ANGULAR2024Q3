@@ -6,12 +6,20 @@
       [root]="'/main'"
       [icon]="'arrow_back'"
       [publishedAt]="video.snippet.publishedAt"
+      appChangeColorByDate
+      publishedAt="{{ video.snippet.publishedAt }}"
+      [propertyNames]="['backgroundColor']"
     >
     </app-custom-link>
     <div class="left">
       <img [src]="video.snippet.thumbnails.high.url" [alt]="video.snippet.title" class="img" />
     </div>
-    <div class="right" appBorderColor [publishedAt]="video.snippet.publishedAt || ''">
+    <div
+      class="right"
+      appChangeColorByDate
+      publishedAt="{{ video.snippet.publishedAt }}"
+      [propertyNames]="['borderColor']"
+    >
       <div class="top">
         <h1 class="title">{{ video.snippet.title }}</h1>
         <span class="date">{{ video.snippet.publishedAt | date: 'EEEE, MMMM d, y' }}</span>

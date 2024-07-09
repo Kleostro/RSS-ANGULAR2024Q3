@@ -11,9 +11,9 @@
       class="settings"
       [matType]="'mat-mini-fab'"
       [icon]="'tune'"
-      (click)="isSettingsVisible = !isSettingsVisible"
+      (click)="isSettingsVisible.set(!isSettingsVisible())"
     ></app-custom-button>
-    @if (isLogin) {
+    @if (isLogin()) {
       <span class="userLogin">{{ loginService.getUserLogin() | titlecase }}</span>
       <app-custom-button
         class="account"
@@ -30,7 +30,7 @@
       ></app-custom-link>
     }
   </div>
-  <div class="bottom" [ngClass]="{ hidden: isSettingsVisible }">
+  <div class="bottom" [class.hidden]="isSettingsVisible()">
     <app-video-sorting></app-video-sorting>
     <app-video-filtering></app-video-filtering>
   </div>

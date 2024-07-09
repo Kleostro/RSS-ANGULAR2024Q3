@@ -6,15 +6,15 @@ export const STORE_KEYS = {
   LS_NAME: 'kleostro',
   USER_LOGIN: 'userLogin',
   USER_TOKEN: 'userToken',
-};
+} as const;
 
 @Injectable({
   providedIn: 'root',
 })
 export default class LocalStorageService {
-  public storage: Data = this.init();
+  storage: Data = this.init();
 
-  public get<T>(key: string): T | undefined {
+  get<T>(key: string): T | undefined {
     if (key in this.storage) {
       const result: T = JSON.parse(this.storage[key]);
       return result;
@@ -22,27 +22,27 @@ export default class LocalStorageService {
     return undefined;
   }
 
-  public add(key: string, value: string): void {
+  add(key: string, value: string): void {
     this.storage[key] = value;
     this.save(this.storage);
   }
 
-  public remove(key: string): void {
+  remove(key: string): void {
     delete this.storage[key];
     this.save(this.storage);
   }
 
-  public clear(): void {
+  clear(): void {
     localStorage.clear();
     this.init();
   }
 
-  private save(data: Data): void {
+  save(data: Data): void {
     localStorage.setItem(STORE_KEYS.LS_NAME, JSON.stringify(data));
     this.storage = this.init();
   }
 
-  private init(): Data {
+  init(): Data {
     const storedData = localStorage.getItem(STORE_KEYS.LS_NAME);
 
     const safeJsonParse = <T>(str: string): T => {
@@ -50,7 +50,7 @@ export default class LocalStorageService {
         const jsonValue: T = JSON.parse(str);
         return jsonValue;
       } catch {
-        throw new Error('I need help >_<');
+        throw new Error('Parsing error');
       }
     };
 

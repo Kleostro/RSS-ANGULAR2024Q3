@@ -1,14 +1,20 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
 @Directive({
-  selector: '[appBorderColor]',
+  selector: '[appChangeColorByDate]',
   standalone: true,
 })
-export default class BorderColorDirective {
+export default class ChangeColorByDateDirective {
   @Input() publishedAt = '';
 
-  @HostBinding('style.borderColor') get borderColor() {
-    return this.publishedAt ? this.getColorByDate(this.publishedAt) : '';
+  @Input() propertyNames: string[] = [];
+
+  @HostBinding('style') get hostStyle() {
+    const styles: { [key: string]: string } = {};
+    this.propertyNames.forEach((propertyName) => {
+      styles[propertyName] = this.getColorByDate(this.publishedAt);
+    });
+    return styles;
   }
 
   getColorByDate(date: string): string {

@@ -1,5 +1,5 @@
 import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import LoginService from '../../../../auth/services/login.service';
@@ -26,18 +26,16 @@ import LocalStorageService from '../../../services/local-storage.service';
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export default class HeaderComponent implements OnInit {
-  public localStorageService = inject(LocalStorageService);
+export default class HeaderComponent {
+  localStorageService = inject(LocalStorageService);
 
-  public loginService = inject(LoginService);
+  loginService = inject(LoginService);
 
-  public isLogin = true;
+  isLogin = signal(true);
 
-  public isSettingsVisible = true;
+  isSettingsVisible = signal(true);
 
-  ngOnInit(): void {
-    this.loginService.isLogin$.subscribe((val) => {
-      this.isLogin = val;
-    });
+  constructor() {
+    this.loginService.isLogin$.subscribe((val) => this.isLogin.set(val));
   }
 }
