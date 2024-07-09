@@ -3,8 +3,8 @@ import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angula
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
-import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
-import LoginService from '../../services/login.service';
+import CustomButtonComponent from '../../../../../shared/components/custom-button/custom-button.component';
+import LoginService from '../../../../services/login.service';
 
 @Component({
   selector: 'app-login-form',

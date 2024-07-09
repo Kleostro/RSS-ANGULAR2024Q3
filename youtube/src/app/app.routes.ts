@@ -15,13 +15,13 @@ const routes: Routes = [
       },
       {
         path: 'main',
-        loadComponent: () => import('./youtube/pages/components/main/main.component').then((c) => c.default),
+        loadComponent: () => import('./youtube/pages/main/main.component').then((c) => c.default),
         title: 'youtube',
         canActivate: [loginGuard],
       },
       {
         path: 'detailed/:id',
-        loadComponent: () => import('./youtube/pages/components/detailed/detailed.component').then((c) => c.default),
+        loadComponent: () => import('./youtube/pages/detailed/detailed.component').then((c) => c.default),
         title: 'youtube | detailed',
         canActivate: [loginGuard],
       },
@@ -30,12 +30,12 @@ const routes: Routes = [
   },
   {
     path: 'login',
-    loadComponent: () => import('./auth/pages/components/login/login.component').then((c) => c.default),
+    loadComponent: () => import('./auth/pages/login/login.component').then((c) => c.default),
     title: 'youtube | login',
   },
   {
     path: '**',
-    loadComponent: () => import('./core/pages/components/not-found/not-found.component').then((c) => c.default),
+    loadComponent: () => import('./core/pages/not-found/not-found.component').then((c) => c.default),
     title: '404',
   },
 ];

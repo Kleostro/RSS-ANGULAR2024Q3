@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import Data from '../types/storage.interface';
+import Data from '../interfaces/storage.interface';
 
 export const STORE_KEYS = {
   LS_NAME: 'kleostro',

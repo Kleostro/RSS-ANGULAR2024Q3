@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 
-import CustomLinkComponent from '../../../../shared/components/custom-link/custom-link.component';
+import CustomLinkComponent from '../../../shared/components/custom-link/custom-link.component';
 
 @Component({
   selector: 'app-not-found',

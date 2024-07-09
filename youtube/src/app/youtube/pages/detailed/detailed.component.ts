@@ -1,9 +1,9 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
-import VideoDetailedComponent from '../../../components/video-detailed/video-detailed.component';
-import Video from '../../../interfaces/video.interface';
-import VideoDataService from '../../../services/video-data.service';
+import VideoDetailedComponent from '../../components/video-detailed/video-detailed.component';
+import Video from '../../interfaces/video.interface';
+import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-detailed',
