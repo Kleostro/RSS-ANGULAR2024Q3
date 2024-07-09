@@ -36,20 +36,9 @@
 .statistics {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--two);
-  align-items: center;
-  justify-content: space-between;
-}
-
-.statistics-item {
-  display: flex;
   gap: var(--five);
   align-items: center;
-  font: var(--small-font);
-
-  @media (width <=600px) {
-    font: var(--extra-regular-font);
-  }
+  justify-content: center;
 }
 
 .mat-icon {
