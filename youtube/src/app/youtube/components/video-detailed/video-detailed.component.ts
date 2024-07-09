@@ -1,16 +1,15 @@
 import { DatePipe } from '@angular/common';
 import { Component, Input } from '@angular/core';
-import { MatIcon } from '@angular/material/icon';
 
 import CustomLinkComponent from '../../../shared/components/custom-link/custom-link.component';
-import NumberCompositionPipe from '../../../shared/pipes/number-composition.pipe';
 import ChangeColorByDateDirective from '../../directives/changeColorByDate.directive';
 import Video from '../../interfaces/video.interface';
+import VideoStatisticsComponent from '../video-statistics/video-statistics.component';
 
 @Component({
   selector: 'app-video-detailed',
   standalone: true,
-  imports: [DatePipe, NumberCompositionPipe, MatIcon, CustomLinkComponent, ChangeColorByDateDirective],
+  imports: [DatePipe, CustomLinkComponent, ChangeColorByDateDirective, VideoStatisticsComponent],
   templateUrl: './video-detailed.component.html',
   styleUrl: './video-detailed.component.scss',
 })

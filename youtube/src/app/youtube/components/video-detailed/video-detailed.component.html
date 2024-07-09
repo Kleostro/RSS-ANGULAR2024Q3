@@ -27,22 +27,10 @@
       <span class="descriptiption-accent">Description:</span>
       <p class="description">{{ video.snippet.description }}</p>
       <ul class="statistics">
-        <li class="statistics-item">
-          <mat-icon fontIcon="visibility"></mat-icon>
-          {{ video.statistics.viewCount || 0 | numberComposition }}
-        </li>
-        <li class="statistics-item">
-          <mat-icon fontIcon="thumb_up"></mat-icon>
-          {{ video.statistics.likeCount || 0 | numberComposition }}
-        </li>
-        <li class="statistics-item">
-          <mat-icon fontIcon="thumb_down"></mat-icon>
-          {{ video.statistics.dislikeCount || 0 | numberComposition }}
-        </li>
-        <li class="statistics-item">
-          <mat-icon fontIcon="comment"></mat-icon>
-          {{ video.statistics.commentCount || 0 | numberComposition }}
-        </li>
+        <app-video-statistics [icon]="'visibility'" [count]="video.statistics.viewCount"></app-video-statistics>
+        <app-video-statistics [icon]="'thumb_up'" [count]="video.statistics.likeCount"></app-video-statistics>
+        <app-video-statistics [icon]="'thumb_down'" [count]="video.statistics.dislikeCount"></app-video-statistics>
+        <app-video-statistics [icon]="'comment'" [count]="video.statistics.commentCount"></app-video-statistics>
       </ul>
     </div>
   </div>
