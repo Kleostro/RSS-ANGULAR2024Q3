@@ -11,8 +11,7 @@ export default class FilteringPipe implements PipeTransform {
     return args.filter((video) => {
       const descriptionMatch = video.snippet.description.toLowerCase().includes(value.toLowerCase());
       const titleMatch = video.snippet.title.toLowerCase().includes(value.toLowerCase());
-      const tagsMatch = video.snippet.tags.some((tag) => tag.toLowerCase().includes(value.toLowerCase()));
-      return descriptionMatch || tagsMatch || titleMatch;
+      return descriptionMatch || titleMatch;
     });
   }
 }

@@ -24,7 +24,7 @@ export default class VideoDataService {
       .get<VideoSearchResponce>('search', {
         params: {
           type: 'video',
-          maxResults: '3',
+          maxResults: '100',
           q: value,
         },
       })

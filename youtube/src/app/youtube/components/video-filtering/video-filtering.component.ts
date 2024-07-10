@@ -1,5 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+
+import { debounceTime, filter, tap } from 'rxjs';
 
 import Video from '../../interfaces/video.interface';
 import FilteringPipe from '../../pipes/filtering.pipe';
@@ -20,22 +22,30 @@ export default class VideoFilteringComponent implements OnInit {
 
   filteringPipe = inject(FilteringPipe);
 
-  filteringForm: FormGroup = this.formBuilder.group({
+  filteringForm = this.formBuilder.group({
     filter: ['', Validators.required],
   });
 
   videoData$: Video[] = [];
 
   filterVideo() {
-    const value = this.filteringForm.value.filter;
-    if (value) {
-      this.dataService.setFilteredData(this.filteringPipe.transform(value, this.videoData$));
-    }
+    this.filteringForm.controls.filter.valueChanges
+      .pipe(
+        debounceTime(500),
+        filter((search: string | null) => (search ? search.length > 1 : search === '')),
+        tap((value) => {
+          if (value) {
+            this.dataService.setFilteredData(this.filteringPipe.transform(value, this.videoData$));
+          }
+        }),
+      )
+      .subscribe();
   }
 
   ngOnInit(): void {
     this.dataService.videoData.subscribe((data) => {
       this.videoData$ = data.items;
     });
+    this.filterVideo();
   }
 }
