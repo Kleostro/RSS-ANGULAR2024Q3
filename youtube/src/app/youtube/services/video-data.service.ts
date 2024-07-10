@@ -3,7 +3,6 @@ import { inject, Injectable } from '@angular/core';
 
 import { BehaviorSubject, Observable, Subject, switchMap } from 'rxjs';
 
-import ENVIRONMENTS from '../../../environment/environment';
 import LoadingService from '../../shared/services/loading.service';
 import VideoSearchResponce from '../interfaces/video-response.interface';
 import Video from '../interfaces/video.interface';
@@ -22,9 +21,8 @@ export default class VideoDataService {
 
   getData(value = ''): Observable<VideoSearchResponce> {
     this.httpClient
-      .get<VideoSearchResponce>(`${ENVIRONMENTS.API_BASE_URL}search`, {
+      .get<VideoSearchResponce>('search', {
         params: {
-          key: ENVIRONMENTS.API_KEY,
           type: 'video',
           maxResults: '3',
           q: value,
@@ -40,9 +38,8 @@ export default class VideoDataService {
   }
 
   getVideoById(id: string): Observable<VideoSearchResponce> {
-    return this.httpClient.get<VideoSearchResponce>(`${ENVIRONMENTS.API_BASE_URL}videos`, {
+    return this.httpClient.get<VideoSearchResponce>('videos', {
       params: {
-        key: ENVIRONMENTS.API_KEY,
         id,
         part: 'snippet,statistics',
       },
