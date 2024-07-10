@@ -13,6 +13,6 @@ class YoutubeInterceptor implements HttpInterceptor {
   }
 }
 
-const youtubeInterceptor = { provide: HTTP_INTERCEPTORS, useClass: YoutubeInterceptor, multi: true };
+const youtubeInterceptorConfig = { provide: HTTP_INTERCEPTORS, useClass: YoutubeInterceptor, multi: true };
 
-export default youtubeInterceptor;
+export default youtubeInterceptorConfig;

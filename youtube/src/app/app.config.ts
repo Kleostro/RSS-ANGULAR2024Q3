@@ -4,7 +4,7 @@ import { provideAnimationsAsync } from '@angular/platform-browser/animations/asy
 import { provideRouter } from '@angular/router';
 
 import routes from './app.routes';
-import youtubeInterceptor from './core/interceptors/youtube.interceptor';
+import youtubeInterceptorConfig from './youtube/interceptors/youtube.interceptor';
 
 const appConfig: ApplicationConfig = {
   providers: [
@@ -12,7 +12,7 @@ const appConfig: ApplicationConfig = {
     provideRouter(routes),
     provideAnimationsAsync(),
     provideHttpClient(withInterceptorsFromDi()),
-    youtubeInterceptor,
+    youtubeInterceptorConfig,
   ],
 };
 export default appConfig;
