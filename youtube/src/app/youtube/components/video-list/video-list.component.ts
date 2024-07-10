@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 
 import CustomLoaderComponent from '../../../shared/components/custom-loader/custom-loader.component';
 import LoadingService from '../../../shared/services/loading.service';
@@ -14,7 +14,7 @@ import VideoCardComponent from '../video-card/video-card.component';
   templateUrl: './video-list.component.html',
   styleUrl: './video-list.component.scss',
 })
-export default class VideoListComponent implements OnInit, OnDestroy {
+export default class VideoListComponent implements OnInit {
   dataService = inject(VideoDataService);
 
   loadingService = inject(LoadingService);
@@ -25,9 +25,5 @@ export default class VideoListComponent implements OnInit, OnDestroy {
     this.dataService.filteredData.subscribe((data) => {
       this.videoData$ = data;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.dataService.filteredData.unsubscribe();
   }
 }

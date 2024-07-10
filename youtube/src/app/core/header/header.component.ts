@@ -1,5 +1,5 @@
-import { NgClass, TitleCasePipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { TitleCasePipe } from '@angular/common';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 import LoginService from '../../auth/services/login.service';
@@ -20,22 +20,21 @@ import LocalStorageService from '../services/local-storage.service';
     VideoSortingComponent,
     CustomButtonComponent,
     CustomLinkComponent,
-    NgClass,
     TitleCasePipe,
   ],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
-export default class HeaderComponent {
+export default class HeaderComponent implements OnInit {
   localStorageService = inject(LocalStorageService);
 
   loginService = inject(LoginService);
 
-  isLogin = signal(true);
+  isLogin$ = signal(true);
 
   isSettingsVisible = signal(true);
 
-  constructor() {
-    this.loginService.isLogin$.subscribe((val) => this.isLogin.set(val));
+  ngOnInit(): void {
+    this.loginService.isLogin.subscribe((val) => this.isLogin$.set(val));
   }
 }

@@ -1,4 +1,4 @@
-import { Component, inject, OnDestroy, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import Video from '../../interfaces/video.interface';
@@ -13,7 +13,7 @@ import VideoDataService from '../../services/video-data.service';
   templateUrl: './video-filtering.component.html',
   styleUrl: './video-filtering.component.scss',
 })
-export default class VideoFilteringComponent implements OnInit, OnDestroy {
+export default class VideoFilteringComponent implements OnInit {
   formBuilder = inject(FormBuilder);
 
   dataService = inject(VideoDataService);
@@ -37,9 +37,5 @@ export default class VideoFilteringComponent implements OnInit, OnDestroy {
     this.dataService.videoData.subscribe((data) => {
       this.videoData$ = data.items;
     });
-  }
-
-  ngOnDestroy(): void {
-    this.dataService.videoData.unsubscribe();
   }
 }

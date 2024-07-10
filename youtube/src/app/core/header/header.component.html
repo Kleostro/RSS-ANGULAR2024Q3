@@ -13,7 +13,7 @@
       [icon]="'tune'"
       (click)="isSettingsVisible.set(!isSettingsVisible())"
     ></app-custom-button>
-    @if (isLogin()) {
+    @if (isLogin$()) {
       <span class="userLogin">{{ loginService.getUserLogin() | titlecase }}</span>
       <app-custom-button
         class="account"

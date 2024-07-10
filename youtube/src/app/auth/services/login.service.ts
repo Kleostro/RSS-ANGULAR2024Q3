@@ -10,24 +10,22 @@ import User from '../interfaces/user.interface';
   providedIn: 'root',
 })
 export default class LoginService {
-  private localStorageService = inject(LocalStorageService);
+  localStorageService = inject(LocalStorageService);
 
-  private router: Router = inject(Router);
+  router: Router = inject(Router);
 
-  private isLoginSubject = new BehaviorSubject<boolean>(!!this.localStorageService.get(STORE_KEYS.USER_TOKEN));
-
-  isLogin$ = this.isLoginSubject.asObservable();
+  isLogin = new BehaviorSubject<boolean>(!!this.localStorageService.get(STORE_KEYS.USER_TOKEN));
 
   login(props: User) {
     this.localStorageService.add(STORE_KEYS.USER_LOGIN, JSON.stringify(props));
     this.localStorageService.add(STORE_KEYS.USER_TOKEN, JSON.stringify(crypto.randomUUID()));
-    this.isLoginSubject.next(true);
+    this.isLogin.next(true);
     this.router.navigate(['/main']);
   }
 
   logout() {
     this.localStorageService.clear();
-    this.isLoginSubject.next(false);
+    this.isLogin.next(false);
     this.router.navigate(['/login']);
   }
 
@@ -36,6 +34,6 @@ export default class LoginService {
   }
 
   isUserLogin(): boolean {
-    return this.isLoginSubject.value;
+    return this.isLogin.value;
   }
 }
