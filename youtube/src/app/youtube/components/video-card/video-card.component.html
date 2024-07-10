@@ -1,4 +1,4 @@
-<li class="card" appChangeColorByDate publishedAt="{{ video.snippet.publishedAt }}" [propertyNames]="['borderColor']">
+<li class="card" appChangeColorByDate [publishedAt]="video.snippet.publishedAt" [propertyNames]="['borderColor']">
   <div class="img-wrapper">
     @if (isImageLoading()) {
       <mat-progress-spinner mode="indeterminate">

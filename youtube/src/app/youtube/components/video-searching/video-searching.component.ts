@@ -21,12 +21,13 @@ export default class VideoSearchingComponent {
   formBuilder = inject(FormBuilder);
 
   searchingForm = this.formBuilder.group({
-    search: [null, Validators.required],
+    search: ['', Validators.required],
   });
 
   submit(): void {
-    if (this.searchingForm.value.search) {
-      this.dataService.fetchVideoData(this.searchingForm.value.search, this.filteringPipe);
+    const searchResult = this.searchingForm.value.search;
+    if (searchResult) {
+      this.dataService.fetchVideoData(searchResult, this.filteringPipe);
     }
   }
 }

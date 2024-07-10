@@ -12,31 +12,23 @@ import Video from '../interfaces/video.interface';
 export default class VideoDataService {
   loadingService = inject(LoadingService);
 
-  updatedVideoDataSubject = new BehaviorSubject<Video[]>([]);
+  updatedVideoData = new BehaviorSubject<Video[]>([]);
 
-  originalVideoDataSubject = new BehaviorSubject<Video[]>([]);
-
-  updatedVideoData$ = this.updatedVideoDataSubject.asObservable();
-
-  originalVideoData$ = this.originalVideoDataSubject.asObservable();
+  originalVideoData = new BehaviorSubject<Video[]>([]);
 
   apiUrl = 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/angular/response.json';
 
   setUpdatedVideoData(data: Video[]) {
-    this.updatedVideoDataSubject.next(data);
+    this.updatedVideoData.next(data);
   }
 
   setOriginalVideoData(data: Video[]) {
-    this.originalVideoDataSubject.next(data);
+    this.originalVideoData.next(data);
   }
 
   async getVideoDataById(id: string): Promise<Video | null> {
-    if (!this.updatedVideoDataSubject.value.length) {
-      const data = await this.fetchVideoData();
-      this.setOriginalVideoData(data);
-      this.setUpdatedVideoData(data);
-    }
-    return this.updatedVideoDataSubject.value.find((video: Video) => video.id === id) || null;
+    const data = this.updatedVideoData.value.length ? this.updatedVideoData.value : await this.fetchVideoData();
+    return data.find((video: Video) => video.id === id) || null;
   }
 
   async fetchVideoData(value: string = '', pipe: PipeTransform | null = null): Promise<Video[]> {
@@ -44,7 +36,7 @@ export default class VideoDataService {
     try {
       const response = await fetch(this.apiUrl);
       const data: VideoSearchResponce = await response.json();
-      const videoData = pipe?.transform(value, data.items);
+      const videoData = pipe ? pipe.transform(value, data.items) : data.items;
       this.setOriginalVideoData(videoData);
       this.setUpdatedVideoData(videoData);
       return data.items;

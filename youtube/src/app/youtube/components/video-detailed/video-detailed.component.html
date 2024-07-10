@@ -12,7 +12,19 @@
     >
     </app-custom-link>
     <div class="left">
-      <img [src]="video.snippet.thumbnails.high.url" [alt]="video.snippet.title" class="img" />
+      @if (isImageLoading()) {
+        <mat-progress-spinner mode="indeterminate">
+          <mat-spinner></mat-spinner>
+        </mat-progress-spinner>
+      }
+
+      <img
+        class="img"
+        [src]="video.snippet.thumbnails.high.url"
+        [class.hidden]="isImageLoading()"
+        [alt]="video.snippet.title"
+        (load)="isImageLoading.set(false)"
+      />
     </div>
     <div
       class="right"
@@ -34,4 +46,8 @@
       </ul>
     </div>
   </div>
+} @else {
+  <mat-progress-spinner mode="indeterminate">
+    <mat-spinner></mat-spinner>
+  </mat-progress-spinner>
 }
