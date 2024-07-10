@@ -1,4 +1,4 @@
-<form class="searching-form" [formGroup]="searchingForm" (ngSubmit)="submit()">
+<form class="searching-form" [formGroup]="searchingForm">
   <input
     class="searching"
     type="search"
@@ -7,7 +7,4 @@
     placeholder="What do you want to find out?"
     autocomplete="off"
   />
-  <app-custom-button class="search" [matType]="'mat-flat-button'" type="submit" [isDisabled]="!searchingForm.valid">
-    <span>search</span>
-  </app-custom-button>
 </form>
