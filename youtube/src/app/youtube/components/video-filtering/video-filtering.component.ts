@@ -1,6 +1,7 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
+import Video from '../../interfaces/video.interface';
 import FilteringPipe from '../../pipes/filtering.pipe';
 import VideoDataService from '../../services/video-data.service';
 
@@ -12,7 +13,7 @@ import VideoDataService from '../../services/video-data.service';
   templateUrl: './video-filtering.component.html',
   styleUrl: './video-filtering.component.scss',
 })
-export default class VideoFilteringComponent {
+export default class VideoFilteringComponent implements OnInit, OnDestroy {
   formBuilder = inject(FormBuilder);
 
   dataService = inject(VideoDataService);
@@ -23,9 +24,22 @@ export default class VideoFilteringComponent {
     filter: ['', Validators.required],
   });
 
+  videoData$: Video[] = [];
+
   filterVideo() {
-    this.dataService.setUpdatedVideoData(
-      this.filteringPipe.transform(this.filteringForm.value.filter, this.dataService.originalVideoData.value),
-    );
+    const value = this.filteringForm.value.filter;
+    if (value) {
+      this.dataService.setFilteredData(this.filteringPipe.transform(value, this.videoData$));
+    }
+  }
+
+  ngOnInit(): void {
+    this.dataService.videoData.subscribe((data) => {
+      this.videoData$ = data.items;
+    });
+  }
+
+  ngOnDestroy(): void {
+    this.dataService.videoData.unsubscribe();
   }
 }

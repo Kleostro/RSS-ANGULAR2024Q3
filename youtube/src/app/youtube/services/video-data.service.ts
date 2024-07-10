@@ -1,7 +1,9 @@
-import { inject, Injectable, PipeTransform } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
+import { inject, Injectable } from '@angular/core';
 
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Observable, Subject, switchMap } from 'rxjs';
 
+import ENVIRONMENTS from '../../../environment/environment';
 import LoadingService from '../../shared/services/loading.service';
 import VideoSearchResponce from '../interfaces/video-response.interface';
 import Video from '../interfaces/video.interface';
@@ -12,38 +14,42 @@ import Video from '../interfaces/video.interface';
 export default class VideoDataService {
   loadingService = inject(LoadingService);
 
-  updatedVideoData = new BehaviorSubject<Video[]>([]);
+  httpClient = inject(HttpClient);
 
-  originalVideoData = new BehaviorSubject<Video[]>([]);
+  videoData = new Subject<VideoSearchResponce>();
 
-  apiUrl = 'https://raw.githubusercontent.com/rolling-scopes-school/tasks/master/tasks/angular/response.json';
+  filteredData = new BehaviorSubject<Video[]>([]);
 
-  setUpdatedVideoData(data: Video[]) {
-    this.updatedVideoData.next(data);
+  getData(value = ''): Observable<VideoSearchResponce> {
+    this.httpClient
+      .get<VideoSearchResponce>(`${ENVIRONMENTS.API_BASE_URL}search`, {
+        params: {
+          key: ENVIRONMENTS.API_KEY,
+          type: 'video',
+          maxResults: '3',
+          q: value,
+        },
+      })
+      .pipe(switchMap((data) => this.getVideoById(data.items.map(({ id }) => id.videoId).join(','))))
+      .subscribe((data) => {
+        this.filteredData.next(data.items);
+        this.videoData.next(data);
+      });
+
+    return this.videoData.asObservable();
   }
 
-  setOriginalVideoData(data: Video[]) {
-    this.originalVideoData.next(data);
+  getVideoById(id: string): Observable<VideoSearchResponce> {
+    return this.httpClient.get<VideoSearchResponce>(`${ENVIRONMENTS.API_BASE_URL}videos`, {
+      params: {
+        key: ENVIRONMENTS.API_KEY,
+        id,
+        part: 'snippet,statistics',
+      },
+    });
   }
 
-  async getVideoDataById(id: string): Promise<Video | null> {
-    const data = this.updatedVideoData.value.length ? this.updatedVideoData.value : await this.fetchVideoData();
-    return data.find((video: Video) => video.id === id) || null;
-  }
-
-  async fetchVideoData(value: string = '', pipe: PipeTransform | null = null): Promise<Video[]> {
-    this.loadingService.toggleLoading(true);
-    try {
-      const response = await fetch(this.apiUrl);
-      const data: VideoSearchResponce = await response.json();
-      const videoData = pipe ? pipe.transform(value, data.items) : data.items;
-      this.setOriginalVideoData(videoData);
-      this.setUpdatedVideoData(videoData);
-      return data.items;
-    } catch {
-      throw new Error('Uploading video failed!');
-    } finally {
-      this.loadingService.toggleLoading(false);
-    }
+  setFilteredData(data: Video[]) {
+    this.filteredData.next(data);
   }
 }

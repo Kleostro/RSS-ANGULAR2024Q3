@@ -18,6 +18,6 @@ export default class VideoSortingComponent {
   dataService = inject(VideoDataService);
 
   sortBy(type: string) {
-    this.sortingPipe.transform(type, this.dataService.updatedVideoData.value);
+    this.sortingPipe.transform(type, this.dataService.filteredData.value);
   }
 }

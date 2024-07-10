@@ -23,9 +23,9 @@ export default class DetailedComponent implements OnInit {
 
   ngOnInit(): void {
     const { id } = this.activateRoute.snapshot.params;
-    this.videoDataService.getVideoDataById(id).then((data) => {
+    this.videoDataService.getVideoById(id).subscribe((data) => {
       if (data) {
-        this.videoData = data;
+        [this.videoData] = data.items;
       } else {
         this.router.navigate(['/404']);
       }
