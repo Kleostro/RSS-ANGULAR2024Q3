@@ -1,11 +1,8 @@
 <li class="card" appChangeColorByDate [publishedAt]="video.snippet.publishedAt" [propertyNames]="['borderColor']">
   <div class="img-wrapper">
     @if (isImageLoading()) {
-      <mat-progress-spinner mode="indeterminate">
-        <mat-spinner></mat-spinner>
-      </mat-progress-spinner>
+      <app-custom-loader></app-custom-loader>>
     }
-
     <img
       class="card-img"
       [src]="video.snippet.thumbnails.medium.url"

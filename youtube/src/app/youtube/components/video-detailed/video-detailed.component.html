@@ -13,9 +13,7 @@
     </app-custom-link>
     <div class="left">
       @if (isImageLoading()) {
-        <mat-progress-spinner mode="indeterminate">
-          <mat-spinner></mat-spinner>
-        </mat-progress-spinner>
+        <app-custom-loader></app-custom-loader>
       }
 
       <img
@@ -47,7 +45,5 @@
     </div>
   </div>
 } @else {
-  <mat-progress-spinner mode="indeterminate">
-    <mat-spinner></mat-spinner>
-  </mat-progress-spinner>
+  <app-custom-loader></app-custom-loader>
 }

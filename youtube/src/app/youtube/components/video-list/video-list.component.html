@@ -1,8 +1,6 @@
 <div class="video-list-wrapper">
   @if (loadingService.isLoading | async) {
-    <mat-progress-spinner mode="indeterminate">
-      <mat-spinner></mat-spinner>
-    </mat-progress-spinner>
+    <app-custom-loader></app-custom-loader>
   }
 
   <ul class="video-list" [class.hidden]="loadingService.isLoading | async">

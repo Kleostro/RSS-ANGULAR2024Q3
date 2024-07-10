@@ -1,8 +1,8 @@
 import { AsyncPipe, DatePipe } from '@angular/common';
 import { Component, Input, signal } from '@angular/core';
-import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 import CustomLinkComponent from '../../../shared/components/custom-link/custom-link.component';
+import CustomLoaderComponent from '../../../shared/components/custom-loader/custom-loader.component';
 import ChangeColorByDateDirective from '../../directives/changeColorByDate.directive';
 import Video from '../../interfaces/video.interface';
 import VideoStatisticsComponent from '../video-statistics/video-statistics.component';
@@ -16,7 +16,7 @@ import VideoStatisticsComponent from '../video-statistics/video-statistics.compo
     ChangeColorByDateDirective,
     VideoStatisticsComponent,
     AsyncPipe,
-    MatProgressSpinnerModule,
+    CustomLoaderComponent,
   ],
   templateUrl: './video-detailed.component.html',
   styleUrl: './video-detailed.component.scss',
