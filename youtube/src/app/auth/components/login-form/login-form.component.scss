@@ -8,9 +8,9 @@
 .form {
   display: flex;
   flex-direction: column;
-  gap: var(--extra-small-offset);
 
-  width: max-content;
+  width: 100%;
+  max-width: 30rem;
   padding: var(--small-offset);
 
   background-color: var(--white-400);
@@ -19,4 +19,10 @@
 
 .mat-mdc-form-field {
   width: 25rem;
+}
+
+.error {
+  margin-bottom: var(--tiny-offset);
+  font-size: 1rem;
+  color: red;
 }

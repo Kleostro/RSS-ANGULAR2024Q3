@@ -1,0 +1,55 @@
+<form class="form" [formGroup]="loginForm" (ngSubmit)="submit()">
+  <h1 class="title">Login</h1>
+  <mat-form-field appearance="outline">
+    <mat-label>Login</mat-label>
+    <input
+      class="input"
+      matInput
+      type="email"
+      formControlName="login"
+      placeholder="user@example.com"
+      autocomplete="off"
+      name="login"
+    />
+  </mat-form-field>
+  @if (getFormFields().login.invalid && getFormFields().login.dirty) {
+    @if (getFormFields().login.hasError('required')) {
+      <span class="error">Please enter a login email</span>
+    }
+    @if (getFormFields().login.hasError('email')) {
+      <span class="error">The login email is invalid</span>
+    }
+  }
+  <mat-form-field appearance="outline">
+    <mat-label>Password</mat-label>
+    <input
+      class="input"
+      type="password"
+      matInput
+      formControlName="password"
+      placeholder="********"
+      autocomplete="off"
+    />
+  </mat-form-field>
+  @if (getFormFields().password.invalid && getFormFields().password.dirty) {
+    @if (getFormFields().password.hasError('required')) {
+      <span class="error">Please enter a password</span>
+    }
+    @if (getFormFields().password.hasError('hasUpperCase')) {
+      <span class="error">Your password must contain at least one uppercase letter</span>
+    }
+    @if (getFormFields().password.hasError('hasLowerCase')) {
+      <span class="error">Your password must contain at least one lowercase letter</span>
+    }
+
+    @if (getFormFields().password.hasError('hasNumeric')) {
+      <span class="error">Your password must contain at least one digit</span>
+    }
+    @if (getFormFields().password.hasError('hasSpecialCharacter')) {
+      <span class="error">Your password must contain at least one special character</span>
+    }
+  }
+  <app-custom-button class="login" [matType]="'mat-flat-button'" type="submit" [isDisabled]="!loginForm.valid">
+    <span>Login</span>
+  </app-custom-button>
+</form>

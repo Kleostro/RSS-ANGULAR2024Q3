@@ -25,13 +25,13 @@ const routes: Routes = [
         title: 'youtube | detailed',
         canActivate: [loginGuard],
       },
-      {
-        path: 'login',
-        loadComponent: () => import('./auth/pages/login/login.component').then((c) => c.default),
-        title: 'youtube | login',
-      },
     ],
     canActivate: [loginGuard],
+  },
+  {
+    path: 'login',
+    loadComponent: () => import('./auth/pages/login/login.component').then((c) => c.default),
+    title: 'youtube | login',
   },
   {
     path: '**',
