@@ -1,5 +1,5 @@
 import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -11,6 +11,11 @@ import {
   isPasswordHasUpperCase,
 } from '../../../shared/validators/password';
 import LoginService from '../../services/login.service';
+
+interface LoginFormControls {
+  login: FormControl<string | null>;
+  password: FormControl<string | null>;
+}
 
 @Component({
   selector: 'app-login-form',
@@ -24,26 +29,26 @@ export default class LoginFormComponent implements OnInit {
 
   loginService = inject(LoginService);
 
-  loginForm!: FormGroup;
+  loginForm!: FormGroup<LoginFormControls>;
 
   ngOnInit(): void {
-    this.loginForm = this.formBuilder.group({
-      login: ['', [Validators.required, Validators.email]],
-      password: [
-        '',
-        [
-          Validators.required,
-          isPasswordHasLowerCase(),
-          isPasswordHasNumeric(),
-          isPasswordHasSpecialCharacter(),
-          isPasswordHasUpperCase(),
-        ],
-      ],
+    this.loginForm = this.formBuilder.group<LoginFormControls>({
+      login: new FormControl('', [Validators.required, Validators.email]),
+      password: new FormControl('', [
+        Validators.required,
+        isPasswordHasLowerCase(),
+        isPasswordHasNumeric(),
+        isPasswordHasSpecialCharacter(),
+        isPasswordHasUpperCase(),
+      ]),
     });
   }
 
   submit() {
-    this.loginService.login(this.loginForm.value);
+    const { login, password } = this.getFormFields();
+    if (login.value && password.value) {
+      this.loginService.login({ login: login.value, password: password.value });
+    }
   }
 
   getFormFields() {
