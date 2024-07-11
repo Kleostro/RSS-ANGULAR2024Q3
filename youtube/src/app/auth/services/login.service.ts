@@ -34,6 +34,6 @@ export default class LoginService {
   }
 
   isUserLogin(): boolean {
-    return this.isLogin.value;
+    return !!this.isLogin.value;
   }
 }
