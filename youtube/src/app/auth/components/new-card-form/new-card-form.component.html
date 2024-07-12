@@ -1,0 +1,163 @@
+<mat-stepper orientation="vertical" linear="Enable linear mode" #stepper>
+  <mat-step [stepControl]="form.controls['title']">
+    <form [formGroup]="form">
+      <ng-template matStepLabel>Add title</ng-template>
+      <mat-form-field class="form-field">
+        <mat-label>Title</mat-label>
+        <input matInput placeholder="Title" formControlName="title" />
+      </mat-form-field>
+      <div class="errors-wrapper">
+        @switch (true) {
+          @case (form.controls['title'].hasError('required')) {
+            <span class="error">Please enter a title</span>
+          }
+          @case (form.controls['title'].hasError('minlength')) {
+            <span class="error">The title is too short</span>
+          }
+          @case (form.controls['title'].hasError('maxlength')) {
+            <span class="error">The title is too long</span>
+          }
+        }
+      </div>
+      <div>
+        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls['description']">
+    <form [formGroup]="form">
+      <ng-template matStepLabel>Add description</ng-template>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Description</mat-label>
+        <textarea class="textarea" matInput placeholder="Description" formControlName="description" rows="5"></textarea>
+      </mat-form-field>
+      <div class="errors-wrapper">
+        @if (form.controls['description'].hasError('maxlength')) {
+          <span class="error">The description is too long</span>
+        }
+      </div>
+      <div class="buttons-wrapper">
+        <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
+        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls['cover']">
+    <form [formGroup]="form">
+      <ng-template matStepLabel>Add video cover</ng-template>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Video cover</mat-label>
+        <input matInput placeholder="Cover url" formControlName="cover" />
+      </mat-form-field>
+      <div class="errors-wrapper">
+        @if (form.controls['cover'].hasError('required')) {
+          <span class="error">Please enter a link to the cover</span>
+        }
+      </div>
+      <div class="buttons-wrapper">
+        <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
+        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls['video']">
+    <form [formGroup]="form">
+      <ng-template matStepLabel>Add video</ng-template>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Video</mat-label>
+        <input matInput placeholder="Video link" formControlName="video" />
+      </mat-form-field>
+      <div class="errors-wrapper">
+        @if (form.controls['video'].hasError('required')) {
+          <span class="error">Please enter a link to the video</span>
+        }
+      </div>
+      <div class="buttons-wrapper">
+        <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
+        <button mat-flat-button matStepperNext>Next<mat-icon>chevron_right</mat-icon></button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls['publisedAt']">
+    <form [formGroup]="form">
+      <ng-template matStepLabel>Add date</ng-template>
+      <mat-form-field class="form-field" appearance="outline">
+        <mat-label>Choose a date</mat-label>
+        <input matInput formControlName="publisedAt" [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" />
+        <mat-hint>MM/DD/YYYY</mat-hint>
+        <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <div class="errors-wrapper">
+        @if (form.controls['publisedAt'].errors) {
+          @switch (true) {
+            @case (form.controls['publisedAt'].hasError('required')) {
+              <span class="error">Please enter a creation date</span>
+            }
+            @case (form.controls['publisedAt'].hasError('isValidDate')) {
+              <span class="error">Please enter a valid date</span>
+            }
+            @case (form.controls['publisedAt'].hasError('invalidDateByFilter')) {
+              <span class="error">You can't pick a date from the future</span>
+            }
+          }
+        }
+      </div>
+      <div class="buttons-wrapper">
+        <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
+        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+      </div>
+    </form>
+  </mat-step>
+  <mat-step [stepControl]="form.controls['tags']">
+    <form [formGroup]="form">
+      <ng-container formArrayName="tags">
+        <ng-template matStepLabel>Add tags</ng-template>
+        <div>
+          @for (tagForm of getTagsFormArray().controls; track tagForm; let i = $index) {
+            <div [formGroup]="tagForm">
+              <div class="tag-wrapper">
+                <mat-form-field class="form-field" appearance="outline">
+                  <mat-label>Video tags</mat-label>
+                  <input matInput placeholder="tag" formControlName="tag" />
+                </mat-form-field>
+                <button class="remove-tag-btn" mat-mini-fab (click)="removeTag(i)"><mat-icon>delete</mat-icon></button>
+              </div>
+              <div class="errors-wrapper">
+                @if (tagForm.controls['tag'].hasError('required')) {
+                  <span class="error">Please enter tag</span>
+                }
+              </div>
+            </div>
+          }
+        </div>
+        <div class="buttons-wrapper">
+          <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
+          <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+          <button
+            class="add-tag-btn"
+            mat-flat-button
+            [disabled]="getTagsFormArray().controls.length > 4"
+            (click)="addTag()"
+          >
+            <mat-icon>add_circle</mat-icon>
+            <span>Add tag</span>
+          </button>
+        </div>
+      </ng-container>
+    </form>
+  </mat-step>
+  <mat-step>
+    <ng-template matStepLabel>Done!</ng-template>
+    <p>Confirm video creation</p>
+    <div class="buttons-wrapper">
+      <button mat-flat-button matStepperPrevious>Back<mat-icon>chevron_left</mat-icon></button>
+      <button class="submit-btn" mat-flat-button (click)="submit()">
+        <mat-icon>check_circle</mat-icon> Create Card
+      </button>
+      <button class="reset-btn" mat-button (click)="stepper.reset()" (click)="reset()">
+        <mat-icon>clear</mat-icon>Reset form
+      </button>
+    </div>
+  </mat-step>
+</mat-stepper>

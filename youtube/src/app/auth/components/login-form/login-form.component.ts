@@ -1,5 +1,5 @@
-import { Component, inject, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Component, inject } from '@angular/core';
+import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -10,12 +10,8 @@ import {
   isPasswordHasSpecialCharacter,
   isPasswordHasUpperCase,
 } from '../../../shared/validators/password';
+import LoginFormControls from '../../interfaces/loginFormControls.interface';
 import LoginService from '../../services/login.service';
-
-interface LoginFormControls {
-  login: FormControl<string | null>;
-  password: FormControl<string | null>;
-}
 
 @Component({
   selector: 'app-login-form',
@@ -24,25 +20,21 @@ interface LoginFormControls {
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
-export default class LoginFormComponent implements OnInit {
+export default class LoginFormComponent {
   formBuilder = inject(FormBuilder);
 
   loginService = inject(LoginService);
 
-  loginForm!: FormGroup<LoginFormControls>;
-
-  ngOnInit(): void {
-    this.loginForm = this.formBuilder.group<LoginFormControls>({
-      login: new FormControl('', [Validators.required, Validators.email]),
-      password: new FormControl('', [
-        Validators.required,
-        isPasswordHasLowerCase(),
-        isPasswordHasNumeric(),
-        isPasswordHasSpecialCharacter(),
-        isPasswordHasUpperCase(),
-      ]),
-    });
-  }
+  loginForm = this.formBuilder.group<LoginFormControls>({
+    login: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', [
+      Validators.required,
+      isPasswordHasLowerCase(),
+      isPasswordHasNumeric(),
+      isPasswordHasSpecialCharacter(),
+      isPasswordHasUpperCase(),
+    ]),
+  });
 
   submit() {
     const { login, password } = this.getFormFields();

@@ -21,13 +21,9 @@
         [icon]="'exit_to_app'"
         (click)="loginService.logout()"
       ></app-custom-button>
+      <app-custom-link [root]="'/admin'" [matType]="'mat-mini-fab'" [icon]="'account_circle'"></app-custom-link>
     } @else {
-      <app-custom-link
-        [root]="'/login'"
-        class="account"
-        [matType]="'mat-mini-fab'"
-        [icon]="'account_circle'"
-      ></app-custom-link>
+      <app-custom-link [root]="'/login'" class="account" [matType]="'mat-mini-fab'" [icon]="'input'"></app-custom-link>
     }
   </div>
   <div class="bottom" [class.hidden]="isSettingsVisible()">

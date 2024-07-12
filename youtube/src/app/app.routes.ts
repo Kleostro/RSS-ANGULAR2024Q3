@@ -17,13 +17,16 @@ const routes: Routes = [
         path: 'main',
         loadComponent: () => import('./youtube/pages/main/main.component').then((c) => c.default),
         title: 'youtube',
-        canActivate: [loginGuard],
+      },
+      {
+        path: 'admin',
+        loadComponent: () => import('./auth/pages/admin/admin.component').then((c) => c.default),
+        title: 'youtube | admin',
       },
       {
         path: 'detailed/:id',
         loadComponent: () => import('./youtube/pages/detailed/detailed.component').then((c) => c.default),
         title: 'youtube | detailed',
-        canActivate: [loginGuard],
       },
     ],
     canActivate: [loginGuard],

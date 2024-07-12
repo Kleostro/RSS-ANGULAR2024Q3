@@ -1,0 +1,65 @@
+:host {
+  display: flex;
+  justify-content: center;
+}
+
+.errors-wrapper {
+  margin-bottom: 1rem;
+}
+
+.error {
+  font-size: 1rem;
+  color: red;
+}
+
+.textarea {
+  resize: none;
+}
+
+.reset-btn {
+  background-color: red;
+
+  &.mat-mdc-button:not(:disabled) {
+    color: var(--white-100);
+  }
+}
+
+.submit-btn.mat-mdc-unelevated-button:not(:disabled) {
+  color: var(--white-100);
+  background-color: green;
+}
+
+.remove-tag-btn {
+  background-color: red;
+
+  .mat-icon {
+    color: var(--white-100);
+  }
+}
+
+.add-tag-btn.mat-mdc-unelevated-button:not(:disabled) {
+  background-color: green;
+
+  .mat-icon {
+    color: var(--white-100);
+  }
+}
+
+.mat-mdc-form-field {
+  width: 100%;
+}
+
+.form-field {
+  padding-top: 1rem;
+}
+
+.buttons-wrapper {
+  display: flex;
+  gap: var(--extra-small-offset);
+}
+
+.tag-wrapper {
+  display: flex;
+  gap: var(--tiny-offset);
+  align-items: center;
+}
