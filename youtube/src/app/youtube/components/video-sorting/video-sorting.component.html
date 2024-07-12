@@ -1,7 +1,7 @@
 <span class="text">Sorting by:</span>
 <app-custom-button
   class="sorting"
-  [matType]="'mat-raised-button'"
+  [matType]="matAttribute.RAISED_BUTTON"
   [isDisabled]="!dataService.filteredData.value.length"
   (click)="sortBy('publishedAt')"
 >
@@ -9,7 +9,7 @@
 </app-custom-button>
 <app-custom-button
   class="sorting"
-  [matType]="'mat-raised-button'"
+  [matType]="matAttribute.RAISED_BUTTON"
   [isDisabled]="!dataService.filteredData.value.length"
   (click)="sortBy('viewCount')"
 >

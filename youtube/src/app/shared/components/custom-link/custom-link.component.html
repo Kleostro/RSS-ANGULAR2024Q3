@@ -1,5 +1,5 @@
 @switch (matType) {
-  @case ('mat-flat-button') {
+  @case (matAttrubute.FLAT_BUTTON) {
     @if (publishedAt) {
       <a
         mat-flat-button
@@ -26,7 +26,7 @@
     }
   }
 
-  @case ('mat-raised-button') {
+  @case (matAttrubute.RAISED_BUTTON) {
     <a mat-raised-button [routerLink]="root" [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
@@ -34,7 +34,7 @@
       <ng-container [ngTemplateOutlet]="content"></ng-container>
     </a>
   }
-  @case ('mat-mini-fab') {
+  @case (matAttrubute.MINI_FAB) {
     <a mat-mini-fab [routerLink]="root" [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
@@ -42,7 +42,7 @@
       <ng-container [ngTemplateOutlet]="content"></ng-container>
     </a>
   }
-  @case ('mat-fab') {
+  @case (matAttrubute.FAB) {
     <a mat-fab [routerLink]="root" extended [class]="[class, 'link']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>

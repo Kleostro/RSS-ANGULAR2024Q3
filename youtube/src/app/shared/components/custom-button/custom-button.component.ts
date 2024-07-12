@@ -3,7 +3,8 @@ import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
-import MatButtonType from './types/mat.type';
+import MAT_ATTRIBUTE from '../../constants/matAttribute';
+import MatButtonType from '../../types/mat.type';
 
 @Component({
   selector: 'app-custom-button',
@@ -20,4 +21,6 @@ export default class CustomButtonComponent {
   @Input() icon = '';
 
   @Input() matType: MatButtonType | null = null;
+
+  matAttrubute = MAT_ATTRIBUTE;
 }

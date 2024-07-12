@@ -15,9 +15,9 @@ export default class VideoDataService {
 
   httpClient = inject(HttpClient);
 
-  videoData = new Subject<VideoSearchResponce>();
+  private videoData$ = new Subject<VideoSearchResponce>();
 
-  filteredData = new BehaviorSubject<Video[]>([]);
+  private filteredData$ = new BehaviorSubject<Video[]>([]);
 
   getData(value = ''): Observable<VideoSearchResponce> {
     this.httpClient
@@ -30,11 +30,19 @@ export default class VideoDataService {
       })
       .pipe(switchMap((data) => this.getVideoById(data.items.map(({ id }) => id.videoId).join(','))))
       .subscribe((data) => {
-        this.filteredData.next(data.items);
-        this.videoData.next(data);
+        this.filteredData$.next(data.items);
+        this.videoData$.next(data);
       });
 
-    return this.videoData.asObservable();
+    return this.videoData$.asObservable();
+  }
+
+  get videoData(): Subject<VideoSearchResponce> {
+    return this.videoData$;
+  }
+
+  get filteredData(): BehaviorSubject<Video[]> {
+    return this.filteredData$;
   }
 
   getVideoById(id: string): Observable<VideoSearchResponce> {
@@ -47,6 +55,6 @@ export default class VideoDataService {
   }
 
   setFilteredData(data: Video[]) {
-    this.filteredData.next(data);
+    this.filteredData$.next(data);
   }
 }

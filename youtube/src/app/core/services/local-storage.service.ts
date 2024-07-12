@@ -1,12 +1,7 @@
 import { Injectable } from '@angular/core';
 
+import STORE_KEYS from '../constants/store';
 import Data from '../interfaces/storage.interface';
-
-export const STORE_KEYS = {
-  LS_NAME: 'kleostro',
-  USER_LOGIN: 'userLogin',
-  USER_TOKEN: 'userToken',
-} as const;
 
 @Injectable({
   providedIn: 'root',

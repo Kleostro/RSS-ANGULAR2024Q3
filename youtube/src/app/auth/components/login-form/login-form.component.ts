@@ -4,6 +4,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
+import MAT_ATTRIBUTE from '../../../shared/constants/matAttribute';
 import {
   isPasswordHasLowerCase,
   isPasswordHasNumeric,
@@ -24,6 +25,8 @@ export default class LoginFormComponent {
   formBuilder = inject(FormBuilder);
 
   loginService = inject(LoginService);
+
+  matAttribute = MAT_ATTRIBUTE;
 
   loginForm = this.formBuilder.group<LoginFormControls>({
     login: new FormControl('', [Validators.required, Validators.email]),

@@ -5,7 +5,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
 
 import ChangeColorByDateDirective from '../../../youtube/directives/changeColorByDate.directive';
-import MatButtonType from '../custom-button/types/mat.type';
+import MAT_ATTRIBUTE from '../../constants/matAttribute';
+import MatButtonType from '../../types/mat.type';
 
 @Component({
   selector: 'app-custom-link',
@@ -26,4 +27,6 @@ export default class CustomLinkComponent {
   @Input() publishedAt = '';
 
   @Input() propertyNames: string[] = [];
+
+  matAttrubute = MAT_ATTRIBUTE;
 }

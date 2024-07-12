@@ -1,6 +1,7 @@
 import { Component, inject } from '@angular/core';
 
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
+import MAT_ATTRIBUTE from '../../../shared/constants/matAttribute';
 import SortingPipe from '../../pipes/sorting.pipe';
 import VideoDataService from '../../services/video-data.service';
 
@@ -16,6 +17,8 @@ export default class VideoSortingComponent {
   sortingPipe = inject(SortingPipe);
 
   dataService = inject(VideoDataService);
+
+  matAttribute = MAT_ATTRIBUTE;
 
   sortBy(type: string) {
     this.sortingPipe.transform(type, this.dataService.filteredData.value);

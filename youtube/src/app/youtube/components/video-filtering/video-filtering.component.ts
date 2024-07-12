@@ -33,11 +33,7 @@ export default class VideoFilteringComponent implements OnInit {
       .pipe(
         debounceTime(500),
         filter((search: string | null) => (search ? search.length > 1 : search === '')),
-        tap((value) => {
-          if (value) {
-            this.dataService.setFilteredData(this.filteringPipe.transform(value, this.videoData$));
-          }
-        }),
+        tap((value) => this.dataService.setFilteredData(this.filteringPipe.transform(value ?? '', this.videoData$))),
       )
       .subscribe();
   }

@@ -1,32 +1,37 @@
 import { inject, Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { BehaviorSubject } from 'rxjs';
+import { of } from 'rxjs';
 
-import LocalStorageService, { STORE_KEYS } from '../../core/services/local-storage.service';
+import STORE_KEYS from '../../core/constants/store';
+import LocalStorageService from '../../core/services/local-storage.service';
 import User from '../interfaces/user.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export default class LoginService {
-  localStorageService = inject(LocalStorageService);
+  private localStorageService = inject(LocalStorageService);
 
-  router: Router = inject(Router);
+  private router: Router = inject(Router);
 
-  isLogin = new BehaviorSubject<boolean>(!!this.localStorageService.get(STORE_KEYS.USER_TOKEN));
+  private isLogin$ = of(!!this.localStorageService.get(STORE_KEYS.USER_TOKEN));
 
   login(props: User) {
     this.localStorageService.add(STORE_KEYS.USER_LOGIN, JSON.stringify(props));
     this.localStorageService.add(STORE_KEYS.USER_TOKEN, JSON.stringify(crypto.randomUUID()));
-    this.isLogin.next(true);
+    this.isLogin$ = of(true);
     this.router.navigate(['/main']);
   }
 
   logout() {
     this.localStorageService.clear();
-    this.isLogin.next(false);
+    this.isLogin$ = of(false);
     this.router.navigate(['/login']);
+  }
+
+  get isLogin() {
+    return this.isLogin$;
   }
 
   getUserLogin() {
@@ -34,6 +39,6 @@ export default class LoginService {
   }
 
   isUserLogin(): boolean {
-    return !!this.isLogin.value;
+    return !!this.localStorageService.get(STORE_KEYS.USER_TOKEN);
   }
 }

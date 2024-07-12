@@ -1,5 +1,7 @@
 import { Directive, HostBinding, Input } from '@angular/core';
 
+import HEX_COLORS from '../constants/colors';
+
 @Directive({
   selector: '[appChangeColorByDate]',
   standalone: true,
@@ -24,12 +26,12 @@ export default class ChangeColorByDateDirective {
     const diffInDays = Math.round((now.getTime() - publishedAt.getTime()) / (1000 * 60 * 60 * 24));
 
     const colorConditions = [
-      { color: 'blue', condition: diffInDays < 7 },
-      { color: 'green', condition: diffInDays >= 7 && diffInDays <= 30 },
-      { color: 'yellow', condition: diffInMonths >= 1 && diffInMonths <= 6 },
-      { color: 'red', condition: diffInMonths > 6 },
+      { color: HEX_COLORS.BLUE, condition: diffInDays < 7 },
+      { color: HEX_COLORS.GREEN, condition: diffInDays >= 7 && diffInDays <= 30 },
+      { color: HEX_COLORS.YELLOW, condition: diffInMonths >= 1 && diffInMonths <= 6 },
+      { color: HEX_COLORS.RED, condition: diffInMonths > 6 },
     ];
 
-    return colorConditions.find(({ condition }) => condition)?.color || 'blue';
+    return colorConditions.find(({ condition }) => condition)?.color || HEX_COLORS.BLUE;
   }
 }

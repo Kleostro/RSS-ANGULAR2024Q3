@@ -1,5 +1,5 @@
 @switch (matType) {
-  @case ('mat-flat-button') {
+  @case (matAttrubute.FLAT_BUTTON) {
     <button mat-flat-button [disabled]="isDisabled" [class]="[class, 'btn']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
@@ -7,7 +7,7 @@
       <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
-  @case ('mat-raised-button') {
+  @case (matAttrubute.RAISED_BUTTON) {
     <button mat-raised-button [disabled]="isDisabled" [class]="[class, 'btn']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
@@ -15,7 +15,7 @@
       <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
-  @case ('mat-mini-fab') {
+  @case (matAttrubute.MINI_FAB) {
     <button mat-mini-fab [disabled]="isDisabled" [class]="[class, 'btn']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>
@@ -23,7 +23,7 @@
       <ng-container [ngTemplateOutlet]="content"></ng-container>
     </button>
   }
-  @case ('mat-fab') {
+  @case (matAttrubute.FAB) {
     <button mat-fab [disabled]="isDisabled" [class]="[class, 'btn']">
       @if (icon) {
         <mat-icon>{{ icon }}</mat-icon>

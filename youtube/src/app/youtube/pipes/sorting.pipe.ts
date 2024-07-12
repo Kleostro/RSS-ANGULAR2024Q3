@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
+import SORTING_BY from '../constants/sorting';
 import Video from '../interfaces/video.interface';
 
 @Pipe({
@@ -11,14 +12,14 @@ export default class SortingPipe implements PipeTransform {
 
   private viewCountDirection = true;
 
-  transform(value: string, args: Video[]): Video[] {
-    switch (value) {
-      case 'publishedAt':
-        return this.sortByPublishedAt(args);
-      case 'viewCount':
-        return this.sortByViewCount(args);
+  transform(sortBy: string, videoList: Video[]): Video[] {
+    switch (sortBy) {
+      case SORTING_BY.PUBLISHED_AT:
+        return this.sortByPublishedAt(videoList);
+      case SORTING_BY.VIEW_COUNT:
+        return this.sortByViewCount(videoList);
       default:
-        return args;
+        return videoList;
     }
   }
 

@@ -7,22 +7,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 
-import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
 import isValidDate, { isValidDateByFilter } from '../../../shared/validators/date';
 import AdminFormControls from '../../interfaces/adminFormControls.interface';
 
 @Component({
   selector: 'app-new-card-form',
   standalone: true,
-  imports: [
-    MatInputModule,
-    ReactiveFormsModule,
-    MatButtonModule,
-    MatStepperModule,
-    CustomButtonComponent,
-    MatIconModule,
-    MatDatepickerModule,
-  ],
+  imports: [MatInputModule, ReactiveFormsModule, MatButtonModule, MatStepperModule, MatIconModule, MatDatepickerModule],
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-card-form.component.html',
   styleUrl: './new-card-form.component.scss',

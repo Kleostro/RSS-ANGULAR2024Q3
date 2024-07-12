@@ -17,7 +17,7 @@
     <app-video-statistics [icon]="'comment'" [count]="video.statistics.commentCount"></app-video-statistics>
   </ul>
   <h3 class="card-title">{{ video.snippet.title }}</h3>
-  <app-custom-link class="more" [matType]="'mat-flat-button'" root="/detailed/{{ this.video.id }}">
+  <app-custom-link class="more" [matType]="matAttribute.FLAT_BUTTON" root="/detailed/{{ this.video.id }}">
     <span>more...</span>
   </app-custom-link>
 </li>

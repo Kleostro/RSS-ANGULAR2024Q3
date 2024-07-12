@@ -2,28 +2,33 @@
   <div class="top">
     <app-custom-link
       class="logo"
-      [matType]="'mat-flat-button'"
+      [matType]="matAttribute.FLAT_BUTTON"
       [icon]="'play_arrow'"
       [root]="'/main'"
     ></app-custom-link>
     <app-video-searching></app-video-searching>
     <app-custom-button
       class="settings"
-      [matType]="'mat-mini-fab'"
+      [matType]="matAttribute.MINI_FAB"
       [icon]="'tune'"
       (click)="isSettingsVisible.set(!isSettingsVisible())"
     ></app-custom-button>
-    @if (isLogin$()) {
-      <span class="userLogin">{{ loginService.getUserLogin() | titlecase }}</span>
+    @if (loginService.isLogin | async) {
+      <span class="userLogin">{{ loginService.getUserLogin() }}</span>
       <app-custom-button
         class="account"
-        [matType]="'mat-mini-fab'"
-        [icon]="'exit_to_app'"
+        [matType]="matAttribute.MINI_FAB"
+        [icon]="'input'"
         (click)="loginService.logout()"
       ></app-custom-button>
-      <app-custom-link [root]="'/admin'" [matType]="'mat-mini-fab'" [icon]="'account_circle'"></app-custom-link>
+      <app-custom-link [root]="'/admin'" [matType]="matAttribute.MINI_FAB" [icon]="'account_circle'"></app-custom-link>
     } @else {
-      <app-custom-link [root]="'/login'" class="account" [matType]="'mat-mini-fab'" [icon]="'input'"></app-custom-link>
+      <app-custom-link
+        [root]="'/login'"
+        class="account"
+        [matType]="matAttribute.MINI_FAB"
+        [icon]="'person_add'"
+      ></app-custom-link>
     }
   </div>
   <div class="bottom" [class.hidden]="isSettingsVisible()">
