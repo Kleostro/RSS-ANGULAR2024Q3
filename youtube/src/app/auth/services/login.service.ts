@@ -18,8 +18,8 @@ export default class LoginService {
   private isLogin$ = of(!!this.localStorageService.get(STORE_KEYS.USER_TOKEN));
 
   login(props: User) {
-    this.localStorageService.add(STORE_KEYS.USER_LOGIN, JSON.stringify(props));
-    this.localStorageService.add(STORE_KEYS.USER_TOKEN, JSON.stringify(crypto.randomUUID()));
+    this.localStorageService.add(STORE_KEYS.USER_LOGIN, props);
+    this.localStorageService.add(STORE_KEYS.USER_TOKEN, crypto.randomUUID());
     this.isLogin$ = of(true);
     this.router.navigate(['/main']);
   }

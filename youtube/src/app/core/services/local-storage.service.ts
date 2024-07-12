@@ -17,8 +17,8 @@ export default class LocalStorageService {
     return undefined;
   }
 
-  add(key: string, value: string): void {
-    this.storage[key] = value;
+  add(key: string, value: unknown): void {
+    this.storage[key] = JSON.stringify(value);
     this.save(this.storage);
   }
 
