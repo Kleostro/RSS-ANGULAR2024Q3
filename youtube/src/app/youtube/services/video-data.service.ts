@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
-import { BehaviorSubject, Observable, Subject, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, switchMap } from 'rxjs';
 
 import LoadingService from '../../shared/services/loading.service';
 import VideoSearchResponce from '../interfaces/video-response.interface';
@@ -15,11 +15,11 @@ export default class VideoDataService {
 
   httpClient = inject(HttpClient);
 
-  private videoData$ = new Subject<VideoSearchResponce>();
+  private videoData$ = new BehaviorSubject<VideoSearchResponce | null>(null);
 
   private filteredData$ = new BehaviorSubject<Video[]>([]);
 
-  getData(value = ''): Observable<VideoSearchResponce> {
+  getData(value = ''): Observable<VideoSearchResponce | null> {
     this.httpClient
       .get<VideoSearchResponce>('search', {
         params: {
@@ -37,7 +37,7 @@ export default class VideoDataService {
     return this.videoData$.asObservable();
   }
 
-  get videoData(): Subject<VideoSearchResponce> {
+  get videoData(): BehaviorSubject<VideoSearchResponce | null> {
     return this.videoData$;
   }
 

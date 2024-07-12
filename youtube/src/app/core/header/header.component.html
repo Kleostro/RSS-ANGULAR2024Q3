@@ -1,38 +1,37 @@
-<div class="container">
-  <div class="top">
-    <app-custom-link
-      class="logo"
-      [matType]="matAttribute.FLAT_BUTTON"
-      [icon]="'play_arrow'"
-      [root]="'/main'"
-    ></app-custom-link>
-    <app-video-searching></app-video-searching>
+<div class="top">
+  <app-custom-link
+    class="logo"
+    [matType]="matAttribute.FLAT_BUTTON"
+    [icon]="'play_arrow'"
+    [root]="'/main'"
+  ></app-custom-link>
+  <app-video-searching></app-video-searching>
+  <app-custom-button
+    class="settings"
+    [matType]="matAttribute.MINI_FAB"
+    [icon]="'tune'"
+    (click)="isSettingsVisible.set(!isSettingsVisible())"
+  ></app-custom-button>
+  @if (loginService.isLogin | async) {
+    <span class="userLogin">{{ loginService.getUserLogin() }}</span>
     <app-custom-button
-      class="settings"
+      class="account"
       [matType]="matAttribute.MINI_FAB"
-      [icon]="'tune'"
-      (click)="isSettingsVisible.set(!isSettingsVisible())"
+      [icon]="'input'"
+      (click)="loginService.logout()"
     ></app-custom-button>
-    @if (loginService.isLogin | async) {
-      <span class="userLogin">{{ loginService.getUserLogin() }}</span>
-      <app-custom-button
-        class="account"
-        [matType]="matAttribute.MINI_FAB"
-        [icon]="'input'"
-        (click)="loginService.logout()"
-      ></app-custom-button>
-      <app-custom-link [root]="'/admin'" [matType]="matAttribute.MINI_FAB" [icon]="'account_circle'"></app-custom-link>
-    } @else {
-      <app-custom-link
-        [root]="'/login'"
-        class="account"
-        [matType]="matAttribute.MINI_FAB"
-        [icon]="'person_add'"
-      ></app-custom-link>
-    }
-  </div>
-  <div class="bottom" [class.hidden]="isSettingsVisible()">
-    <app-video-sorting></app-video-sorting>
-    <app-video-filtering></app-video-filtering>
-  </div>
+    <app-custom-link [root]="'/admin'" [matType]="matAttribute.MINI_FAB" [icon]="'account_circle'"></app-custom-link>
+  } @else {
+    <app-custom-link
+      [root]="'/login'"
+      class="account"
+      [matType]="matAttribute.MINI_FAB"
+      [icon]="'person_add'"
+    ></app-custom-link>
+  }
+</div>
+
+<div class="bottom" [@fadeInOut]="isSettingsVisible() ? 'in' : 'out'">
+  <app-video-sorting></app-video-sorting>
+  <app-video-filtering></app-video-filtering>
 </div>

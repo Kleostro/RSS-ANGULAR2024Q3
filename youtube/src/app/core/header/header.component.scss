@@ -9,20 +9,30 @@
 
   width: 100%;
   padding: var(--tiny-offset) var(--small-offset);
-
-  background-color: var(--white-300);
 }
 
 .top,
 .bottom {
+  position: relative;
+
   display: flex;
   gap: var(--tiny-offset);
   align-items: center;
   justify-content: center;
+
+  padding: var(--tiny-offset) var(--small-offset);
+
+  background-color: var(--white-300);
+}
+
+.top {
+  z-index: 2;
 }
 
 .bottom {
+  z-index: 1;
   gap: var(--extra-small-offset);
+  padding-top: 0;
 }
 
 .userLogin {

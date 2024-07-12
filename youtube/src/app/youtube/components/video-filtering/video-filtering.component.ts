@@ -3,7 +3,6 @@ import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angu
 
 import { debounceTime, filter, tap } from 'rxjs';
 
-import Video from '../../interfaces/video.interface';
 import FilteringPipe from '../../pipes/filtering.pipe';
 import VideoDataService from '../../services/video-data.service';
 
@@ -26,22 +25,17 @@ export default class VideoFilteringComponent implements OnInit {
     filter: ['', Validators.required],
   });
 
-  videoData$: Video[] = [];
-
-  filterVideo() {
+  ngOnInit(): void {
     this.filteringForm.controls.filter.valueChanges
       .pipe(
         debounceTime(500),
         filter((search: string | null) => (search ? search.length > 1 : search === '')),
-        tap((value) => this.dataService.setFilteredData(this.filteringPipe.transform(value ?? '', this.videoData$))),
+        tap((value) =>
+          this.dataService.setFilteredData(
+            this.filteringPipe.transform(value ?? '', this.dataService.videoData.value?.items ?? []),
+          ),
+        ),
       )
       .subscribe();
-  }
-
-  ngOnInit(): void {
-    this.dataService.videoData.subscribe((data) => {
-      this.videoData$ = data.items;
-    });
-    this.filterVideo();
   }
 }

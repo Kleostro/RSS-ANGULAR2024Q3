@@ -2,6 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 
 import LoginService from '../../auth/services/login.service';
+import fadeInOut from '../../shared/animations/fadeInOut';
 import CustomButtonComponent from '../../shared/components/custom-button/custom-button.component';
 import CustomLinkComponent from '../../shared/components/custom-link/custom-link.component';
 import MAT_ATTRIBUTE from '../../shared/constants/matAttribute';
@@ -21,6 +22,7 @@ import LocalStorageService from '../services/local-storage.service';
     CustomLinkComponent,
     AsyncPipe,
   ],
+  animations: [fadeInOut],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
 })
@@ -29,7 +31,7 @@ export default class HeaderComponent {
 
   loginService = inject(LoginService);
 
-  isSettingsVisible = signal(true);
+  isSettingsVisible = signal(false);
 
   matAttribute = MAT_ATTRIBUTE;
 }
