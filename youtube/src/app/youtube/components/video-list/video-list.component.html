@@ -4,10 +4,8 @@
   }
 
   <ul class="video-list" [class.hidden]="loadingService.isLoading | async">
-    @if (videoData$.length) {
-      @for (video of videoData$; track video.id) {
-        <app-video-card [video]="video"></app-video-card>
-      }
+    @for (video of dataService.filteredData | async; track video.id) {
+      <app-video-card [video]="video"></app-video-card>
     }
   </ul>
 </div>

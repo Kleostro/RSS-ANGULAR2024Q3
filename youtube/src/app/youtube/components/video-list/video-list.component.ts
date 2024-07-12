@@ -1,9 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import CustomLoaderComponent from '../../../shared/components/custom-loader/custom-loader.component';
 import LoadingService from '../../../shared/services/loading.service';
-import Video from '../../interfaces/video.interface';
 import VideoDataService from '../../services/video-data.service';
 import VideoCardComponent from '../video-card/video-card.component';
 
@@ -14,16 +13,8 @@ import VideoCardComponent from '../video-card/video-card.component';
   templateUrl: './video-list.component.html',
   styleUrl: './video-list.component.scss',
 })
-export default class VideoListComponent implements OnInit {
+export default class VideoListComponent {
   dataService = inject(VideoDataService);
 
   loadingService = inject(LoadingService);
-
-  videoData$: Video[] = [];
-
-  ngOnInit(): void {
-    this.dataService.filteredData.subscribe((data) => {
-      this.videoData$ = data;
-    });
-  }
 }
