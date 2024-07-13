@@ -30,7 +30,7 @@ export default class LoginService {
     this.router.navigate(['/login']);
   }
 
-  get isLogin() {
+  getIsLogin() {
     return this.isLogin$;
   }
 

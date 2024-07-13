@@ -12,7 +12,7 @@
     [icon]="'tune'"
     (click)="isSettingsVisible.set(!isSettingsVisible())"
   ></app-custom-button>
-  @if (loginService.isLogin | async) {
+  @if (loginService.getIsLogin() | async) {
     <span class="userLogin">{{ loginService.getUserLogin() }}</span>
     <app-custom-button
       class="account"

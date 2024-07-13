@@ -21,6 +21,6 @@ export default class VideoSortingComponent {
   matAttribute = MAT_ATTRIBUTE;
 
   sortBy(type: string) {
-    this.sortingPipe.transform(type, this.dataService.filteredData.value);
+    this.sortingPipe.transform(type, this.dataService.getFilteredData().value);
   }
 }

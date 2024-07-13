@@ -37,11 +37,11 @@ export default class VideoDataService {
     return this.videoData$.asObservable();
   }
 
-  get videoData(): BehaviorSubject<VideoSearchResponce | null> {
+  getVideoData(): BehaviorSubject<VideoSearchResponce | null> {
     return this.videoData$;
   }
 
-  get filteredData(): BehaviorSubject<Video[]> {
+  getFilteredData(): BehaviorSubject<Video[]> {
     return this.filteredData$;
   }
 

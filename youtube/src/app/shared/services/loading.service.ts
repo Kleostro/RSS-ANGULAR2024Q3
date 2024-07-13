@@ -12,7 +12,7 @@ export default class LoadingService {
     this.isLoading$.next(isLoading);
   }
 
-  get isLoading() {
+  getIsLoading() {
     return this.isLoading$;
   }
 }

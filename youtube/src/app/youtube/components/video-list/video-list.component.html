@@ -1,10 +1,10 @@
 <div class="video-list-wrapper">
-  @if (loadingService.isLoading | async) {
+  @if (loadingService.getIsLoading() | async) {
     <app-custom-loader></app-custom-loader>
   }
 
-  <ul class="video-list" [class.hidden]="loadingService.isLoading | async">
-    @for (video of dataService.filteredData | async; track video.id) {
+  <ul class="video-list" [class.hidden]="loadingService.getIsLoading() | async">
+    @for (video of dataService.getFilteredData() | async; track video.id) {
       <app-video-card [video]="video"></app-video-card>
     }
   </ul>
