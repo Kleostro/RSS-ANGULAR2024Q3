@@ -5,9 +5,8 @@
       [matType]="matAttribute.FLAT_BUTTON"
       [root]="'/main'"
       [icon]="'arrow_back'"
-      [publishedAt]="video.snippet.publishedAt"
       appChangeColorByDate
-      publishedAt="{{ video.snippet.publishedAt }}"
+      [publishedAt]="video.snippet.publishedAt"
       [propertyNames]="['backgroundColor']"
     >
     </app-custom-link>
@@ -24,12 +23,7 @@
         (load)="isImageLoading.set(false)"
       />
     </div>
-    <div
-      class="right"
-      appChangeColorByDate
-      publishedAt="{{ video.snippet.publishedAt }}"
-      [propertyNames]="['borderColor']"
-    >
+    <div class="right" appChangeColorByDate [publishedAt]="video.snippet.publishedAt" [propertyNames]="['borderColor']">
       <div class="top">
         <h1 class="title">{{ video.snippet.title }}</h1>
         <span class="date">{{ video.snippet.publishedAt | date: 'EEEE, MMMM d, y' }}</span>

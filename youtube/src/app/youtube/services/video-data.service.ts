@@ -19,13 +19,13 @@ export default class VideoDataService {
 
   private filteredData$ = new BehaviorSubject<Video[]>([]);
 
-  getData(value = ''): Observable<VideoSearchResponce | null> {
+  getData(searchValue = ''): Observable<VideoSearchResponce | null> {
     this.httpClient
       .get<VideoSearchResponce>('search', {
         params: {
           type: 'video',
           maxResults: '100',
-          q: value,
+          q: searchValue,
         },
       })
       .pipe(switchMap((data) => this.getVideoById(data.items.map(({ id }) => id.videoId).join(','))))
@@ -54,7 +54,8 @@ export default class VideoDataService {
     });
   }
 
-  setFilteredData(data: Video[]) {
+  setFilteredData(data: Video[]): Observable<Video[]> {
     this.filteredData$.next(data);
+    return this.filteredData$.asObservable();
   }
 }

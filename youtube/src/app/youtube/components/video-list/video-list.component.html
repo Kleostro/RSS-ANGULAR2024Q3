@@ -2,10 +2,14 @@
   @if (loadingService.getIsLoading() | async) {
     <app-custom-loader></app-custom-loader>
   }
-
-  <ul class="video-list" [class.hidden]="loadingService.getIsLoading() | async">
-    @for (video of dataService.getFilteredData() | async; track video.id) {
-      <app-video-card [video]="video"></app-video-card>
+  @if (dataService.getFilteredData() | async; as videoData) {
+    @if (videoData.length) {
+      <h1 class="video-list__title">We found {{ videoData.length }} videos</h1>
     }
-  </ul>
+    <ul class="video-list" [class.hidden]="loadingService.getIsLoading() | async">
+      @for (video of videoData; track video.id) {
+        <app-video-card [video]="video"></app-video-card>
+      }
+    </ul>
+  }
 </div>

@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { debounceTime, filter, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
 
 import VideoDataService from '../../services/video-data.service';
 
@@ -12,7 +12,7 @@ import VideoDataService from '../../services/video-data.service';
   templateUrl: './video-searching.component.html',
   styleUrl: './video-searching.component.scss',
 })
-export default class VideoSearchingComponent implements OnInit {
+export default class VideoSearchingComponent {
   dataService = inject(VideoDataService);
 
   formBuilder = inject(FormBuilder);
@@ -21,17 +21,13 @@ export default class VideoSearchingComponent implements OnInit {
     search: ['', Validators.required],
   });
 
-  ngOnInit(): void {
-    this.searchingForm.controls.search.valueChanges
-      .pipe(
-        debounceTime(500),
-        filter((search: string | null) => (search ? search.length > 3 : search === '')),
-        tap((value) => {
-          if (value) {
-            this.dataService.getData(value);
-          }
-        }),
-      )
-      .subscribe();
-  }
+  searching$ = this.searchingForm.controls.search.valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      map((rawValue) => (rawValue ? rawValue.trim() : '')),
+      filter((rawValue) => rawValue.length > 3),
+      switchMap((searchValue) => this.dataService.getData(searchValue)),
+    )
+    .subscribe();
 }

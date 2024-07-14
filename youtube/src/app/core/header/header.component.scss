@@ -5,7 +5,6 @@
   display: flex;
   gap: var(--tiny-offset);
   align-items: center;
-  justify-content: center;
 
   width: 100%;
   padding: var(--tiny-offset) var(--small-offset);
@@ -31,6 +30,6 @@
   letter-spacing: var(--one);
 }
 
-.logo {
+.account {
   margin-left: auto;
 }

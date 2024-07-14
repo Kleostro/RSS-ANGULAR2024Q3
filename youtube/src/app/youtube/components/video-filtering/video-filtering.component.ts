@@ -1,7 +1,7 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
-import { debounceTime, filter, tap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
 
 import FilteringPipe from '../../pipes/filtering.pipe';
 import VideoDataService from '../../services/video-data.service';
@@ -14,7 +14,7 @@ import VideoDataService from '../../services/video-data.service';
   templateUrl: './video-filtering.component.html',
   styleUrl: './video-filtering.component.scss',
 })
-export default class VideoFilteringComponent implements OnInit {
+export default class VideoFilteringComponent {
   formBuilder = inject(FormBuilder);
 
   dataService = inject(VideoDataService);
@@ -25,17 +25,15 @@ export default class VideoFilteringComponent implements OnInit {
     filter: ['', Validators.required],
   });
 
-  ngOnInit(): void {
-    this.filteringForm.controls.filter.valueChanges
-      .pipe(
-        debounceTime(500),
-        filter((search: string | null) => (search ? search.length > 1 : search === '')),
-        tap((value) =>
-          this.dataService.setFilteredData(
-            this.filteringPipe.transform(value ?? '', this.dataService.getVideoData().value?.items ?? []),
-          ),
-        ),
-      )
-      .subscribe();
-  }
+  filtering$ = this.filteringForm.controls.filter.valueChanges
+    .pipe(
+      debounceTime(500),
+      distinctUntilChanged(),
+      map((rawValue) => (rawValue ? rawValue.trim() : '')),
+      map((filteringValue) =>
+        this.filteringPipe.transform(filteringValue, this.dataService.getVideoData().value?.items ?? []),
+      ),
+      switchMap((filteredData) => this.dataService.setFilteredData(filteredData)),
+    )
+    .subscribe();
 }

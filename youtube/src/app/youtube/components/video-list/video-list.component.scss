@@ -1,5 +1,6 @@
 .video-list-wrapper {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
 
@@ -10,6 +11,7 @@
 .video-list {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: 1fr 1fr;
   gap: var(--small-offset);
   align-self: stretch;
 
@@ -29,4 +31,14 @@
 .hidden {
   position: fixed;
   scale: 0;
+}
+
+.video-list__title {
+  align-self: flex-start;
+
+  margin-bottom: var(--small-offset);
+
+  font: var(--extra-medium-font);
+  color: var(--gray-200);
+  letter-spacing: var(--one);
 }
