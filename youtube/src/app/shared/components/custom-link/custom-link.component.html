@@ -1,29 +1,11 @@
 @switch (matType) {
   @case (matAttrubute.FLAT_BUTTON) {
-    @if (publishedAt) {
-      <a
-        mat-flat-button
-        [routerLink]="root"
-        [class]="[class, 'link']"
-        appChangeColorByDate
-        [publishedAt]="publishedAt"
-        [propertyNames]="propertyNames"
-      >
-        @if (icon) {
-          <mat-icon>{{ icon }}</mat-icon>
-        }
-
-        <ng-container [ngTemplateOutlet]="content"></ng-container>
-      </a>
-    } @else {
-      <a mat-flat-button [routerLink]="root" [class]="[class, 'link']">
-        @if (icon) {
-          <mat-icon>{{ icon }}</mat-icon>
-        }
-
-        <ng-container [ngTemplateOutlet]="content"></ng-container>
-      </a>
-    }
+    <a mat-flat-button [routerLink]="root" [class]="[class, 'link']">
+      @if (icon) {
+        <mat-icon>{{ icon }}</mat-icon>
+      }
+      <ng-container [ngTemplateOutlet]="content"></ng-container>
+    </a>
   }
 
   @case (matAttrubute.RAISED_BUTTON) {

@@ -1,13 +1,13 @@
 :host {
-  display: contents;
+  display: flex;
+  width: max-content;
+  height: max-content;
 }
 
 .logo {
   width: 4.5rem;
   height: 3rem;
-  margin-left: auto;
   padding: 0;
-
   border-radius: calc(var(--small-br) * 1.5);
 }
 
@@ -48,11 +48,14 @@
     margin: 0;
     font-size: 1rem;
   }
+
+  &.mat-mdc-unelevated-button:not(:disabled) {
+    background-color: transparent;
+  }
 }
 
 .more {
   width: max-content;
-  margin: 0 auto;
   margin-top: 6rem;
   padding: 0.5rem calc(var(--small-offset) * 1.2);
 }

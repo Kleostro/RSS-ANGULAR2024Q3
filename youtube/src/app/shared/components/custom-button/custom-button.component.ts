@@ -1,4 +1,4 @@
-import { NgIf, NgTemplateOutlet } from '@angular/common';
+import { NgTemplateOutlet } from '@angular/common';
 import { Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
@@ -10,7 +10,7 @@ import MatButtonType from '../../types/mat.type';
   selector: 'app-custom-button',
   templateUrl: './custom-button.component.html',
   styleUrl: './custom-button.component.scss',
-  imports: [MatButtonModule, MatIconModule, NgTemplateOutlet, NgIf],
+  imports: [MatButtonModule, MatIconModule, NgTemplateOutlet],
   standalone: true,
 })
 export default class CustomButtonComponent {

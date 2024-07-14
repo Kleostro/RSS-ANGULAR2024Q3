@@ -24,9 +24,5 @@ export default class CustomLinkComponent {
 
   @Input() root = '';
 
-  @Input() publishedAt = '';
-
-  @Input() propertyNames: string[] = [];
-
   matAttrubute = MAT_ATTRIBUTE;
 }
