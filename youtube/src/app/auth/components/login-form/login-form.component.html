@@ -12,13 +12,11 @@
       name="login"
     />
   </mat-form-field>
-  @if (getFormFields().login.invalid && getFormFields().login.dirty) {
-    @if (getFormFields().login.hasError('required')) {
-      <span class="error">Please enter a login email</span>
-    }
-    @if (getFormFields().login.hasError('email')) {
-      <span class="error">The login email is invalid</span>
-    }
+  @if (loginForm.controls.login; as login) {
+    <ng-container *ngIf="login.invalid && login.dirty">
+      <span class="error" *ngIf="login.hasError('required')">Please enter a login email</span>
+      <span class="error" *ngIf="login.hasError('email')">The login email is invalid</span>
+    </ng-container>
   }
   <mat-form-field appearance="outline">
     <mat-label>Password</mat-label>
@@ -31,23 +29,20 @@
       autocomplete="off"
     />
   </mat-form-field>
-  @if (getFormFields().password.invalid && getFormFields().password.dirty) {
-    @if (getFormFields().password.hasError('required')) {
-      <span class="error">Please enter a password</span>
-    }
-    @if (getFormFields().password.hasError('hasUpperCase')) {
-      <span class="error">Your password must contain at least one uppercase letter</span>
-    }
-    @if (getFormFields().password.hasError('hasLowerCase')) {
-      <span class="error">Your password must contain at least one lowercase letter</span>
-    }
-
-    @if (getFormFields().password.hasError('hasNumeric')) {
-      <span class="error">Your password must contain at least one digit</span>
-    }
-    @if (getFormFields().password.hasError('hasSpecialCharacter')) {
-      <span class="error">Your password must contain at least one special character</span>
-    }
+  @if (loginForm.controls.password; as password) {
+    <ng-container *ngIf="password.invalid && password.dirty">
+      <span class="error" *ngIf="password.hasError('required')">Please enter a password</span>
+      <span class="error" *ngIf="password.hasError('hasUpperCase')"
+        >Your password must contain at least one uppercase letter</span
+      >
+      <span class="error" *ngIf="password.hasError('hasLowerCase')"
+        >Your password must contain at least one lowercase letter</span
+      >
+      <span class="error" *ngIf="password.hasError('hasNumeric')">Your password must contain at least one digit</span>
+      <span class="error" *ngIf="password.hasError('hasSpecialCharacter')"
+        >Your password must contain at least one special character</span
+      >
+    </ng-container>
   }
   <app-custom-button class="login" [matType]="matAttribute.FLAT_BUTTON" type="submit" [isDisabled]="!loginForm.valid">
     <span>Login</span>

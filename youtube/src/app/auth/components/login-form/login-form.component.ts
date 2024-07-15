@@ -1,5 +1,6 @@
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -17,7 +18,7 @@ import LoginService from '../../services/login.service';
 @Component({
   selector: 'app-login-form',
   standalone: true,
-  imports: [ReactiveFormsModule, FormsModule, CustomButtonComponent, MatFormFieldModule, MatInputModule],
+  imports: [ReactiveFormsModule, CustomButtonComponent, MatFormFieldModule, MatInputModule, NgIf],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.scss',
 })
@@ -40,14 +41,9 @@ export default class LoginFormComponent {
   });
 
   submit() {
-    const { login, password } = this.getFormFields();
+    const { login, password } = this.loginForm.controls;
     if (login.value && password.value) {
       this.loginService.login({ login: login.value, password: password.value });
     }
-  }
-
-  getFormFields() {
-    const { login, password } = this.loginForm.controls;
-    return { login, password };
   }
 }

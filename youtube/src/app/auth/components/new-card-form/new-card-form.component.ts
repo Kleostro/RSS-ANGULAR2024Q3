@@ -1,3 +1,4 @@
+import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
@@ -8,12 +9,21 @@ import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
 
 import isValidDate, { isValidDateByFilter } from '../../../shared/validators/date';
+import dateFilter from '../../../shared/validators/date-filter';
 import AdminFormControls from '../../interfaces/adminFormControls.interface';
 
 @Component({
   selector: 'app-new-card-form',
   standalone: true,
-  imports: [MatInputModule, ReactiveFormsModule, MatButtonModule, MatStepperModule, MatIconModule, MatDatepickerModule],
+  imports: [
+    MatInputModule,
+    ReactiveFormsModule,
+    MatButtonModule,
+    MatStepperModule,
+    MatIconModule,
+    MatDatepickerModule,
+    NgIf,
+  ],
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-card-form.component.html',
   styleUrl: './new-card-form.component.scss',
@@ -34,32 +44,20 @@ export default class NewCardFormComponent {
     ]),
   });
 
-  dateFilter = (date: Date | null): boolean => {
-    const currentDate = new Date();
-    currentDate.setHours(0, 0, 0, 0);
-    return !date || date <= currentDate;
-  };
-
-  getTagsFormArray() {
-    return this.form.get('tags') as FormArray<FormGroup>;
-  }
+  dateFilter = dateFilter;
 
   addTag() {
     const tagForm = this.fb.group({
       tag: ['', Validators.required],
     });
-    this.getTagsFormArray().push(tagForm);
-  }
-
-  removeTag(index: number) {
-    this.getTagsFormArray().removeAt(index);
+    this.form.controls.tags.push(tagForm);
   }
 
   submit() {}
 
   reset() {
     this.form.reset();
-    const tagsFormArray = this.getTagsFormArray();
+    const tagsFormArray = this.form.controls.tags;
     while (tagsFormArray.length > 1) {
       tagsFormArray.removeAt(tagsFormArray.length - 1);
     }
