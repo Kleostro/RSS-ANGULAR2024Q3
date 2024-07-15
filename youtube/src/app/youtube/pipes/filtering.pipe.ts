@@ -7,10 +7,10 @@ import Video from '../interfaces/video.interface';
   standalone: true,
 })
 export default class FilteringPipe implements PipeTransform {
-  transform(value: string, videoList: Video[]): Video[] {
+  transform(videoList: Video[], filterValue: string): Video[] {
     return videoList.filter((video) => {
-      const descriptionMatch = video.snippet.description.toLowerCase().includes(value.toLowerCase());
-      const titleMatch = video.snippet.title.toLowerCase().includes(value.toLowerCase());
+      const descriptionMatch = video.snippet.description.toLowerCase().includes(filterValue.toLowerCase());
+      const titleMatch = video.snippet.title.toLowerCase().includes(filterValue.toLowerCase());
       return descriptionMatch || titleMatch;
     });
   }

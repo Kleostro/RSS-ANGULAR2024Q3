@@ -12,7 +12,7 @@ export default class SortingPipe implements PipeTransform {
 
   private viewCountDirection = true;
 
-  transform(sortBy: string, videoList: Video[]): Video[] {
+  transform(videoList: Video[], sortBy: string): Video[] {
     switch (sortBy) {
       case SORTING_BY.PUBLISHED_AT:
         return this.sortByPublishedAt(videoList);

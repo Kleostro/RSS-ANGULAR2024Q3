@@ -31,7 +31,7 @@ export default class VideoFilteringComponent {
       distinctUntilChanged(),
       map((rawValue) => (rawValue ? rawValue.trim() : '')),
       map((filteringValue) =>
-        this.filteringPipe.transform(filteringValue, this.dataService.getVideoData().value?.items ?? []),
+        this.filteringPipe.transform(this.dataService.getVideoData().value?.items ?? [], filteringValue),
       ),
       switchMap((filteredData) => this.dataService.setFilteredData(filteredData)),
     )
