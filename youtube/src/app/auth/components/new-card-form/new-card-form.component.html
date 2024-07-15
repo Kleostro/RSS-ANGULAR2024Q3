@@ -14,7 +14,9 @@
         }
       </div>
       <div>
-        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+        <button mat-flat-button matStepperNext [disabled]="!form.controls.title.valid">
+          Next <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -32,7 +34,9 @@
       </div>
       <div class="buttons-wrapper">
         <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
-        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+        <button mat-flat-button matStepperNext [disabled]="!form.controls.description.valid">
+          Next <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -50,7 +54,9 @@
       </div>
       <div class="buttons-wrapper">
         <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
-        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+        <button mat-flat-button matStepperNext [disabled]="!form.controls.cover.valid">
+          Next <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -68,7 +74,9 @@
       </div>
       <div class="buttons-wrapper">
         <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
-        <button mat-flat-button matStepperNext>Next<mat-icon>chevron_right</mat-icon></button>
+        <button mat-flat-button matStepperNext [disabled]="!form.controls.video.valid">
+          Next<mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -93,7 +101,9 @@
       </div>
       <div class="buttons-wrapper">
         <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
-        <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+        <button mat-flat-button matStepperNext [disabled]="!form.controls.publisedAt.valid">
+          Next <mat-icon>chevron_right</mat-icon>
+        </button>
       </div>
     </form>
   </mat-step>
@@ -121,7 +131,9 @@
         </div>
         <div class="buttons-wrapper">
           <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
-          <button mat-flat-button matStepperNext>Next <mat-icon>chevron_right</mat-icon></button>
+          <button mat-flat-button matStepperNext [disabled]="!form.controls.tags.valid">
+            Next <mat-icon>chevron_right</mat-icon>
+          </button>
           <button
             class="add-tag-btn"
             mat-flat-button
