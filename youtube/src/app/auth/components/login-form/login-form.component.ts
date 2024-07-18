@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 
@@ -29,21 +29,24 @@ export default class LoginFormComponent {
 
   matAttribute = MAT_ATTRIBUTE;
 
-  loginForm = this.formBuilder.group<LoginFormControls>({
-    login: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [
-      Validators.required,
-      isPasswordHasLowerCase(),
-      isPasswordHasNumeric(),
-      isPasswordHasSpecialCharacter(),
-      isPasswordHasUpperCase(),
-    ]),
+  loginForm: FormGroup<LoginFormControls> = this.formBuilder.nonNullable.group({
+    login: ['', [Validators.required, Validators.email]],
+    password: [
+      '',
+      [
+        Validators.required,
+        isPasswordHasLowerCase(),
+        isPasswordHasNumeric(),
+        isPasswordHasSpecialCharacter(),
+        isPasswordHasUpperCase(),
+      ],
+    ],
   });
 
   submit() {
-    const { login, password } = this.loginForm.controls;
-    if (login.value && password.value) {
-      this.loginService.login({ login: login.value, password: password.value });
+    const { login, password } = this.loginForm.value;
+    if (login && password) {
+      this.loginService.login({ login, password });
     }
   }
 }

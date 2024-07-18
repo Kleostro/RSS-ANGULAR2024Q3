@@ -1,6 +1,6 @@
 import { NgIf } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormArray, FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
 import { MatDatepickerModule } from '@angular/material/datepicker';
@@ -31,14 +31,14 @@ import AdminFormControls from '../../interfaces/adminFormControls.interface';
 export default class NewCardFormComponent {
   fb = inject(FormBuilder);
 
-  form: FormGroup<AdminFormControls> = this.fb.group<AdminFormControls>({
-    title: new FormControl('', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]),
-    description: new FormControl('', [Validators.maxLength(255)]),
-    cover: new FormControl('', [Validators.required]),
-    video: new FormControl('', [Validators.required]),
-    publisedAt: new FormControl('', [Validators.required, isValidDate(), isValidDateByFilter()]),
+  form: FormGroup<AdminFormControls> = this.fb.nonNullable.group({
+    title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
+    description: ['', [Validators.maxLength(255)]],
+    cover: ['', [Validators.required]],
+    video: ['', [Validators.required]],
+    publisedAt: ['', [Validators.required, isValidDate(), isValidDateByFilter()]],
     tags: new FormArray([
-      this.fb.group({
+      this.fb.nonNullable.group({
         tag: ['', Validators.required],
       }),
     ]),
@@ -47,10 +47,11 @@ export default class NewCardFormComponent {
   dateFilter = dateFilter;
 
   addTag() {
-    const tagForm = this.fb.group({
-      tag: ['', Validators.required],
-    });
-    this.form.controls.tags.push(tagForm);
+    this.form.controls.tags.push(
+      this.fb.nonNullable.group({
+        tag: ['', Validators.required],
+      }),
+    );
   }
 
   submit() {}
