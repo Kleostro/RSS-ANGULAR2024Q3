@@ -24,6 +24,11 @@ const routes: Routes = [
         title: 'youtube | admin',
       },
       {
+        path: 'favorite',
+        loadComponent: () => import('./youtube/pages/favorite/favorite.component').then((c) => c.default),
+        title: 'youtube | favorite',
+      },
+      {
         path: 'detailed/:id',
         loadComponent: () => import('./youtube/pages/detailed/detailed.component').then((c) => c.default),
         title: 'youtube | detailed',
