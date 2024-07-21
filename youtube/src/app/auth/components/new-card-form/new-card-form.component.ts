@@ -70,6 +70,10 @@ export default class NewCardFormComponent {
   }
 
   submit() {
-    this.store.dispatch(setCustomCard({ card: this.form.getRawValue() }));
+    this.form.markAllAsTouched();
+    this.form.updateValueAndValidity();
+    if (this.form.valid) {
+      this.store.dispatch(setCustomCard({ card: this.form.getRawValue() }));
+    }
   }
 }

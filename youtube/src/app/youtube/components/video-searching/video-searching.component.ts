@@ -25,7 +25,7 @@ export default class VideoSearchingComponent {
     search: ['', Validators.required],
   });
 
-  searching$ = this.searchingForm.controls.search.valueChanges
+  searching = this.searchingForm.controls.search.valueChanges
     .pipe(
       debounceTime(500),
       distinctUntilChanged(),

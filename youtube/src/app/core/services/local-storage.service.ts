@@ -9,7 +9,7 @@ import Data from '../interfaces/storage.interface';
 export default class LocalStorageService {
   storage: Data = this.init();
 
-  get<T>(key: string): T | null {
+  getValueByKey<T>(key: string): T | null {
     if (key in this.storage) {
       const result: T = JSON.parse(this.storage[key]);
       return result;
@@ -17,12 +17,12 @@ export default class LocalStorageService {
     return null;
   }
 
-  add(key: string, value: unknown): void {
+  addValue(key: string, value: unknown): void {
     this.storage[key] = JSON.stringify(value);
     this.save(this.storage);
   }
 
-  remove(key: string): void {
+  removeValueByKey(key: string): void {
     delete this.storage[key];
     this.save(this.storage);
   }

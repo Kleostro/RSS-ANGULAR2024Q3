@@ -15,11 +15,11 @@ export default class LoginService {
 
   private router: Router = inject(Router);
 
-  private isLogin$ = of(!!this.localStorageService.get(STORE_KEYS.USER_TOKEN));
+  private isLogin$ = of(!!this.localStorageService.getValueByKey(STORE_KEYS.USER_TOKEN));
 
   login(props: User) {
-    this.localStorageService.add(STORE_KEYS.USER_LOGIN, props);
-    this.localStorageService.add(STORE_KEYS.USER_TOKEN, crypto.randomUUID());
+    this.localStorageService.addValue(STORE_KEYS.USER_LOGIN, props);
+    this.localStorageService.addValue(STORE_KEYS.USER_TOKEN, crypto.randomUUID());
     this.isLogin$ = of(true);
     this.router.navigate(['/main']);
   }
@@ -35,10 +35,10 @@ export default class LoginService {
   }
 
   getUserLogin() {
-    return this.localStorageService.get<User>(STORE_KEYS.USER_LOGIN)?.login;
+    return this.localStorageService.getValueByKey<User>(STORE_KEYS.USER_LOGIN)?.login;
   }
 
   isUserLogin(): boolean {
-    return !!this.localStorageService.get(STORE_KEYS.USER_TOKEN);
+    return !!this.localStorageService.getValueByKey(STORE_KEYS.USER_TOKEN);
   }
 }

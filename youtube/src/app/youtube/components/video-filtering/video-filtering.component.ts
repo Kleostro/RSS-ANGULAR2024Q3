@@ -25,7 +25,7 @@ export default class VideoFilteringComponent {
     filter: ['', Validators.required],
   });
 
-  filtering$ = this.filteringForm.controls.filter.valueChanges
+  filtering = this.filteringForm.controls.filter.valueChanges
     .pipe(
       debounceTime(500),
       distinctUntilChanged(),

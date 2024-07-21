@@ -42,4 +42,12 @@ export default class LoginFormComponent {
   });
 
   matAttribute = MAT_ATTRIBUTE;
+
+  submit() {
+    this.loginForm.markAllAsTouched();
+    this.loginForm.updateValueAndValidity();
+    if (this.loginForm.valid) {
+      this.loginService.login(this.loginForm.getRawValue());
+    }
+  }
 }
