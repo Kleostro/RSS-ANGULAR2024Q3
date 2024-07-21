@@ -80,28 +80,28 @@
       </div>
     </form>
   </mat-step>
-  <mat-step [stepControl]="form.controls.publisedAt">
+  <mat-step [stepControl]="form.controls.publishedAt">
     <form [formGroup]="form">
       <ng-template matStepLabel>Add date</ng-template>
       <mat-form-field appearance="outline" class="form-field" appearance="outline">
         <mat-label>Choose a date</mat-label>
-        <input matInput formControlName="publisedAt" [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" />
+        <input matInput formControlName="publishedAt" [matDatepicker]="picker" [matDatepickerFilter]="dateFilter" />
         <mat-hint>MM/DD/YYYY</mat-hint>
         <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
         <mat-datepicker #picker></mat-datepicker>
       </mat-form-field>
       <div class="errors-wrapper">
-        @if (form.controls.publisedAt; as publisedAt) {
-          <span class="error" *ngIf="publisedAt.hasError('required')">Please enter a creation date</span>
-          <span class="error" *ngIf="publisedAt.hasError('isValidDate')">Please enter a valid date</span>
-          <span class="error" *ngIf="publisedAt.hasError('invalidDateByFilter')"
+        @if (form.controls.publishedAt; as publishedAt) {
+          <span class="error" *ngIf="publishedAt.hasError('required')">Please enter a creation date</span>
+          <span class="error" *ngIf="publishedAt.hasError('isValidDate')">Please enter a valid date</span>
+          <span class="error" *ngIf="publishedAt.hasError('invalidDateByFilter')"
             >You can't pick a date from the future</span
           >
         }
       </div>
       <div class="buttons-wrapper">
         <button mat-flat-button matStepperPrevious>Back <mat-icon>chevron_left</mat-icon></button>
-        <button mat-flat-button matStepperNext [disabled]="!form.controls.publisedAt.valid">
+        <button mat-flat-button matStepperNext [disabled]="!form.controls.publishedAt.valid">
           Next <mat-icon>chevron_right</mat-icon>
         </button>
       </div>
@@ -116,7 +116,7 @@
             <div [formGroup]="tagForm">
               <div class="tag-wrapper">
                 <mat-form-field appearance="outline" class="form-field" appearance="outline">
-                  <mat-label>Video tags</mat-label>
+                  <mat-label>New tag</mat-label>
                   <input matInput placeholder="tag" formControlName="tag" />
                 </mat-form-field>
                 <button class="remove-tag-btn" mat-mini-fab (click)="form.controls.tags.removeAt(i)">

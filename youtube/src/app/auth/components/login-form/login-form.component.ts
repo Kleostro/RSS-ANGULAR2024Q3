@@ -23,13 +23,11 @@ import LoginService from '../../services/login.service';
   styleUrl: './login-form.component.scss',
 })
 export default class LoginFormComponent {
-  formBuilder = inject(FormBuilder);
+  fb = inject(FormBuilder);
 
   loginService = inject(LoginService);
 
-  matAttribute = MAT_ATTRIBUTE;
-
-  loginForm: FormGroup<LoginFormControls> = this.formBuilder.nonNullable.group({
+  loginForm: FormGroup<LoginFormControls> = this.fb.nonNullable.group({
     login: ['', [Validators.required, Validators.email]],
     password: [
       '',
@@ -43,10 +41,5 @@ export default class LoginFormComponent {
     ],
   });
 
-  submit() {
-    const { login, password } = this.loginForm.value;
-    if (login && password) {
-      this.loginService.login({ login, password });
-    }
-  }
+  matAttribute = MAT_ATTRIBUTE;
 }

@@ -7,9 +7,12 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatStepperModule } from '@angular/material/stepper';
+import { Store } from '@ngrx/store';
 
 import isValidDate, { isValidDateByFilter } from '../../../shared/validators/date';
 import dateFilter from '../../../shared/validators/date-filter';
+import { setCustomCard } from '../../../store/actions/videos.actions';
+import VideoDataService from '../../../youtube/services/video-data.service';
 import AdminFormControls from '../../interfaces/adminFormControls.interface';
 
 @Component({
@@ -31,12 +34,16 @@ import AdminFormControls from '../../interfaces/adminFormControls.interface';
 export default class NewCardFormComponent {
   fb = inject(FormBuilder);
 
+  videoDataService = inject(VideoDataService);
+
+  store = inject(Store);
+
   form: FormGroup<AdminFormControls> = this.fb.nonNullable.group({
     title: ['', [Validators.required, Validators.minLength(3), Validators.maxLength(20)]],
     description: ['', [Validators.maxLength(255)]],
     cover: ['', [Validators.required]],
     video: ['', [Validators.required]],
-    publisedAt: ['', [Validators.required, isValidDate(), isValidDateByFilter()]],
+    publishedAt: ['', [Validators.required, isValidDate(), isValidDateByFilter()]],
     tags: new FormArray([
       this.fb.nonNullable.group({
         tag: ['', Validators.required],
@@ -54,13 +61,15 @@ export default class NewCardFormComponent {
     );
   }
 
-  submit() {}
-
   reset() {
     this.form.reset();
     const tagsFormArray = this.form.controls.tags;
     while (tagsFormArray.length > 1) {
       tagsFormArray.removeAt(tagsFormArray.length - 1);
     }
+  }
+
+  submit() {
+    this.store.dispatch(setCustomCard({ card: this.form.getRawValue() }));
   }
 }
