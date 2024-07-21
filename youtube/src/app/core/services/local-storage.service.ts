@@ -9,12 +9,12 @@ import Data from '../interfaces/storage.interface';
 export default class LocalStorageService {
   storage: Data = this.init();
 
-  get<T>(key: string): T | undefined {
+  get<T>(key: string): T | null {
     if (key in this.storage) {
       const result: T = JSON.parse(this.storage[key]);
       return result;
     }
-    return undefined;
+    return null;
   }
 
   add(key: string, value: unknown): void {

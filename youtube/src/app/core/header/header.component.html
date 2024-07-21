@@ -5,6 +5,7 @@
     [icon]="'play_arrow'"
     [root]="'/main'"
   ></app-custom-link>
+
   <app-video-searching></app-video-searching>
   <app-custom-button
     class="settings"
@@ -21,6 +22,15 @@
       (click)="loginService.logout()"
     ></app-custom-button>
     <app-custom-link [root]="'/admin'" [matType]="matAttribute.MINI_FAB" [icon]="'account_circle'"></app-custom-link>
+
+    <app-custom-link
+      [root]="'/favorite'"
+      matBadge="{{ (favoriteVideoCount$ | async)?.length }}"
+      matBadgeHidden="{{ !(favoriteVideoCount$ | async)?.length }}"
+      matBadgePosition="after"
+      [matType]="matAttribute.MINI_FAB"
+      [icon]="'favorite'"
+    ></app-custom-link>
   } @else {
     <app-custom-link
       [root]="'/login'"
