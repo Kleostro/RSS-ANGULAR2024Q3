@@ -2,16 +2,16 @@
 <app-custom-button
   class="sorting"
   [matType]="matAttribute.RAISED_BUTTON"
-  [isDisabled]="!dataService.getFilteredData().value.length"
-  (click)="sortBy('publishedAt')"
+  (click)="dataService.setSortBy({ sortBy: 'publishedAt', sortByDirection: publishedAtDirection })"
+  (click)="publishedAtDirection = !publishedAtDirection"
 >
   <span>date</span>
 </app-custom-button>
 <app-custom-button
   class="sorting"
   [matType]="matAttribute.RAISED_BUTTON"
-  [isDisabled]="!dataService.getFilteredData().value.length"
-  (click)="sortBy('viewCount')"
+  (click)="dataService.setSortBy({ sortBy: 'viewCount', sortByDirection: viewCountDirection })"
+  (click)="viewCountDirection = !viewCountDirection"
 >
   <span>views</span>
 </app-custom-button>

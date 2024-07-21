@@ -21,7 +21,7 @@ export default class VideoFilteringComponent {
 
   filteringPipe = inject(FilteringPipe);
 
-  filteringForm = this.formBuilder.group({
+  filteringForm = this.formBuilder.nonNullable.group({
     filter: ['', Validators.required],
   });
 
@@ -29,11 +29,8 @@ export default class VideoFilteringComponent {
     .pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      map((rawValue) => (rawValue ? rawValue.trim() : '')),
-      map((filteringValue) =>
-        this.filteringPipe.transform(this.dataService.getVideoData().value?.items ?? [], filteringValue),
-      ),
-      switchMap((filteredData) => this.dataService.setFilteredData(filteredData)),
+      map((rawValue) => rawValue.trim()),
+      switchMap((filteredData) => this.dataService.setFilterBy(filteredData)),
     )
     .subscribe();
 }

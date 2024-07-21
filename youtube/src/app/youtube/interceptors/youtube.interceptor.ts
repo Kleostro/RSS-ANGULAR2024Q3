@@ -2,13 +2,12 @@ import { HttpHandlerFn, HttpInterceptorFn, HttpRequest } from '@angular/common/h
 
 import ENVIRONMENTS from '../../../environment/environment';
 
-const youtubeInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) => {
-  const modifiedReq = req.clone({
-    setParams: { key: ENVIRONMENTS.API_KEY },
-    url: ENVIRONMENTS.API_BASE_URL + req.url,
-  });
-
-  return next(modifiedReq);
-};
+const youtubeInterceptor: HttpInterceptorFn = (req: HttpRequest<unknown>, next: HttpHandlerFn) =>
+  next(
+    req.clone({
+      setParams: { key: ENVIRONMENTS.API_KEY },
+      url: ENVIRONMENTS.API_BASE_URL + req.url,
+    }),
+  );
 
 export default youtubeInterceptor;

@@ -1,8 +1,10 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
 
-import { debounceTime, distinctUntilChanged, filter, map, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs';
 
+import { searchVideos } from '../../../store/actions/videos.actions';
 import VideoDataService from '../../services/video-data.service';
 
 @Component({
@@ -17,7 +19,9 @@ export default class VideoSearchingComponent {
 
   formBuilder = inject(FormBuilder);
 
-  searchingForm = this.formBuilder.group({
+  store = inject(Store);
+
+  searchingForm = this.formBuilder.nonNullable.group({
     search: ['', Validators.required],
   });
 
@@ -25,9 +29,8 @@ export default class VideoSearchingComponent {
     .pipe(
       debounceTime(500),
       distinctUntilChanged(),
-      map((rawValue) => (rawValue ? rawValue.trim() : '')),
-      filter((rawValue) => rawValue.length > 3),
-      switchMap((searchValue) => this.dataService.getData(searchValue)),
+      filter((rawValue) => rawValue.trim().length > 3),
+      map((searchValue) => this.store.dispatch(searchVideos({ searchValue }))),
     )
     .subscribe();
 }

@@ -2,13 +2,9 @@ import Snippet from './snippet.interface';
 import Statistics from './statistics.interface';
 
 interface Video {
-  kind: string;
-  etag: string;
-  id: {
-    videoId: string;
-  };
+  id: string;
   snippet: Snippet;
-  statistics: Statistics;
+  statistics: Statistics | null;
 }
 
 export default Video;

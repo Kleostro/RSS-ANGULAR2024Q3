@@ -2,13 +2,17 @@
   @if (loadingService.getIsLoading() | async) {
     <app-custom-loader></app-custom-loader>
   }
-  @if (dataService.getFilteredData() | async; as videoData) {
-    @if (videoData.length) {
-      <h1 class="video-list__title">We found {{ videoData.length }} videos</h1>
+  @if (
+    videos() | filtering: (dataService.getFilterBy() | async) | sorting: (dataService.getSortBy() | async);
+    as videos
+  ) {
+    @if (videos.length) {
+      <h1 class="video-list__title">We found {{ videos.length }} videos</h1>
     }
+
     <ul class="video-list" [class.hidden]="loadingService.getIsLoading() | async">
-      @for (video of videoData; track video.id) {
-        <app-video-card [video]="video"></app-video-card>
+      @for (video of videos; track video.video) {
+        <app-video-card [videoData]="video"></app-video-card>
       }
     </ul>
   }

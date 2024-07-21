@@ -1,1 +1,3 @@
-<app-video-detailed [video]="videoData$ | async"></app-video-detailed>
+@if (videoData$ | async; as videoData) {
+  <app-video-detailed [videoData]="videoData"></app-video-detailed>
+}

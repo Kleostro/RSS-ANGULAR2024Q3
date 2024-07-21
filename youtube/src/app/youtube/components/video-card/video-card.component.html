@@ -1,23 +1,54 @@
-<li class="card" appChangeColorByDate [publishedAt]="video.snippet.publishedAt" [propertyNames]="['borderColor']">
-  <div class="img-wrapper">
-    @if (isImageLoading()) {
-      <app-custom-loader></app-custom-loader>>
+@if (videoData(); as videoData) {
+  <li
+    class="card"
+    appChangeColorByDate
+    [publishedAt]="videoData.video.snippet.publishedAt"
+    [propertyNames]="['borderColor']"
+  >
+    <div class="img-wrapper">
+      @if (isImageLoading()) {
+        <app-custom-loader></app-custom-loader>
+      }
+      <img
+        class="card-img"
+        [src]="videoData.video.snippet.thumbnails.medium.url"
+        [class.hidden]="isImageLoading()"
+        [alt]="videoData.video.snippet.title"
+        (load)="isImageLoading.set(false)"
+        (error)="handleFailedImg($event)"
+      />
+    </div>
+    @if (videoData.video.statistics) {
+      <ul class="statistics">
+        <app-video-statistics
+          [icon]="'visibility'"
+          [count]="videoData.video.statistics.viewCount"
+        ></app-video-statistics>
+        <app-video-statistics [icon]="'thumb_up'" [count]="videoData.video.statistics.likeCount"></app-video-statistics>
+        <app-video-statistics
+          [icon]="'comment'"
+          [count]="videoData.video.statistics.commentCount"
+        ></app-video-statistics>
+      </ul>
     }
-    <img
-      class="card-img"
-      [src]="video.snippet.thumbnails.medium.url"
-      [class.hidden]="isImageLoading()"
-      [alt]="video.snippet.title"
-      (load)="isImageLoading.set(false)"
-    />
-  </div>
-  <ul class="statistics">
-    <app-video-statistics [icon]="'visibility'" [count]="video.statistics.viewCount"></app-video-statistics>
-    <app-video-statistics [icon]="'thumb_up'" [count]="video.statistics.likeCount"></app-video-statistics>
-    <app-video-statistics [icon]="'comment'" [count]="video.statistics.commentCount"></app-video-statistics>
-  </ul>
-  <h3 class="card-title">{{ video.snippet.title }}</h3>
-  <app-custom-link class="more" [matType]="matAttribute.FLAT_BUTTON" root="/detailed/{{ this.video.id }}">
-    <span>more...</span>
-  </app-custom-link>
-</li>
+    <h3 class="card-title">{{ videoData.video.snippet.title }}</h3>
+    <app-custom-link class="more" [matType]="matAttribute.FLAT_BUTTON" root="/detailed/{{ this.videoData.video.id }}">
+      <span>more...</span>
+    </app-custom-link>
+    @if (videoData.isCustom) {
+      <app-custom-button (click)="dataService.removeCustomCard(videoData.video.id)" [matType]="matAttribute.FLAT_BUTTON"
+        >Remove</app-custom-button
+      >
+    } @else {
+      <ng-container *ngIf="{ v: hasFavorite$ | async } as hasFavorite">
+        <app-custom-button
+          (click)="dataService.switchFavorite(videoData.video.id, !!hasFavorite.v)"
+          [icon]="!!hasFavorite.v ? 'favorite' : 'favorite_border'"
+          [matType]="matAttribute.FLAT_BUTTON"
+        >
+          {{ !!hasFavorite.v ? 'Remove from favorites' : 'Add to favorites' }}
+        </app-custom-button>
+      </ng-container>
+    }
+  </li>
+}

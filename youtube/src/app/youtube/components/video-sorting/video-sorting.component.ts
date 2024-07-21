@@ -18,9 +18,9 @@ export default class VideoSortingComponent {
 
   dataService = inject(VideoDataService);
 
-  matAttribute = MAT_ATTRIBUTE;
+  viewCountDirection = true;
 
-  sortBy(type: string) {
-    this.sortingPipe.transform(this.dataService.getFilteredData().value, type);
-  }
+  publishedAtDirection = true;
+
+  matAttribute = MAT_ATTRIBUTE;
 }

@@ -1,4 +1,4 @@
-@if (video) {
+@if (videoData(); as videoData) {
   <div class="card">
     <app-custom-link
       class="goToBack"
@@ -6,7 +6,7 @@
       [root]="'/main'"
       [icon]="'arrow_back'"
       appChangeColorByDate
-      [publishedAt]="video.snippet.publishedAt"
+      [publishedAt]="videoData.video.snippet.publishedAt"
       [propertyNames]="['backgroundColor']"
     >
     </app-custom-link>
@@ -17,24 +17,61 @@
 
       <img
         class="img"
-        [src]="video.snippet.thumbnails.high.url"
+        [src]="videoData.video.snippet.thumbnails.medium.url"
         [class.hidden]="isImageLoading()"
-        [alt]="video.snippet.title"
+        [alt]="videoData.video.snippet.title"
         (load)="isImageLoading.set(false)"
+        (error)="handleFailedImg($event)"
       />
     </div>
-    <div class="right" appChangeColorByDate [publishedAt]="video.snippet.publishedAt" [propertyNames]="['borderColor']">
+    <div
+      class="right"
+      appChangeColorByDate
+      [publishedAt]="videoData.video.snippet.publishedAt"
+      [propertyNames]="['borderColor']"
+    >
       <div class="top">
-        <h1 class="title">{{ video.snippet.title }}</h1>
-        <span class="date">{{ video.snippet.publishedAt | date: 'EEEE, MMMM d, y' }}</span>
+        <h1 class="title">{{ videoData.video.snippet.title }}</h1>
+        <span class="date">{{ videoData.video.snippet.publishedAt | date: 'EEEE, MMMM d, y' }}</span>
       </div>
-      <span class="descriptiption-accent">Description:</span>
-      <p class="description">{{ video.snippet.description }}</p>
-      <ul class="statistics">
-        <app-video-statistics [icon]="'visibility'" [count]="video.statistics.viewCount"></app-video-statistics>
-        <app-video-statistics [icon]="'thumb_up'" [count]="video.statistics.likeCount"></app-video-statistics>
-        <app-video-statistics [icon]="'comment'" [count]="video.statistics.commentCount"></app-video-statistics>
-      </ul>
+      @if (videoData.video.snippet.description) {
+        <span class="descriptiption-accent">Description:</span>
+        <p class="description">{{ videoData.video.snippet.description }}</p>
+      }
+      @if (videoData.video.statistics) {
+        <ul class="statistics">
+          <app-video-statistics
+            [icon]="'visibility'"
+            [count]="videoData.video.statistics.viewCount"
+          ></app-video-statistics>
+          <app-video-statistics
+            [icon]="'thumb_up'"
+            [count]="videoData.video.statistics.likeCount"
+          ></app-video-statistics>
+          <app-video-statistics
+            [icon]="'comment'"
+            [count]="videoData.video.statistics.commentCount"
+          ></app-video-statistics>
+        </ul>
+      }
+
+      @if (videoData.isCustom) {
+        <app-custom-button
+          (click)="dataService.removeCustomCard(videoData.video.id)"
+          [matType]="matAttribute.FLAT_BUTTON"
+          >Remove</app-custom-button
+        >
+      } @else {
+        <ng-container *ngIf="{ v: hasFavorite$ | async } as hasFavorite">
+          <app-custom-button
+            (click)="dataService.switchFavorite(videoData.video.id, !!hasFavorite.v)"
+            [icon]="!!hasFavorite.v ? 'favorite' : 'favorite_border'"
+            [matType]="matAttribute.FLAT_BUTTON"
+          >
+            {{ !!hasFavorite.v ? 'Remove from favorites' : 'Add to favorites' }}
+          </app-custom-button>
+        </ng-container>
+      }
     </div>
   </div>
 } @else {

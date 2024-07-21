@@ -1,17 +1,20 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import Video from '../interfaces/video.interface';
+import VideoData from '../interfaces/video-data.interface';
 
 @Pipe({
   name: 'filtering',
   standalone: true,
 })
 export default class FilteringPipe implements PipeTransform {
-  transform(videoList: Video[], filterValue: string): Video[] {
-    return videoList.filter((video) => {
-      const descriptionMatch = video.snippet.description.toLowerCase().includes(filterValue.toLowerCase());
-      const titleMatch = video.snippet.title.toLowerCase().includes(filterValue.toLowerCase());
-      return descriptionMatch || titleMatch;
-    });
+  transform(videoList: VideoData[] | null, filterValue: string | null): VideoData[] {
+    return videoList
+      ? videoList.filter((video) => {
+          if (!filterValue) return true;
+          const descriptionMatch = video.video.snippet.description.toLowerCase().includes(filterValue.toLowerCase());
+          const titleMatch = video.video.snippet.title.toLowerCase().includes(filterValue.toLowerCase());
+          return descriptionMatch || titleMatch;
+        })
+      : [];
   }
 }

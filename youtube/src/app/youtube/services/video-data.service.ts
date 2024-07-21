@@ -1,11 +1,15 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
+import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
 
-import { BehaviorSubject, Observable, switchMap } from 'rxjs';
+import { BehaviorSubject, Observable, of, switchMap, tap } from 'rxjs';
 
 import LoadingService from '../../shared/services/loading.service';
-import VideoSearchResponce from '../interfaces/video-response.interface';
-import Video from '../interfaces/video.interface';
+import { addToFavorites, removeCustomCard, removeFromFavorites } from '../../store/actions/videos.actions';
+import { selectVideoById } from '../../store/selectors/videos.selector';
+import VideoData from '../interfaces/video-data.interface';
+import { VideoResponce } from '../interfaces/video-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -15,47 +19,74 @@ export default class VideoDataService {
 
   httpClient = inject(HttpClient);
 
-  private videoData$ = new BehaviorSubject<VideoSearchResponce | null>(null);
+  store = inject(Store);
 
-  private filteredData$ = new BehaviorSubject<Video[]>([]);
+  router = inject(Router);
 
-  getData(searchValue = ''): Observable<VideoSearchResponce | null> {
-    this.httpClient
-      .get<VideoSearchResponce>('search', {
+  private filterBy$ = new BehaviorSubject('');
+
+  private sortBy$ = new BehaviorSubject<{ sortBy: string; sortByDirection: boolean } | null>(null);
+
+  getFilterBy() {
+    return this.filterBy$;
+  }
+
+  setFilterBy(filterBy: string) {
+    this.filterBy$.next(filterBy);
+    return this.filterBy$;
+  }
+
+  getSortBy() {
+    return this.sortBy$;
+  }
+
+  setSortBy(sortBy: { sortBy: string; sortByDirection: boolean }) {
+    this.sortBy$.next(sortBy);
+    return this.sortBy$;
+  }
+
+  getVideoById(id: string): Observable<VideoData> {
+    return this.httpClient
+      .get<VideoResponce>('videos', {
         params: {
-          type: 'video',
-          maxResults: '100',
-          q: searchValue,
+          id,
+          part: 'snippet,statistics',
         },
       })
-      .pipe(switchMap((data) => this.getVideoById(data.items.map(({ id }) => id.videoId).join(','))))
-      .subscribe((data) => {
-        this.filteredData$.next(data.items);
-        this.videoData$.next(data);
-      });
-
-    return this.videoData$.asObservable();
+      .pipe(
+        switchMap((data) => {
+          if (!data.items.length) {
+            return this.store.select(selectVideoById(id)).pipe(
+              tap((video) => {
+                if (!video) {
+                  this.router.navigate(['/404']);
+                }
+              }),
+            );
+          }
+          return of({ video: data.items[0], isCustom: false });
+        }),
+      );
   }
 
-  getVideoData(): BehaviorSubject<VideoSearchResponce | null> {
-    return this.videoData$;
+  removeCustomCard(id: string) {
+    this.store.dispatch(removeCustomCard({ id }));
+    this.router.navigate(['/main']);
   }
 
-  getFilteredData(): BehaviorSubject<Video[]> {
-    return this.filteredData$;
+  addToFavorites(id: string) {
+    this.store.dispatch(addToFavorites({ id }));
   }
 
-  getVideoById(id: string): Observable<VideoSearchResponce> {
-    return this.httpClient.get<VideoSearchResponce>('videos', {
-      params: {
-        id,
-        part: 'snippet,statistics',
-      },
-    });
+  removeFromFavorites(id: string) {
+    this.store.dispatch(removeFromFavorites({ id }));
   }
 
-  setFilteredData(data: Video[]): Observable<Video[]> {
-    this.filteredData$.next(data);
-    return this.filteredData$.asObservable();
+  switchFavorite(id: string, isFavorite: boolean) {
+    if (isFavorite) {
+      this.removeFromFavorites(id);
+    } else {
+      this.addToFavorites(id);
+    }
   }
 }
