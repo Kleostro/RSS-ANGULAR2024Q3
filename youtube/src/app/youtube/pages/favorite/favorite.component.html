@@ -1,0 +1,10 @@
+@if (videos$ | async; as videos) {
+  @if (videos.length) {
+    <app-video-list [videos]="videos$ | async"></app-video-list>
+  } @else {
+    <h1 class="video-list__title">You don't have any favorite videos</h1>
+    <app-custom-link [root]="'/main'" [matType]="matAttribute.FLAT_BUTTON" [icon]="'keyboard_backspace'"
+      >Go to main</app-custom-link
+    >
+  }
+}
