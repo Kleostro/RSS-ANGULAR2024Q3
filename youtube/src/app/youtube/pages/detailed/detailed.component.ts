@@ -1,9 +1,8 @@
 import { AsyncPipe } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
 import VideoDetailedComponent from '../../components/video-detailed/video-detailed.component';
-import VideoDataService from '../../services/video-data.service';
+import { VIDEO_DATA, VIDEO_PROVIDERS } from './detailed.providers';
 
 @Component({
   selector: 'app-detailed',
@@ -11,11 +10,8 @@ import VideoDataService from '../../services/video-data.service';
   imports: [VideoDetailedComponent, AsyncPipe],
   templateUrl: './detailed.component.html',
   styleUrl: './detailed.component.scss',
+  providers: [VIDEO_PROVIDERS],
 })
 export default class DetailedComponent {
-  videoDataService = inject(VideoDataService);
-
-  activatedRoute = inject(ActivatedRoute);
-
-  videoData$ = this.videoDataService.getVideoById(this.activatedRoute.snapshot.paramMap.get('id') ?? '');
+  videoData$ = inject(VIDEO_DATA);
 }
