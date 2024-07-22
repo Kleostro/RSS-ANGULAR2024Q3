@@ -1,6 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, input } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
 
 import CustomLoaderComponent from '../../../shared/components/custom-loader/custom-loader.component';
 import LoadingService from '../../../shared/services/loading.service';
@@ -17,6 +16,7 @@ import VideoCardComponent from '../video-card/video-card.component';
   providers: [FilteringPipe, SortingPipe],
   templateUrl: './video-list.component.html',
   styleUrl: './video-list.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoListComponent {
   videos = input<VideoData[] | null>([]);
@@ -25,9 +25,11 @@ export default class VideoListComponent {
 
   loadingService = inject(LoadingService);
 
-  store = inject(Store);
-
   filteringPipe = inject(FilteringPipe);
 
   sortingPipe = inject(SortingPipe);
+
+  filterBy$ = this.dataService.getFilterBy();
+
+  sortBy$ = this.dataService.getSortBy();
 }

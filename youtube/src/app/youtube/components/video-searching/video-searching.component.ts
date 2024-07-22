@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Store } from '@ngrx/store';
 
@@ -13,6 +13,7 @@ import VideoDataService from '../../services/video-data.service';
   imports: [FormsModule, ReactiveFormsModule],
   templateUrl: './video-searching.component.html',
   styleUrl: './video-searching.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoSearchingComponent {
   dataService = inject(VideoDataService);

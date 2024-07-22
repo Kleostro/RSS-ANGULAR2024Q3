@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -12,6 +12,7 @@ import MatButtonType from '../../types/mat.type';
   styleUrl: './custom-button.component.scss',
   imports: [MatButtonModule, MatIconModule, NgTemplateOutlet],
   standalone: true,
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CustomButtonComponent {
   @Input() isDisabled = false;

@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import CustomLinkComponent from '../../../shared/components/custom-link/custom-link.component';
 
@@ -8,5 +8,6 @@ import CustomLinkComponent from '../../../shared/components/custom-link/custom-l
   imports: [CustomLinkComponent],
   templateUrl: './not-found.component.html',
   styleUrl: './not-found.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NotFoundComponent {}

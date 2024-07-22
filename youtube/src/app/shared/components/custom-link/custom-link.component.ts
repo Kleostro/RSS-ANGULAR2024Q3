@@ -1,5 +1,5 @@
 import { NgTemplateOutlet } from '@angular/common';
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink } from '@angular/router';
@@ -14,6 +14,7 @@ import MatButtonType from '../../types/mat.type';
   imports: [MatButtonModule, MatIconModule, RouterLink, NgTemplateOutlet, ChangeColorByDateDirective],
   templateUrl: './custom-link.component.html',
   styleUrl: './custom-link.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CustomLinkComponent {
   @Input() class = '';

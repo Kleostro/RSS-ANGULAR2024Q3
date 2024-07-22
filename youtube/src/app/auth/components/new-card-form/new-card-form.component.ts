@@ -1,5 +1,5 @@
 import { NgIf } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { provideNativeDateAdapter } from '@angular/material/core';
@@ -30,6 +30,7 @@ import AdminFormControls from '../../interfaces/adminFormControls.interface';
   providers: [provideNativeDateAdapter()],
   templateUrl: './new-card-form.component.html',
   styleUrl: './new-card-form.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class NewCardFormComponent {
   fb = inject(FormBuilder);

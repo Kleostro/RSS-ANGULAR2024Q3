@@ -1,5 +1,5 @@
 import { AsyncPipe, DatePipe, NgIf } from '@angular/common';
-import { Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { map } from 'rxjs';
@@ -29,6 +29,7 @@ import VideoStatisticsComponent from '../video-statistics/video-statistics.compo
   ],
   templateUrl: './video-detailed.component.html',
   styleUrl: './video-detailed.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoDetailedComponent {
   videoData = input<VideoData | null>(null);

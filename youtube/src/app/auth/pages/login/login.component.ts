@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 import LoginFormComponent from '../../components/login-form/login-form.component';
 
@@ -8,5 +8,6 @@ import LoginFormComponent from '../../components/login-form/login-form.component
   imports: [LoginFormComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginComponent {}

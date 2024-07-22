@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatIconModule } from '@angular/material/icon';
 
 import NumberCompositionPipe from '../../../shared/pipes/number-composition.pipe';
@@ -9,6 +9,7 @@ import NumberCompositionPipe from '../../../shared/pipes/number-composition.pipe
   imports: [NumberCompositionPipe, MatIconModule],
   templateUrl: './video-statistics.component.html',
   styleUrl: './video-statistics.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoStatisticsComponent {
   @Input() icon!: string;

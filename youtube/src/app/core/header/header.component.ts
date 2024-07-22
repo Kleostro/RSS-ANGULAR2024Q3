@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
 import { MatBadgeModule } from '@angular/material/badge';
 import { Store } from '@ngrx/store';
 
@@ -30,6 +30,7 @@ import LocalStorageService from '../services/local-storage.service';
   animations: [fadeInOut],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HeaderComponent {
   localStorageService = inject(LocalStorageService);
@@ -40,7 +41,11 @@ export default class HeaderComponent {
 
   isSettingsVisible = signal(false);
 
-  matAttribute = MAT_ATTRIBUTE;
+  isLogin$ = this.loginService.getIsLogin();
+
+  userName$ = this.loginService.getUserName();
 
   favoriteVideoCount$ = this.store.select(selectFavoriteIds);
+
+  matAttribute = MAT_ATTRIBUTE;
 }

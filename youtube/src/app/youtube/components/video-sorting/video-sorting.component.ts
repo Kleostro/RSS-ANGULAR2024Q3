@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
 import MAT_ATTRIBUTE from '../../../shared/constants/matAttribute';
@@ -12,6 +12,7 @@ import VideoDataService from '../../services/video-data.service';
   providers: [SortingPipe],
   templateUrl: './video-sorting.component.html',
   styleUrl: './video-sorting.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoSortingComponent {
   sortingPipe = inject(SortingPipe);

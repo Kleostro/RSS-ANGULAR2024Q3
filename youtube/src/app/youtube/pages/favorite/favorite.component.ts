@@ -1,5 +1,5 @@
 import { AsyncPipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import CustomLinkComponent from '../../../shared/components/custom-link/custom-link.component';
@@ -13,6 +13,7 @@ import VideoListComponent from '../../components/video-list/video-list.component
   imports: [VideoListComponent, AsyncPipe, CustomLinkComponent],
   templateUrl: './favorite.component.html',
   styleUrl: './favorite.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class FavoriteComponent {
   store = inject(Store);

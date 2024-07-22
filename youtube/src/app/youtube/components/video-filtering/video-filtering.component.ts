@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
@@ -13,6 +13,7 @@ import VideoDataService from '../../services/video-data.service';
   providers: [FilteringPipe],
   templateUrl: './video-filtering.component.html',
   styleUrl: './video-filtering.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoFilteringComponent {
   formBuilder = inject(FormBuilder);

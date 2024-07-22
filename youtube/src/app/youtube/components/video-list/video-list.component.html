@@ -2,10 +2,7 @@
   @if (loadingService.getIsLoading() | async) {
     <app-custom-loader></app-custom-loader>
   }
-  @if (
-    videos() | filtering: (dataService.getFilterBy() | async) | sorting: (dataService.getSortBy() | async);
-    as videos
-  ) {
+  @if (videos() | filtering: (filterBy$ | async) | sorting: (sortBy$ | async); as videos) {
     @if (videos.length) {
       <h1 class="video-list__title">We found {{ videos.length }} videos</h1>
     }

@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, Input } from '@angular/core';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 
 @Component({
@@ -7,6 +7,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
   imports: [MatProgressSpinnerModule],
   templateUrl: './custom-loader.component.html',
   styleUrl: './custom-loader.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CustomLoaderComponent {
   @Input() mode: 'determinate' | 'indeterminate' = 'indeterminate';
