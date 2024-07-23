@@ -1,7 +1,8 @@
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 import { FormBuilder, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
-import { debounceTime, distinctUntilChanged, map, switchMap } from 'rxjs';
+import { debounceTime, distinctUntilChanged, map, switchMap, tap } from 'rxjs';
 
 import FilteringPipe from '../../pipes/filtering.pipe';
 import VideoDataService from '../../services/video-data.service';
@@ -22,6 +23,8 @@ export default class VideoFilteringComponent {
 
   filteringPipe = inject(FilteringPipe);
 
+  router = inject(Router);
+
   filteringForm = this.formBuilder.nonNullable.group({
     filter: ['', Validators.required],
   });
@@ -31,6 +34,7 @@ export default class VideoFilteringComponent {
       debounceTime(500),
       distinctUntilChanged(),
       map((rawValue) => rawValue.trim()),
+      tap(() => this.router.navigate(['/main'])),
       switchMap((filteredData) => this.dataService.setFilterBy(filteredData)),
     )
     .subscribe();
