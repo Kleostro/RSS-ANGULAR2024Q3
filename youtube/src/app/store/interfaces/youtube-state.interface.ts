@@ -4,7 +4,7 @@ interface YoutubeState {
   videos: {
     [key: string]: VideoData;
   };
-  videoIds: string[];
+  videoIds: string[] | null;
   favoriteIds: string[];
 }
 

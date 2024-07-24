@@ -2,7 +2,7 @@ import { AsyncPipe } from '@angular/common';
 import { ChangeDetectionStrategy, Component, inject } from '@angular/core';
 
 import VideoDetailedComponent from '../../components/video-detailed/video-detailed.component';
-import { VIDEO_DATA, VIDEO_PROVIDERS } from './detailed.providers';
+import { VIDEO_PROVIDERS, VIDEO_TOKEN } from './detailed.providers';
 
 @Component({
   selector: 'app-detailed',
@@ -14,5 +14,5 @@ import { VIDEO_DATA, VIDEO_PROVIDERS } from './detailed.providers';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class DetailedComponent {
-  videoData$ = inject(VIDEO_DATA);
+  videoData$ = inject(VIDEO_TOKEN);
 }

@@ -11,7 +11,7 @@ const youtubeReducer = createReducer(
     delete videos[action.id];
     return {
       ...state,
-      videoIds: state.videoIds.filter((id) => id !== action.id),
+      videoIds: state.videoIds ? state.videoIds.filter((id) => id !== action.id) : null,
       videos,
     };
   }),
@@ -38,7 +38,10 @@ const youtubeReducer = createReducer(
   ),
   on(
     youtubeActions.setVideoIds,
-    (state, action): YoutubeState => ({ ...state, videoIds: [...state.videoIds, ...action.ids] }),
+    (state, action): YoutubeState => ({
+      ...state,
+      videoIds: state.videoIds ? [...state.videoIds, ...action.ids] : [...action.ids],
+    }),
   ),
 );
 

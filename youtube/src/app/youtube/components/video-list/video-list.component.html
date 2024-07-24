@@ -5,6 +5,8 @@
   @if (videos() | filtering: (filterBy$ | async) | sorting: (sortBy$ | async); as videos) {
     @if (videos.length) {
       <h1 class="video-list__title">We found {{ videos.length }} videos</h1>
+    } @else {
+      <h1 class="video-list__title">Not found videos</h1>
     }
 
     <ul class="video-list" [class.hidden]="loadingService.getIsLoading() | async">

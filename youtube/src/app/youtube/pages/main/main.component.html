@@ -1,1 +1,3 @@
-<app-video-list [videos]="videos$ | async"></app-video-list>
+@if (videos$ | async; as videos) {
+  <app-video-list [videos]="videos"></app-video-list>
+}
