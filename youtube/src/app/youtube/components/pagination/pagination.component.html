@@ -1,15 +1,19 @@
-@if (pageTokens(); as tokens) {
+@if (pageTokens$ | async; as tokens) {
   <div class="wrapper">
     <app-custom-button
-      [isDisabled]="!tokens.prevPageToken"
+      [isDisabled]="prevDisabled() || currentPageIndex === 1"
       [matType]="matAttribute.FLAT_BUTTON"
       (click)="moveToPageByToken(tokens.prevPageToken)"
+      (click)="descendingPageIndex()"
       >Prev page</app-custom-button
     >
+    <span>Page: {{ currentPageIndex }}</span>
     <app-custom-button
+      [isDisabled]="nextDisabled()"
       [isDisabled]="!tokens.nextPageToken"
       [matType]="matAttribute.FLAT_BUTTON"
       (click)="moveToPageByToken(tokens.nextPageToken)"
+      (click)="ascendingPageIndex()"
       >Next page</app-custom-button
     >
   </div>
