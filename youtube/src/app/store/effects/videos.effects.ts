@@ -4,11 +4,11 @@ import { Router } from '@angular/router';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { Store } from '@ngrx/store';
 
-import { Observable } from 'rxjs';
 import { map, switchMap } from 'rxjs/operators';
 
 import VideoData from '../../youtube/interfaces/video-data.interface';
-import VideoSearchResponce, { VideoResponce } from '../../youtube/interfaces/video-response.interface';
+import Video from '../../youtube/interfaces/video.interface';
+import VideoDataService from '../../youtube/services/video-data.service';
 import * as VideoActions from '../actions/videos.actions';
 
 @Injectable()
@@ -21,34 +21,35 @@ export default class VideoEffects {
 
   router = inject(Router);
 
+  videoDataService = inject(VideoDataService);
+
   searchVideos$ = createEffect(() =>
     this.actions$.pipe(
       ofType(VideoActions.searchVideos),
-      switchMap(({ searchValue }) =>
-        this.httpClient
-          .get<VideoSearchResponce>('search', {
-            params: {
-              type: 'video',
-              maxResults: '20',
-              q: searchValue,
-            },
-          })
-          .pipe(
-            switchMap((data) => this.getHTTPVideoById(data.items.map(({ id }) => id.videoId).join(','))),
-            map((data) => ({
-              ids: data.items.map(({ id }) => id),
-              videos: data.items
-                .map((video) => ({ id: video.id, video }))
-                .reduce((acc: { [key: string]: VideoData }, { id, video }) => {
-                  acc[id] = { video, isCustom: false };
-                  return acc;
-                }, {}),
-            })),
-            switchMap((data) => [
-              VideoActions.setVideoIds({ ids: data.ids }),
-              VideoActions.setVideos({ videos: data.videos }),
-            ]),
+      switchMap((requestParams) =>
+        this.videoDataService.getVideos(requestParams).pipe(
+          switchMap((data) =>
+            this.videoDataService.getHTTPVideoById(data.items.map(({ id }) => id.videoId).join(',')).pipe(
+              map((items) => ({
+                items: items.items,
+                tokens: {
+                  prevPageToken: data.prevPageToken ?? null,
+                  nextPageToken: data.nextPageToken ?? null,
+                },
+              })),
+            ),
           ),
+          map((data) => ({
+            ids: data.items.map(({ id }) => id),
+            videos: this.convertDataToVideos(data.items),
+            tokens: data.tokens,
+          })),
+          switchMap((data) => [
+            VideoActions.setVideoIds({ ids: data.ids }),
+            VideoActions.setVideos({ videos: data.videos }),
+            VideoActions.savePageTokens({ tokens: data.tokens }),
+          ]),
+        ),
       ),
     ),
   );
@@ -76,19 +77,16 @@ export default class VideoEffects {
 
         return { id, video };
       }),
-      switchMap(({ id, video }) => [
-        VideoActions.setVideoIds({ ids: [id] }),
-        VideoActions.setVideos({ videos: { [id]: { video, isCustom: true } } }),
-      ]),
+      switchMap(({ id, video }) => [VideoActions.setCustomVideo({ video: { [id]: { video, isCustom: true } }, id })]),
     ),
   );
 
-  getHTTPVideoById(id: string): Observable<VideoResponce> {
-    return this.httpClient.get<VideoResponce>('videos', {
-      params: {
-        id,
-        part: 'snippet,statistics',
-      },
-    });
+  convertDataToVideos(data: Video[]) {
+    return data
+      .map((video) => ({ id: video.id, video }))
+      .reduce((acc: { [key: string]: VideoData }, { id, video }) => {
+        acc[id] = { video, isCustom: false };
+        return acc;
+      }, {});
   }
 }

@@ -1,5 +1,6 @@
 import { createReducer, on } from '@ngrx/store';
 
+import VideoData from '../../youtube/interfaces/video-data.interface';
 import * as youtubeActions from '../actions/videos.actions';
 import YoutubeState from '../interfaces/youtube-state.interface';
 import youtubeInitialState from '../state/videos-state';
@@ -29,18 +30,46 @@ const youtubeReducer = createReducer(
       favoriteIds: state.favoriteIds.filter((id) => id !== action.id),
     }),
   ),
+  on(youtubeActions.setVideos, (state, action): YoutubeState => {
+    const customVideos: { [key: string]: VideoData } = {};
+
+    state.videoIds?.forEach((id) => {
+      if (state.videos[id]) {
+        if (state.videos[id].isCustom) {
+          customVideos[id] = state.videos[id];
+        }
+      }
+    });
+
+    return {
+      ...state,
+      videos: { ...customVideos, ...action.videos },
+    };
+  }),
+  on(youtubeActions.setVideoIds, (state, action): YoutubeState => {
+    const customVideoIds = Object.keys(state.videos).filter((id) => state.videos[id].isCustom);
+    return {
+      ...state,
+      videoIds: [...customVideoIds, ...action.ids],
+    };
+  }),
   on(
-    youtubeActions.setVideos,
+    youtubeActions.savePageTokens,
     (state, action): YoutubeState => ({
       ...state,
-      videos: { ...state.videos, ...action.videos },
+      pageTokens: {
+        ...state.pageTokens,
+        prevPageToken: action.tokens.prevPageToken,
+        nextPageToken: action.tokens.nextPageToken,
+      },
     }),
   ),
   on(
-    youtubeActions.setVideoIds,
+    youtubeActions.setCustomVideo,
     (state, action): YoutubeState => ({
       ...state,
-      videoIds: state.videoIds ? [...state.videoIds, ...action.ids] : [...action.ids],
+      videos: { ...action.video, ...state.videos },
+      videoIds: state.videoIds ? [...state.videoIds, action.id] : [action.id],
     }),
   ),
 );

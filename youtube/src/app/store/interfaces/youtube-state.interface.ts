@@ -6,6 +6,10 @@ interface YoutubeState {
   };
   videoIds: string[] | null;
   favoriteIds: string[];
+  pageTokens: {
+    prevPageToken: string | null;
+    nextPageToken: string | null;
+  };
 }
 
 export default YoutubeState;

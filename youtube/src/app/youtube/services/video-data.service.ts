@@ -9,7 +9,7 @@ import LoadingService from '../../shared/services/loading.service';
 import { addToFavorites, removeCustomCard, removeFromFavorites } from '../../store/actions/videos.actions';
 import { selectVideoById } from '../../store/selectors/videos.selector';
 import VideoData from '../interfaces/video-data.interface';
-import { VideoResponce } from '../interfaces/video-response.interface';
+import VideoSearchResponce, { VideoResponce } from '../interfaces/video-response.interface';
 
 @Injectable({
   providedIn: 'root',
@@ -26,6 +26,8 @@ export default class VideoDataService {
   private filterBy$ = new BehaviorSubject('');
 
   private sortBy$ = new BehaviorSubject<{ sortBy: string; sortByDirection: boolean } | null>(null);
+
+  private searchValue$ = new BehaviorSubject('');
 
   getFilterBy() {
     return this.filterBy$;
@@ -45,28 +47,51 @@ export default class VideoDataService {
     return this.sortBy$;
   }
 
+  getSearchValue() {
+    return this.searchValue$;
+  }
+
+  setSearchValue(searchValue: string) {
+    this.searchValue$.next(searchValue);
+    return this.searchValue$;
+  }
+
   getVideoById(id: string): Observable<VideoData> {
-    return this.httpClient
-      .get<VideoResponce>('videos', {
-        params: {
-          id,
-          part: 'snippet,statistics',
-        },
-      })
-      .pipe(
-        switchMap((data) => {
-          if (!data.items.length) {
-            return this.store.select(selectVideoById(id)).pipe(
-              tap((video) => {
-                if (!video) {
-                  this.router.navigate(['/404']);
-                }
-              }),
-            );
-          }
-          return of({ video: data.items[0], isCustom: false });
-        }),
-      );
+    return this.getHTTPVideoById(id).pipe(
+      switchMap((data) => {
+        if (!data.items.length) {
+          return this.store.select(selectVideoById(id)).pipe(
+            tap((video) => {
+              if (!video) {
+                this.router.navigate(['/404']);
+              }
+            }),
+          );
+        }
+        return of({ video: data.items[0], isCustom: false });
+      }),
+    );
+  }
+
+  getVideos(params: { searchValue: string; pagination?: string }): Observable<VideoSearchResponce> {
+    const reqParams = {
+      type: 'video',
+      maxResults: '20',
+      q: params.searchValue,
+    };
+    this.setSearchValue(params.searchValue);
+    return this.httpClient.get<VideoSearchResponce>('search', {
+      params: params.pagination ? { ...reqParams, pageToken: params.pagination } : reqParams,
+    });
+  }
+
+  getHTTPVideoById(id: string): Observable<VideoResponce> {
+    return this.httpClient.get<VideoResponce>('videos', {
+      params: {
+        id,
+        part: 'snippet,statistics',
+      },
+    });
   }
 
   removeCustomCard(id: string) {

@@ -3,14 +3,12 @@
     <app-custom-loader></app-custom-loader>
   }
   @if (videos() | filtering: (filterBy$ | async) | sorting: (sortBy$ | async); as videos) {
-    @if (videos.length) {
-      <h1 class="video-list__title">We found {{ videos.length }} videos</h1>
-    } @else {
+    @if (!videos.length) {
       <h1 class="video-list__title">Not found videos</h1>
     }
 
     <ul class="video-list" [class.hidden]="loadingService.getIsLoading() | async">
-      @for (video of videos; track video.video) {
+      @for (video of videos; track video.video.id) {
         <app-video-card [videoData]="video"></app-video-card>
       }
     </ul>

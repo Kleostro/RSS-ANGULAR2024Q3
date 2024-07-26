@@ -1,0 +1,16 @@
+@if (pageTokens(); as tokens) {
+  <div class="wrapper">
+    <app-custom-button
+      [isDisabled]="!tokens.prevPageToken"
+      [matType]="matAttribute.FLAT_BUTTON"
+      (click)="moveToPageByToken(tokens.prevPageToken)"
+      >Prev page</app-custom-button
+    >
+    <app-custom-button
+      [isDisabled]="!tokens.nextPageToken"
+      [matType]="matAttribute.FLAT_BUTTON"
+      (click)="moveToPageByToken(tokens.nextPageToken)"
+      >Next page</app-custom-button
+    >
+  </div>
+}
