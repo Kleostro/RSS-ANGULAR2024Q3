@@ -1,4 +1,4 @@
-@if (videos$ | async; as videos) {
-  <app-pagination [pageTokens$]="pageTokens$"></app-pagination>
+@if (videos(); as videos) {
+  <app-pagination [pageTokens]="pageTokens()"></app-pagination>
   <app-video-list [videos]="videos"></app-video-list>
 }
