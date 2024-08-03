@@ -1,10 +1,8 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, input, Output } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { ChangeDetectionStrategy, Component, EventEmitter, Input, input, Output } from '@angular/core';
 
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
 import MAT_ATTRIBUTE from '../../../shared/constants/matAttribute';
-import VideoDataService from '../../services/video-data.service';
 
 @Component({
   selector: 'app-pagination',
@@ -28,10 +26,6 @@ export default class PaginationComponent {
   @Input() isLoading = true;
 
   @Output() tokenChange: EventEmitter<string> = new EventEmitter<string>();
-
-  store = inject(Store);
-
-  videoDataService = inject(VideoDataService);
 
   matAttribute = MAT_ATTRIBUTE;
 
