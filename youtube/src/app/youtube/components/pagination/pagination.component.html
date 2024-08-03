@@ -2,7 +2,7 @@
   <div class="wrapper">
     <app-custom-button
       #prevButton
-      [isDisabled]="!tokens.prevPageToken || currentPageIndex === 1"
+      [isDisabled]="!tokens.prevPageToken || currentPageIndex === 1 || isLoading"
       [matType]="matAttribute.FLAT_BUTTON"
       (click)="moveToPageByToken(tokens.prevPageToken)"
       (click)="descendingPageIndex()"
@@ -11,7 +11,7 @@
     <span>Page: {{ currentPageIndex }}</span>
     <app-custom-button
       #nextButton
-      [isDisabled]="!tokens.nextPageToken"
+      [isDisabled]="!tokens.nextPageToken || isLoading"
       [matType]="matAttribute.FLAT_BUTTON"
       (click)="moveToPageByToken(tokens.nextPageToken)"
       (click)="ascendingPageIndex()"

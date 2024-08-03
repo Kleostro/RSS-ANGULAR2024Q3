@@ -1,11 +1,9 @@
 import { AsyncPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input } from '@angular/core';
-import { toSignal } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, EventEmitter, inject, Input, input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import CustomButtonComponent from '../../../shared/components/custom-button/custom-button.component';
 import MAT_ATTRIBUTE from '../../../shared/constants/matAttribute';
-import { searchVideos } from '../../../store/actions/videos.actions';
 import VideoDataService from '../../services/video-data.service';
 
 @Component({
@@ -19,28 +17,46 @@ import VideoDataService from '../../services/video-data.service';
 export default class PaginationComponent {
   pageTokens = input<{ prevPageToken: string | null; nextPageToken: string | null } | null>(null);
 
+  @Input() itemsPerPage = 10;
+
+  @Input() totalItems = 0;
+
+  @Input() currentPageIndex = 1;
+
+  @Input() isInfinity = false;
+
+  @Input() isLoading = true;
+
+  @Output() tokenChange: EventEmitter<string> = new EventEmitter<string>();
+
   store = inject(Store);
 
   videoDataService = inject(VideoDataService);
 
-  searchValue = toSignal(this.videoDataService.getSearchValue(), { initialValue: '' });
-
   matAttribute = MAT_ATTRIBUTE;
-
-  currentPageIndex = 1;
 
   moveToPageByToken(token: string | null) {
     if (token) {
-      this.store.dispatch(searchVideos({ searchValue: this.searchValue(), pagination: token }));
+      this.tokenChange.emit(token);
+    }
+  }
+
+  moveToPage(pageIndex: number) {
+    if (pageIndex >= 1 && (this.isInfinity || pageIndex <= this.totalPages)) {
+      this.currentPageIndex = pageIndex;
       window.scroll(0, 0);
     }
   }
 
   descendingPageIndex() {
-    this.currentPageIndex -= 1;
+    this.moveToPage(this.currentPageIndex - 1);
   }
 
   ascendingPageIndex() {
-    this.currentPageIndex += 1;
+    this.moveToPage(this.currentPageIndex + 1);
+  }
+
+  get totalPages() {
+    return Math.ceil(this.totalItems / this.itemsPerPage);
   }
 }

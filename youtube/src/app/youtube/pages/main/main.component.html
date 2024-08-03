@@ -1,4 +1,11 @@
 @if (videos(); as videos) {
-  <app-pagination [pageTokens]="pageTokens()"></app-pagination>
+  <app-pagination
+    [pageTokens]="pageTokens()"
+    [totalItems]="videos.length"
+    [itemsPerPage]="20"
+    [isInfinity]="true"
+    [isLoading]="isLoading"
+    (tokenChange)="handleTokenChange($event)"
+  ></app-pagination>
   <app-video-list [videos]="videos"></app-video-list>
 }
