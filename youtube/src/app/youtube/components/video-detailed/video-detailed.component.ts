@@ -50,4 +50,8 @@ export default class VideoDetailedComponent {
     const target = event.target as HTMLImageElement;
     target.src = '../img/png/placeholder.png';
   }
+
+  moveBack() {
+    window.history.back();
+  }
 }

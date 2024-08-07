@@ -3,7 +3,7 @@
     <app-custom-link
       class="goToBack"
       [matType]="matAttribute.FLAT_BUTTON"
-      [root]="'/main'"
+      (click)="moveBack()"
       [icon]="'arrow_back'"
       appChangeColorByDate
       [publishedAt]="videoData.video.snippet.publishedAt"
