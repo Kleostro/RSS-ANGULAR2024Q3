@@ -1,5 +1,5 @@
 import { AsyncPipe, NgIf } from '@angular/common';
-import { ChangeDetectionStrategy, Component, inject, input, signal } from '@angular/core';
+import { ChangeDetectionStrategy, Component, inject, Input, signal } from '@angular/core';
 import { Store } from '@ngrx/store';
 
 import { map } from 'rxjs';
@@ -32,7 +32,7 @@ import VideoStatisticsComponent from '../video-statistics/video-statistics.compo
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoCardComponent {
-  videoData = input<VideoData | null>(null);
+  @Input() videoData: VideoData | null = null;
 
   dataService = inject(VideoDataService);
 
@@ -44,7 +44,7 @@ export default class VideoCardComponent {
 
   hasFavorite$ = this.store
     .select(selectFavoriteIds)
-    .pipe(map((favoriteIds) => favoriteIds.includes(this.videoData()?.video.id ?? '')));
+    .pipe(map((favoriteIds) => favoriteIds.includes(this.videoData?.video.id ?? '')));
 
   handleFailedImg(event: Event) {
     const target = event.target as HTMLImageElement;
